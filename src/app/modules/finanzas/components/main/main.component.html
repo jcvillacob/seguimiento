@@ -1,2 +1,6 @@
-<app-sidebar></app-sidebar>
-hio
+<div class="main-container" [class.expanded]="isSidebarExpanded()">
+  <app-sidebar></app-sidebar>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

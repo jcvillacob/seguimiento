@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MainComponent } from './components/main/main.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CuentasComponent } from './components/cuentas/cuentas.component';
 
 const routes: Routes = [
-  {path: '', component: MainComponent},
-  {path: 'side', component: SidebarComponentgit a},
+  {
+    path: '', component: MainComponent, children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'cuentas', component: CuentasComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  }
 ];
 
 @NgModule({
