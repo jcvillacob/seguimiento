@@ -23,6 +23,17 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+}
+
+.buttons__google:hover,
+.buttons__apple:hover {
+  scale: 1.03;
 }
 
 .buttons__google {
@@ -179,4 +190,23 @@
 
 .finalText__forget:hover {
   text-decoration: underline;
+}
+
+
+
+
+
+/* Registrar */
+.registrar {
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.registrar__enlace {
+  font-weight: 600;
+  color: rgb(101, 21, 221);
+  cursor: pointer;
 }

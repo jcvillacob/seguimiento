@@ -45,3 +45,34 @@
   margin: 0 auto;
   line-height: 1.5;
 }
+
+
+/* Responsive Izquierda */
+@media screen and (max-width: 1000px) {
+  .nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .nav__img {
+    width: 80%;
+    height: auto;
+    padding-left: 16px;
+  }
+
+  .container {
+    min-height: auto;
+    margin-top: 30px;
+  }
+
+  .container__izquierda {
+    display: none;
+  }
+
+  .container__derecha {
+    max-width: 100%;
+    min-width: 100%;
+  }
+}
