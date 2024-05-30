@@ -1,18 +1,16 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-
 
 @Component({
-  selector: 'app-resumen-gastos',
+  selector: 'app-resumen-ingresos',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './resumen-gastos.component.html',
-  styleUrls: ['./resumen-gastos.component.scss']
+  templateUrl: './resumen-ingresos.component.html',
+  styleUrl: './resumen-ingresos.component.scss'
 })
-export class ResumenGastosComponent implements AfterViewInit {
-  @ViewChild('chartResumenGasto') chartResumenGasto!: ElementRef<HTMLCanvasElement>;
+export class ResumenIngresosComponent implements AfterViewInit {
+  @ViewChild('chartResumenIngresos') chartResumenIngresos!: ElementRef<HTMLCanvasElement>;
   categoriasData: any[] = [];
 
   constructor(private cdr: ChangeDetectorRef) {
@@ -25,7 +23,7 @@ export class ResumenGastosComponent implements AfterViewInit {
   }
 
   createPieChart() {
-    const canvas = this.chartResumenGasto.nativeElement;
+    const canvas = this.chartResumenIngresos.nativeElement;
     const context = canvas.getContext('2d');
     if (context) {
       new Chart(context, {
@@ -38,11 +36,11 @@ export class ResumenGastosComponent implements AfterViewInit {
           ],
           datasets: [{
             label: 'My First Dataset',
-            data: [300, 50, 100],
+            data: [300, 500, 30],
             backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)',
-              'rgb(255, 205, 86)'
+              'rgb(66, 135, 245)',
+              'rgb(23, 84, 28)',
+              'rgb(44, 45, 97)'
             ],
             offset: 10,
             hoverOffset: 20,
