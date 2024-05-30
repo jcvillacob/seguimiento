@@ -1,0 +1,111 @@
+/* Estilos comunes */
+.resumenContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.resumenTitle {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: 500;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.resumenCard {
+  width: 100%;
+  background-color: #fff;
+  padding: 16px;
+  padding-bottom: 6px;
+  border-radius: 25px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.resumenCard__content {
+  width: 100%;
+}
+
+.resumenCard__footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  margin-top: 30px;
+  border-top: solid 1px #a5a5a560;
+}
+
+.resumenCard__footer button {
+  color: #6515dd;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  &:hover {
+    background-color: #c19ef72c;
+  }
+}
+
+/* Estilos Cuentas */
+.content__cuentas {
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.cuentas__cuenta {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.cuenta__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.cuenta__icon img {
+  object-fit: contain;
+  width: 100%;
+}
+
+.cuentas__cuenta h6 {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.87);
+  margin-left: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.cuentas__balance {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.balance__text {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.balance__number {
+  font-size: 16px;
+  color: rgb(76, 175, 80);
+  font-family: "Maven Pro", sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+}
