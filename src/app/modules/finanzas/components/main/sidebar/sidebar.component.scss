@@ -52,6 +52,7 @@
 }
 
 .sidebar__plusbutton {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,14 +69,49 @@
   cursor: pointer;
 
   &:hover {
-    scale: 1.05;
-    background-color: hsl(261, 90%, 46%);
+    background-color: hsl(261, 95%, 29%);
   }
 }
 
 .active .sidebar__plusbutton {
   width: 200px;
   border-radius: 20px;
+}
+
+.plusbutton__new {
+  position: fixed;
+  top: 150px;
+  left: 30px;
+  background-color: #fff;
+  border-radius: 15px;
+  color: rgba(0, 0, 0, 0.54);
+  padding: 8px 0;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.24);
+  z-index: 9;
+  max-width: 100px;
+  transition: all 0.3s;
+  display: none;
+}
+
+.news {
+  display: block;
+  max-width: none;
+}
+
+.new__item {
+  display: flex;
+  gap: 20px;
+  font-size: 16px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 12px 20px;
+  &:hover {
+    background-color: rgba(110, 110, 110, 0.089);
+  }
+}
+
+.new__item i {
+  color: hsl(261deg 80% 48%);
 }
 
 /* Elementos links */

@@ -4,7 +4,7 @@ import { RegisterComponent } from './core/auth/components/register/register.comp
 import { AuthComponent } from './core/auth/auth.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full'},
+  { path: '', redirectTo: 'finanzas', pathMatch: 'full'},
   {
     path: 'auth', component: AuthComponent, children: [
       {
@@ -20,5 +20,5 @@ export const routes: Routes = [
   {
     path: 'finanzas', loadChildren: () => import('./modules/finanzas/finanzas.module').then(m => m.FinanzasModule)
   },
-  { path: '**', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'finanzas', pathMatch: 'full' },
 ];

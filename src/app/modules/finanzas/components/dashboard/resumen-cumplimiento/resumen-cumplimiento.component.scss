@@ -1,0 +1,86 @@
+/* Estilos comunes */
+.resumenContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.resumenTitle {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: 500;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.resumenCard {
+  width: 100%;
+  background-color: rgb(241, 242, 242);;
+  padding: 16px;
+  padding-bottom: 6px;
+  border-radius: 25px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.resumenCard__content {
+  width: 100%;
+}
+
+.resumenCard__footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  margin-top: 30px;
+  border-top: solid 1px #a5a5a560;
+}
+
+.resumenCard__footer button {
+  color: #6515dd;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  &:hover {
+    background-color: #c19ef72c;
+  }
+}
+
+/* Estilos gastos */
+.content__chart {
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+}
+
+.chart__data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.data__chart {
+  width: 30% !important;
+  max-width: 350px;
+  height: auto !important;
+}
+
+.data__text {
+  width: 70%;
+  text-align: center;
+  padding: 8px;
+}
+
+.text__text {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 500;
+}
