@@ -1,7 +1,16 @@
 <nav class="sidebar" [ngClass]="{ 'active': isSidebarExpanded() }">
   <img src="https://web.mobills.com.br/static/media/LogoNameMobillsLight.d000784f.svg" alt="Logo" class="sidebar__logo">
 
-  <button class="sidebar__plusbutton"> <i class="fa-solid fa-plus"></i> </button>
+  <button class="sidebar__plusbutton" (click)="new()">
+    <i class="fa-solid fa-plus"></i>
+    <div class="plusbutton__new" [ngClass]="{'news' : news}">
+      <div class="new__item maven"><i class="fa-solid fa-angle-down"></i> Gasto</div>
+      <div class="new__item maven"><i class="fa-solid fa-angle-up"></i> Ingreso</div>
+      <div class="new__item maven"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transferencia</div>
+      <div class="new__item maven"><i class="fa-solid fa-credit-card"></i> git add </div>
+      <div class="new__item maven"><i class="fa-solid fa-book"></i> Avance Meta</div>
+    </div>
+  </button>
 
   <ul class="sidebar__list">
     @for (item of menuItems; track item.title) {
@@ -16,3 +25,5 @@
 </nav>
 
 <div (click)="toggleSidebar()" class="toggle"> <i class="fa-solid fa-bars"></i> </div>
+
+
