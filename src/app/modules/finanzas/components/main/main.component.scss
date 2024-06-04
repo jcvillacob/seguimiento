@@ -11,18 +11,109 @@
 }
 
 .main-content {
+  position: relative;
   margin-left: 100px;
   width: 100%;
   transition: margin-left 0.5s;
-  margin-top: 100px;
-  padding: 20px 16px 24px;
+  margin-top: 30px;
+  padding: 40px 16px 24px;
 }
 
 .expanded .main-content {
   margin-left: 260px;
 }
 
+.main-content__date {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 75px);
+  min-width: 150px;
+  text-align: center;
+  padding: 6px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.493);
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.75;
+  cursor: pointer;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
 
+  &:hover {
+    background-color: rgba(151, 151, 151, 0.301);
+  }
+}
+
+.date__select {
+  position: absolute;
+  top: 108%;
+  left: calc(-75px);
+  width: 200%;
+  background-color: #fff;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.308);
+  overflow: hidden;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+
+  display: none;
+
+  &.new_date {
+    display: block;
+  }
+}
+
+.select__name {
+  width: 100%;
+  background-color: rgb(101, 21, 221);
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #fff;
+  font-size: 20px;
+}
+
+.select__months {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 20px 10px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.months__month {
+  width: 25%;
+  padding: 4px 5px;
+  margin-bottom: 15px;
+  &:hover {
+    background-color: #bbbbbb3f;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+}
 
 /* Responsive */
 @media screen and (max-width: 850px) {

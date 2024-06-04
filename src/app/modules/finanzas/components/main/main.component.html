@@ -1,6 +1,33 @@
 <div class="main-container" [class.expanded]="isSidebarExpanded()">
   <app-sidebar></app-sidebar>
   <div class="main-content">
+    <div class="main-content__date noto" (click)="newDate()">
+      <span>junio</span> 
+      <i class="fa-solid fa-chevron-down"></i>
+    
+      <div class="date__select" [ngClass]="{'new_date' : new_Date}">
+        <div class="select__name">
+          <i class="fa-solid fa-chevron-left" (click)="cYear(-1)"></i>
+          <span>{{ year }}</span>
+          <i class="fa-solid fa-chevron-right" (click)="cYear(1)"></i>
+        </div>
+        <div class="select__months">
+          <div class="months__month">ENE</div>
+          <div class="months__month">FEB</div>
+          <div class="months__month">MAR</div>
+          <div class="months__month">ABR</div>
+          <div class="months__month">MAY</div>
+          <div class="months__month">JUN</div>
+          <div class="months__month">JUL</div>
+          <div class="months__month">AGO</div>
+          <div class="months__month">SEP</div>
+          <div class="months__month">OCT</div>
+          <div class="months__month">NOV</div>
+          <div class="months__month">DIC</div>
+        </div>
+
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </div>
 </div>

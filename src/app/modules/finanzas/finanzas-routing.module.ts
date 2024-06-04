@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: '', component: MainComponent, children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'cuentas', component: WorkingComponent },
+      { path: 'cuentas', component: CuentasComponent },
       { path: 'transacciones', component: WorkingComponent },
       { path: 'credito', component: WorkingComponent },
       { path: 'presupuesto', component: WorkingComponent },

@@ -12,6 +12,7 @@
   background-color: #fff;
   transition: width 0.5s;
   overflow-x: hidden;
+  z-index: 9999;
 
   &.sidebar.active {
     width: 260px;
@@ -30,6 +31,7 @@
   color: #fff;
   background-color: hsl(261deg 80% 48%);
   border-radius: 8px;
+  z-index: 9999;
   cursor: pointer;
   transition: all 0.3s;
   &:hover {
