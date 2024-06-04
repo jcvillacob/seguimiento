@@ -17,6 +17,7 @@ export class MainComponent {
   isSidebarExpanded = isSidebarExpanded;
   new_Date = false;
   year = 2024;
+  months = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
 
   newDate() {
     this.new_Date = true;

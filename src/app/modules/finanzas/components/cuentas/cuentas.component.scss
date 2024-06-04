@@ -1,0 +1,401 @@
+.titleContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.actions__action {
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.226);
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #dddddd;
+  }
+}
+
+.cuentasContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cuentas {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 5%;
+}
+
+.cuentas__new,
+.cuentas__cuenta {
+  width: 45%;
+  min-width: 300px;
+  min-height: 200px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.192);
+  border-radius: 25px;
+  margin-top: 25px;
+}
+
+/* Estilos para cuentas */
+.cuentas__new {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 16px 24px;
+  gap: 15px;
+  color: rgb(101, 21, 221);
+  cursor: pointer;
+  &:hover {
+    color: rgba(101, 21, 221, 0.801);
+  }
+}
+
+.resumen {
+  width: 30%;
+  padding: 8px;
+  min-width: 250px;
+  padding-top: 25px;
+}
+
+.new__cont {
+  width: 70px;
+  height: 70px;
+  background-color: transparent;
+  border: 2px solid rgb(101, 21, 221);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.new__text {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.cuenta__title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.title__name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.name__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name__icon img {
+  object-fit: contain;
+  width: 100%;
+}
+
+.title__name h6 {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.87);
+  margin-left: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.title__setting {
+  position: relative;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    background-color: #dddddd75;
+  }
+}
+
+.setting__menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.267);
+  padding: 16px;
+  & ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+
+.setting__menu ul li {
+  width: 100%;
+  font-size: 16px;
+  padding: 8px;
+  color: #585858;
+  cursor: pointer;
+  border-radius: 6px;
+  &:hover {
+    background-color: #dddddd;
+  }
+}
+
+.cuenta__balance {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding: 16px 24px;
+}
+
+.balance__text {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.balance__number {
+  font-size: 16px;
+  color: rgb(76, 175, 80);
+  font-family: "Maven Pro", sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.cuenta__button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid rgba(0, 0, 0, 0.185);
+  padding: 16px 24px;
+}
+
+.cuenta__button span {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(101, 21, 221);
+  line-height: 1.75;
+  cursor: pointer;
+}
+
+/* Resumen */
+.resumen__card {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.212);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 300px;
+}
+
+.card__saldo {
+  & p {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  & h5 {
+    font-size: 22px;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+    line-height: 1.334;
+    margin-top: 10px;
+  }
+}
+
+.card__icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: rgb(101, 21, 221);
+}
+
+@media screen and (max-width: 620px) {
+  .cuentasContainer {
+    flex-direction: column-reverse;
+  }
+
+  .cuentas,
+  .resumen {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .resumen__card {
+    min-width: 300px;
+  }
+}
+
+/* Modal Crear Cuentas */
+.modal__crear {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0000001c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+}
+
+.crear__container {
+  max-width: 600px;
+  width: 90%;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.container__title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 26px 12px;
+}
+
+.title__nueva {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.334;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.title__cerrar {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.507);
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    font-size: 24px;
+  }
+}
+
+
+.crear__form {
+  padding: 10px 36px 20px;
+  & div {
+    margin-top: 25px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+
+.form__saldo {
+  width: 100%;
+  & input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.438);
+    padding: 5px 15px;
+    font-size: 24px;
+    color: rgb(101, 21, 221);
+    font-weight: 400;
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid rgb(101, 21, 221);
+    }
+  }
+}
+
+.form__banco {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  & select {
+    padding: 5px 15px;
+    font-size: 16px;
+    border: none;
+  }
+}
+
+.form__descripcion {
+  width: 100%;
+  position: relative;
+  & input {
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid rgb(85, 85, 85);
+    padding: 5px 5px 5px 45px;
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid rgb(101, 21, 221);
+    }
+  }
+  & i {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 22px;
+  }
+}
+

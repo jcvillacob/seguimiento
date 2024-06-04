@@ -1,1 +1,107 @@
-<p>cuentas works!</p>
+<div class="titleContainer">
+  <h4 class="title maven">Cuentas</h4>
+  <div class="actions">
+    <div class="actions__action"><i class="fa-solid fa-plus"></i></div>
+    <div class="actions__action"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+  </div>
+</div>
+
+
+<div class="cuentasContainer">
+  <div class="cuentas">
+
+    <!-- New counts button -->
+    <div class="cuentas__new">
+      <div class="new__cont"><i class="fa-solid fa-plus"></i></div>
+      <div class="new__text maven">Nueva Cuenta</div>
+    </div>
+
+    <!-- Counts -->
+    <div class="cuentas__cuenta" *ngFor="let count of counts; index as i">
+      <!-- count's title -->
+      <div class="cuenta__title">
+        <div class="title__name">
+          <div class="name__icon"> <img
+              [src]="count.img"
+              alt="Cuenta"></div>
+          <h6 class="maven">{{ count.name }}</h6>
+        </div>
+        <div class="title__setting" (click)="menuSetting(i)">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+          <div [id]="'setting__' + {i}" class="setting__menu" [ngClass]="{'active': i == activo}">
+            <ul class="maven">
+              <li>Editar</li>
+              <li>Archivar</li>
+              <li>Transacciones</li>
+              <li>Reajustar Saldo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <div class="cuenta__balance maven">
+        <h6 class="balance__text">Balance</h6>
+        <h6 class="balance__number">{{ count.balance | currency }}</h6>
+      </div>
+      <!--  -->
+      <div class="cuenta__button">
+        <span class="noto">AÑADIR GASTO</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumen -->
+  <div class="resumen">
+    <div class="resumen__card">
+      <div class="card__saldo maven">
+        <p>Saldo Actual</p>
+        <h5>{{ 25000 | currency}}</h5>
+      </div>
+      <div class="card__icon">
+        <i class="fa-solid fa-money-check-dollar"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal crear Cuenta -->
+<div class="modal__crear">
+  <!-- Contenedor -->
+  <div class="crear__container">
+    <!-- header -->
+    <div class="container__title">
+      <h5 class="title__nueva maven">Nueva Cuenta</h5>
+      <div class="title__cerrar">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+    <!-- Formulario -->
+    <form action="" class="crear__form maven">
+      <div class="form__saldo">
+        <input type="number" placeholder="$ 0.00">
+      </div>
+
+      <div class="form__banco">
+        <label for="banks">Institución Financiera</label>
+        <select name="banks" id="banks">
+          <option value="" disabled>Selecciona un banco</option>
+          <option value="" *ngFor="let bank of counts">
+            {{ bank.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form__descripcion">
+        <i class="fa-regular fa-file"></i>
+        <input type="text" placeholder="Descripción">
+      </div>
+
+      <div class="form__tipo"></div>
+
+      <div class="form__incluir"></div>
+
+      <div class="form__buttons"></div>
+    </form>
+  </div>
+</div>
