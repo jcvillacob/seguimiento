@@ -1,8 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+
+:root {
+  --px-theme: #c2c03c;
+  --px-theme-2: hsl(261, 95%, 29%);
+  --px-theme-2-opacity: rgba(25, 118, 210, 0.17);
+  --px-white: #fdfdfd;
+  --px-white-rgb: 244,246,248;
+  --px-text: #2C3E50;
+  --px-heading: #1A252C;
+  --px-bg: #ECEFF1;
+  --px-dark: #B0BEC5;
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--px-white);
 }
 
 .maven {

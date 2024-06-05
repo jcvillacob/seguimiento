@@ -2,7 +2,7 @@
   <app-sidebar></app-sidebar>
   <div class="main-content">
     <div class="main-content__date noto" (click)="newDate()">
-      <span>junio</span>
+      <span>{{ month }}</span>
       <i class="fa-solid fa-chevron-down"></i>
 
       <div class="date__select" [ngClass]="{'new_date' : new_Date}">
@@ -12,7 +12,7 @@
           <i class="fa-solid fa-chevron-right" (click)="cYear(1)"></i>
         </div>
         <div class="select__months">
-            <div class="months__month" *ngFor="let month of months">{{ month }}</div>
+            <div class="months__month" *ngFor="let month of months" (click)="selectMonth(month)">{{ month.slice(0,3) | uppercase  }}</div>
         </div>
 
       </div>

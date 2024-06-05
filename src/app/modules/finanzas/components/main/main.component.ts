@@ -17,7 +17,8 @@ export class MainComponent {
   isSidebarExpanded = isSidebarExpanded;
   new_Date = false;
   year = 2024;
-  months = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+  month = 'junio';
+  months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
   newDate() {
     this.new_Date = true;
@@ -25,6 +26,10 @@ export class MainComponent {
 
   cYear(number: number) {
     this.year = this.year + number;
+  }
+
+  selectMonth(month: string) {
+    this.month = month;
   }
 
   @HostListener('document:click', ['$event'])

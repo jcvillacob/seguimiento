@@ -1,7 +1,7 @@
 <div class="titleContainer">
   <h4 class="title maven">Cuentas</h4>
   <div class="actions">
-    <div class="actions__action"><i class="fa-solid fa-plus"></i></div>
+    <div class="actions__action" (click)="toggleModal()"><i class="fa-solid fa-plus"></i></div>
     <div class="actions__action"><i class="fa-solid fa-ellipsis-vertical"></i></div>
   </div>
 </div>
@@ -11,7 +11,7 @@
   <div class="cuentas">
 
     <!-- New counts button -->
-    <div class="cuentas__new">
+    <div class="cuentas__new" (click)="toggleModal()">
       <div class="new__cont"><i class="fa-solid fa-plus"></i></div>
       <div class="new__text maven">Nueva Cuenta</div>
     </div>
@@ -21,9 +21,7 @@
       <!-- count's title -->
       <div class="cuenta__title">
         <div class="title__name">
-          <div class="name__icon"> <img
-              [src]="count.img"
-              alt="Cuenta"></div>
+          <div class="name__icon"> <img [src]="count.img" alt="Cuenta"></div>
           <h6 class="maven">{{ count.name }}</h6>
         </div>
         <div class="title__setting" (click)="menuSetting(i)">
@@ -66,13 +64,13 @@
 
 
 <!-- Modal crear Cuenta -->
-<div class="modal__crear">
+<div class="modal__crear" [ngClass]="{'modal' : modal}">
   <!-- Contenedor -->
   <div class="crear__container">
     <!-- header -->
     <div class="container__title">
       <h5 class="title__nueva maven">Nueva Cuenta</h5>
-      <div class="title__cerrar">
+      <div class="title__cerrar" (click)="toggleModal()">
         <i class="fa-solid fa-xmark"></i>
       </div>
     </div>
@@ -84,24 +82,48 @@
 
       <div class="form__banco">
         <label for="banks">Institución Financiera</label>
-        <select name="banks" id="banks">
-          <option value="" disabled>Selecciona un banco</option>
-          <option value="" *ngFor="let bank of counts">
-            {{ bank.name }}
-          </option>
-        </select>
+        <div class="banco__lista">
+          <div class="lista__selected"  (click)="verBancos()">
+            <div class="selected__img">
+              <img [src]="bancoSelected.img" alt="">
+            </div>
+            <span>{{ bancoSelected.name }}</span>
+            <div class="lista__lista" [ngClass]="{'bancoss' : verBanco}">
+              <div class="lista__bancos" *ngFor="let bank of banks; index as i" (click)="seleccionarBanco(i)">
+                <div class="selected__img">
+                  <img [src]="bank.img" alt="">
+                </div>
+                <span>{{ bank.name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="form__descripcion">
+      <div class="form__descripcion maven">
         <i class="fa-regular fa-file"></i>
         <input type="text" placeholder="Descripción">
       </div>
 
-      <div class="form__tipo"></div>
+      <div class="form__descripcion maven">
+        <i class="fa-solid fa-building-columns"></i>
+        <input type="text" placeholder="Ahorros">
+      </div>
 
-      <div class="form__incluir"></div>
+      <div class="form__incluir">
+        <div class="incluir__text">
+          <i class="fa-solid fa-circle-info"></i>
+          <p>Incluir en la suma del Dashboard</p>
+        </div>
 
-      <div class="form__buttons"></div>
+        <div class="incluir__toggle">
+          <input type="checkbox" checked>
+        </div>
+      </div>
+
+      <div class="form__buttons">
+        <button class="buttons__guardar">Guardar</button>
+      </div>
     </form>
   </div>
 </div>
