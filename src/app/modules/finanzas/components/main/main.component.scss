@@ -6,7 +6,7 @@
   min-height: 100%;
   width: 100%;
   padding: 16px;
-  background-color: #edf3fb;
+  background-color: var(--px-bg);
   transition: all 0.5s;
 }
 
@@ -39,8 +39,8 @@
   -moz-border-radius: 15px;
   -ms-border-radius: 15px;
   -o-border-radius: 15px;
-  border: 1px solid rgba(0, 0, 0, 0.493);
-  color: rgba(0, 0, 0, 0.87);
+  border: 1px solid var(--px-dark);
+  color: var(--px-text);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.75;
@@ -61,7 +61,7 @@
   top: 108%;
   left: calc(-75px);
   width: 200%;
-  background-color: #fff;
+  background-color: var(--px-white);
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.308);
   overflow: hidden;
   border-radius: 15px;
@@ -79,12 +79,12 @@
 
 .select__name {
   width: 100%;
-  background-color: rgb(101, 21, 221);
+  background-color: var(--px-theme);
   padding: 20px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  color: #fff;
+  color: var(--px-white);
   font-size: 20px;
 }
 
@@ -97,7 +97,7 @@
   padding: 20px 10px;
   margin-bottom: 15px;
   font-size: 13px;
-  color: rgba(0, 0, 0, 0.54);
+  color: var(--px-text);
 }
 
 .months__month {

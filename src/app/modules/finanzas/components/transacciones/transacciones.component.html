@@ -1,0 +1,126 @@
+<div class="titleContainer">
+  <h4 class="title maven">Transacciones</h4>
+  <div class="actions">
+    <div class="actions__action"><i class="fa-solid fa-plus"></i></div>
+    <div class="actions__action"><i class="fa-solid fa-filter"></i></div>
+    <div class="actions__action"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+  </div>
+</div>
+
+
+<div class="transactionsContainer">
+  <div class="transactions">
+    <table class="transactions__table maven">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Descripción</th>
+          <th>Categoría</th>
+          <th>Cuenta</th>
+          <th>Valor</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{'2024-06-01' | date}}</td>
+          <td>Compra de suministros</td>
+          <td>Oficina</td>
+          <td>Cuenta 1</td>
+          <td>$ 100.00</td>
+          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
+        </tr>
+        <tr>
+          <td>{{'2024-06-01' | date}}</td>
+          <td>Pago de servicios</td>
+          <td>Servicios</td>
+          <td>Cuenta 2</td>
+          <td>200.00</td>
+          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
+        </tr>
+        <tr>
+          <td>{{'2024-06-01' | date}}</td>
+          <td>Pago de servicios</td>
+          <td>Servicios</td>
+          <td>Cuenta 2</td>
+          <td>200.00</td>
+          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
+        </tr>
+        <tr class="subtotal">
+          <td colspan="4">Subtotal</td>
+          <td class="subtotal-value">0.00</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>{{'2024-06-02' | date}}</td>
+          <td>Venta de productos</td>
+          <td>Ventas</td>
+          <td>Cuenta 1</td>
+          <td>300.00</td>
+          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
+        </tr>
+        <tr>
+          <td>{{'2024-06-02' | date}}</td>
+          <td>Reembolso</td>
+          <td>Otros</td>
+          <td>Cuenta 2</td>
+          <td>50.00</td>
+          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
+        </tr>
+        <tr>
+          <td>{{'2024-06-02' | date}}</td>
+          <td>Reembolso</td>
+          <td>Otros</td>
+          <td>Cuenta 2</td>
+          <td>50.00</td>
+          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
+        </tr>
+        <tr class="subtotal">
+          <td colspan="4">Subtotal</td>
+          <td class="subtotal-value">0.00</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Resumen -->
+  <div class="resumen">
+    <div class="resumen__card">
+      <div class="card__saldo maven">
+        <p>Saldo Actual</p>
+        <h5>{{ 25000 | currency}}</h5>
+      </div>
+      <div class="card__icon">
+        <i class="fa-solid fa-coins"></i>
+      </div>
+    </div>
+    <div class="resumen__card">
+      <div class="card__saldo maven">
+        <p>Ingresos</p>
+        <h5>{{ 25000 | currency}}</h5>
+      </div>
+      <div class="card__icon">
+        <i class="fa-solid fa-angle-up"></i>
+      </div>
+    </div>
+    <div class="resumen__card">
+      <div class="card__saldo maven">
+        <p>Gastos</p>
+        <h5>{{ 25000 | currency}}</h5>
+      </div>
+      <div class="card__icon">
+        <i class="fa-solid fa-angle-down"></i>
+      </div>
+    </div>
+    <div class="resumen__card">
+      <div class="card__saldo maven">
+        <p>Balance Mes</p>
+        <h5>{{ 25000 | currency}}</h5>
+      </div>
+      <div class="card__icon">
+        <i class="fa-solid fa-scale-unbalanced-flip"></i>
+      </div>
+    </div>
+  </div>
+</div>

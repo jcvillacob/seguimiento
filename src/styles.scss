@@ -6,17 +6,29 @@
 }
 
 :root {
-  --px-theme: #c2c03c;
-  --px-theme-2: hsl(261, 95%, 29%);
-  --px-theme-2-opacity: rgba(25, 118, 210, 0.17);
-  --px-white: #fdfdfd;
-  --px-white-rgb: 244,246,248;
-  --px-text: #2C3E50;
-  --px-heading: #1A252C;
-  --px-bg: #ECEFF1;
-  --px-dark: #B0BEC5;
-  font-family: 'Open Sans', sans-serif;
+  --px-theme: #532b88;
+  --px-theme-2: #2f184b;
+  --px-theme-2-opacity: #2f184b2d;
+  --px-white: #fcfaff;
+  --px-white-rgb: 252, 243, 255;
+  --px-text: #4A235A;
+  --px-heading: #311B4A;
+  --px-bg: #eee9f5;
+  --px-dark: #2f184b;
 }
+
+/* :root {
+  --px-theme: #FF5733;
+  --px-theme-2: #C70039;
+  --px-theme-2-opacity: #c7003833;
+  --px-white: #969696;
+  --px-white-rgb: 192,192,192;
+  --px-text: #f8f1f2;
+  --px-heading: #F0E3E4;
+  --px-bg: #1C1C1C;
+  --px-dark: #121212;
+} */
+
 
 a {
   text-decoration: none;

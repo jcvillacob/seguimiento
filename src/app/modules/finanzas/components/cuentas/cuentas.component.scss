@@ -9,7 +9,7 @@
 .title {
   font-size: 32px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--px-heading);
 }
 
 .actions {
@@ -21,7 +21,7 @@
 
 .actions__action {
   padding: 10px;
-  background-color: #fff;
+  background-color: var(--px-white);
   border-radius: 50%;
   margin-right: 10px;
   width: 50px;
@@ -29,15 +29,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.226);
+  box-shadow: 1px 1px 3px var(--px-dark);
   cursor: pointer;
   transition: all 0.3s;
 
   &:hover {
-    background-color: #dddddd;
+    background-color: var(--px-theme-2);
+    color: var(--px-white);
   }
 }
 
+/* Cuentas Container */
 .cuentasContainer {
   width: 100%;
   display: flex;
@@ -60,7 +62,7 @@
   min-width: 300px;
   min-height: 200px;
   height: 100%;
-  background-color: #fff;
+  background-color: var(--px-white);
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.192);
   border-radius: 25px;
   margin-top: 25px;
@@ -74,10 +76,10 @@
   align-items: center;
   padding: 16px 16px 24px;
   gap: 15px;
-  color: rgb(101, 21, 221);
+  color: var(--px-theme);
   cursor: pointer;
   &:hover {
-    color: rgba(101, 21, 221, 0.801);
+    color: var(--px-theme-2);
   }
 }
 
@@ -92,7 +94,7 @@
   width: 70px;
   height: 70px;
   background-color: transparent;
-  border: 2px solid rgb(101, 21, 221);
+  border: 2px solid var(--px-theme);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -137,7 +139,7 @@
 
 .title__name h6 {
   font-size: 18px;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--px-text);
   margin-left: 16px;
   font-weight: 500;
   line-height: 1.6;
@@ -153,42 +155,44 @@
   justify-content: center;
   align-items: center;
   &:hover {
-    background-color: #dddddd75;
-  }
-}
+    background-color: var(--px-theme);
+    color: var(--px-white);
+    }
+    }
 
-.setting__menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.267);
-  padding: 16px;
-  & ul {
-    list-style: none;
+    .setting__menu {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: var(--px-white);
+      border-radius: 15px;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.267);
+      padding: 16px;
+      & ul {
+        list-style: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     gap: 4px;
-  }
-  display: none;
-  &.active {
-    display: block;
-  }
-}
+    }
+    display: none;
+    &.active {
+      display: block;
+      }
+      }
 
-.setting__menu ul li {
-  width: 100%;
-  font-size: 16px;
-  padding: 8px;
-  color: #585858;
-  cursor: pointer;
-  border-radius: 6px;
-  &:hover {
-    background-color: #dddddd;
-  }
+      .setting__menu ul li {
+        width: 100%;
+        font-size: 16px;
+        padding: 8px;
+        color: #585858;
+        cursor: pointer;
+        border-radius: 6px;
+        &:hover {
+          background-color: var(--px-theme);
+          color: var(--px-white);
+          }
 }
 
 .cuenta__balance {
@@ -219,14 +223,14 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  border-top: 1px solid rgba(0, 0, 0, 0.185);
+  border-top: 1px solid var(--px-dark);
   padding: 16px 24px;
 }
 
 .cuenta__button span {
   font-size: 16px;
   font-weight: 500;
-  color: rgb(101, 21, 221);
+  color: var(--px-theme);
   line-height: 1.75;
   cursor: pointer;
 }
@@ -234,7 +238,7 @@
 /* Resumen */
 .resumen__card {
   padding: 16px;
-  background-color: #fff;
+  background-color: var(--px-white);
   border-radius: 15px;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.212);
   display: flex;
@@ -245,14 +249,14 @@
 
 .card__saldo {
   & p {
-    color: rgba(0, 0, 0, 0.54);
+    color: var(--px-text);
     font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
   }
   & h5 {
     font-size: 22px;
-    color: rgba(0, 0, 0, 0.87);
+    color: var(--px-heading);
     font-weight: 500;
     line-height: 1.334;
     margin-top: 10px;
@@ -266,8 +270,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
-  background-color: rgb(101, 21, 221);
+  color: var(--px-white);
+  background-color: var(--px-theme);
 }
 
 @media screen and (max-width: 620px) {
@@ -296,7 +300,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #0000001c;
+  background-color: #00000048;
   justify-content: center;
   align-items: center;
   z-index: 999999;
@@ -309,7 +313,7 @@
 .crear__container {
   max-width: 600px;
   width: 90%;
-  background-color: #fff;
+  background-color: var(--px-bg);
   border-radius: 25px;
   display: flex;
   flex-direction: column;
@@ -327,12 +331,12 @@
   font-size: 24px;
   font-weight: 500;
   line-height: 1.334;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--px-heading);
 }
 
 .title__cerrar {
   font-size: 20px;
-  color: rgba(0, 0, 0, 0.507);
+  color: var(--px-text);
   cursor: pointer;
   transition: all 0.3s;
   &:hover {
@@ -344,7 +348,7 @@
 .crear__form {
   padding: 10px 36px 20px;
   & div {
-    color: rgba(0, 0, 0, 0.54);
+    color: var(--px-text);
   }
 }
 
@@ -353,14 +357,15 @@
   & input {
     width: 100%;
     border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.438);
+    border-bottom: 1px solid var(--px-dark);
     padding: 5px 15px;
     font-size: 24px;
-    color: rgb(101, 21, 221);
+    color: var(--px-theme-2);
+    background-color: var(--px-bg);
     font-weight: 400;
     &:focus {
       outline: none;
-      border-bottom: 2px solid rgb(101, 21, 221);
+      border-bottom: 2px solid var(--px-theme-2);
     }
   }
 }
@@ -391,9 +396,9 @@
   justify-content: flex-start;
   align-items: center;
   gap: 15px;
-  border-bottom: 1px solid rgba(114, 114, 114, 0.473);
+  border-bottom: 1px solid var(--px-dark);
   &:hover {
-    border-bottom: 1px solid rgb(101, 21, 221);
+    border-bottom: 1px solid var(--px-theme-2);
   }
   cursor: pointer;
 }
@@ -418,7 +423,7 @@
   width: 100%;
   max-height: 200px;
   border-radius: 15px;
-  background-color: #fff;
+  background-color: var(--px-white);
   z-index: 99999999;
   overflow-y: scroll;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.205);
@@ -450,12 +455,13 @@
     font-size: 16px;
     font-weight: 400;
     border: none;
-    border-bottom: 1px solid rgb(85, 85, 85);
+    border-bottom: 1px solid var(--px-dark);
     padding: 5px 5px 5px 45px;
-    color: rgba(0, 0, 0, 0.54);
+    color: var(--px-text);
+    background-color: var(--px-bg);
     &:focus {
       outline: none;
-      border-bottom: 2px solid rgb(101, 21, 221);
+      border-bottom: 2px solid var(--px-theme-2);
     }
   }
   & i {
@@ -496,7 +502,7 @@
   margin: 35px 0 20px;
   & .buttons__guardar {
     padding: 12px 45px;
-    background-color: rgb(101, 21, 221);
+    background-color: var(--px-theme);
     color: #fff;
     border-radius: 15px;
     font-size: 16px;
@@ -505,7 +511,7 @@
     border: none;
     cursor: pointer;
     &:hover {
-      background-color: rgb(80, 19, 172);
+      background-color: var(--px-theme-2);
     }
   }
 }

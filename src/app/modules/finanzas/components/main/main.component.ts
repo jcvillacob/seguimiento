@@ -30,6 +30,7 @@ export class MainComponent {
 
   selectMonth(month: string) {
     this.month = month;
+
   }
 
   @HostListener('document:click', ['$event'])

@@ -4,13 +4,14 @@ import { MainComponent } from './components/main/main.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CuentasComponent } from './components/cuentas/cuentas.component';
 import { WorkingComponent } from '../../shared/components/working/working.component';
+import { TransaccionesComponent } from './components/transacciones/transacciones.component';
 
 const routes: Routes = [
   {
     path: '', component: MainComponent, children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'cuentas', component: CuentasComponent },
-      { path: 'transacciones', component: WorkingComponent },
+      { path: 'transacciones', component: TransaccionesComponent },
       { path: 'credito', component: WorkingComponent },
       { path: 'presupuesto', component: WorkingComponent },
       { path: 'reportes', component: WorkingComponent },

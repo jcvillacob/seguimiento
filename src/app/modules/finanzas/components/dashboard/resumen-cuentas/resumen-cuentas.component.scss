@@ -1,3 +1,4 @@
+
 /* Estilos comunes */
 .resumenContainer {
   width: 100%;
@@ -8,7 +9,7 @@
 
 .resumenTitle {
   font-size: 20px;
-  color: rgba(0, 0, 0, 0.54);
+  color: var(--px-heading);
   font-weight: 500;
   line-height: 1.6;
   margin-bottom: 8px;
@@ -16,7 +17,7 @@
 
 .resumenCard {
   width: 100%;
-  background-color: #fff;
+  background-color: var(--px-white);
   padding: 16px;
   padding-bottom: 6px;
   border-radius: 25px;
@@ -35,11 +36,11 @@
   align-items: center;
   padding: 8px;
   margin-top: 30px;
-  border-top: solid 1px #a5a5a560;
+  border-top: solid 1px var(--px-dark);
 }
 
 .resumenCard__footer button {
-  color: #6515dd;
+  color: var(--px-theme);
   background-color: transparent;
   border: none;
   font-size: 16px;
@@ -47,9 +48,10 @@
   padding: 8px 16px;
   cursor: pointer;
   border-radius: 8px;
-  &:hover {
-    background-color: #c19ef72c;
-  }
+}
+
+.resumenCard__footer button:hover {
+  background-color: var(--px-theme-2-opacity);
 }
 
 /* Estilos Cuentas */
@@ -81,7 +83,7 @@
 
 .cuentas__cuenta h6 {
   font-size: 18px;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--px-text);
   margin-left: 16px;
   font-weight: 500;
   line-height: 1.6;
@@ -96,7 +98,7 @@
 }
 
 .balance__text {
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--px-text);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.6;
@@ -104,7 +106,7 @@
 
 .balance__number {
   font-size: 16px;
-  color: rgb(76, 175, 80);
+  color: var(--px-text);
   font-family: "Maven Pro", sans-serif;
   font-weight: 500;
   line-height: 1.6;
