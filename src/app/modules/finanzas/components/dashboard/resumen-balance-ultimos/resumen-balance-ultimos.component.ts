@@ -11,7 +11,14 @@ import { Chart, registerables } from 'chart.js';
 })
 export class ResumenBalanceUltimosComponent implements AfterViewInit {
   @ViewChild('chartResumenUltimos') chartResumenUltimos!: ElementRef<HTMLCanvasElement>;
-  categoriasData: any[] = [];
+  balanceData: any[] = [
+    { mes: 'Enero', ingreso: 400000, gasto: 50000},
+    { mes: 'Febrero', ingreso: 400000, gasto: 400000},
+    { mes: 'Marzo', ingreso: 450000, gasto: 300000},
+    { mes: 'Abril', ingreso: 400000, gasto: 90000},
+    { mes: 'Mayo', ingreso: 200000, gasto: 50000},
+    { mes: 'Junio', ingreso: 300000, gasto: 100000},
+  ];
 
   constructor(private cdr: ChangeDetectorRef) {
     Chart.register(...registerables);
@@ -22,25 +29,27 @@ export class ResumenBalanceUltimosComponent implements AfterViewInit {
     this.cdr.detectChanges();
   }
 
+  processData(data: any) {
+    const labels = data.map((item: any) => item.mes);
+    const balances = data.map((item: any) => item.ingreso - item.gasto);
+
+    return { labels, balances };
+  }
+
   createLineChart() {
+    const { labels, balances } = this.processData(this.balanceData);
+
     const canvas = this.chartResumenUltimos.nativeElement;
     const context = canvas.getContext('2d');
     if (context) {
       new Chart(context, {
         type: 'line',
         data: {
-          labels: [
-            'Enero',
-            'Febrero',
-            'Marzo',
-            'Abril',
-            'Mayo',
-            'Junio'
-          ],
+          labels: labels,
           datasets: [
             {
               label: 'Balance',
-              data: [10, 20, 30, 15, 20, 35],
+              data: balances,
               borderColor: '#6515dd',
               pointRadius: 5,
               pointHoverRadius: 10,

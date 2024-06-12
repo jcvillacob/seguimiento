@@ -1,8 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-
 
 @Component({
   selector: 'app-resumen-gastos',
@@ -13,7 +11,12 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 })
 export class ResumenGastosComponent implements AfterViewInit {
   @ViewChild('chartResumenGasto') chartResumenGasto!: ElementRef<HTMLCanvasElement>;
-  categoriasData: any[] = [];
+  categoriasData: any = [
+    { name: 'Arriendo', gasto: 650000, color: 'rgb(255, 99, 132)' },
+    { name: 'Transporte', gasto: 100000, color: 'rgb((54, 162, 235)' },
+    { name: 'Alimentación', gasto: 80000, color: 'rgb(255, 205, 86)' },
+    { name: 'Otros', gasto: 400000, color: 'rgb(135, 135, 135)' },
+  ];
 
   constructor(private cdr: ChangeDetectorRef) {
     Chart.register(...registerables);
@@ -24,30 +27,32 @@ export class ResumenGastosComponent implements AfterViewInit {
     this.cdr.detectChanges();
   }
 
+  processData(data: any) {
+    const labels = data.map((item: any) => item.name);
+    const gastos = data.map((item: any) => item.gasto);
+    const colors = data.map((item: any) => item.color);
+    const total = gastos.reduce((acc: number, gasto: number) => acc + gasto, 0);
+
+    return { labels, gastos, colors, total };
+  }
+
   createPieChart() {
+    const { labels, gastos, colors, total } = this.processData(this.categoriasData);
+
     const canvas = this.chartResumenGasto.nativeElement;
     const context = canvas.getContext('2d');
     if (context) {
       new Chart(context, {
         type: 'doughnut',
         data: {
-          labels: [
-            'Red',
-            'Blue',
-            'Yellow'
-          ],
+          labels: labels,
           datasets: [{
-            label: 'My First Dataset',
-            data: [300, 50, 100],
-            backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)',
-              'rgb(255, 205, 86)'
-            ],
+            label: 'Gasto',
+            data: gastos,
+            backgroundColor: colors,
             offset: 10,
             hoverOffset: 20,
             weight: 1,
-
           }]
         },
         options: {
@@ -59,7 +64,7 @@ export class ResumenGastosComponent implements AfterViewInit {
         },
         plugins: [{
           id: 'centerText',
-          beforeDraw: function(chart) {
+          beforeDraw: function (chart) {
             const ctx = chart.ctx;
             const width = chart.width;
             const height = chart.height;
@@ -70,7 +75,7 @@ export class ResumenGastosComponent implements AfterViewInit {
             ctx.textBaseline = "middle";
 
             const text1 = "Total:";
-            const text2 = "$ 1'584.000";
+            const text2 = `$ ${total.toLocaleString()}`;
 
             const text1X = Math.round((width - ctx.measureText(text1).width) / 2);
             const text1Y = height / 2 - 17;

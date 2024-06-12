@@ -6,51 +6,15 @@
     <div class="resumenCard__content">
 
       <!-- Cuenta -->
-      <div class="content__cuentas">
+      <div class="content__cuentas" *ngFor="let cuenta of cuentas">
         <div class="cuentas__cuenta">
-          <div class="cuenta__icon"> <img src="data:image/png;base64,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" alt="Cuenta"></div>
+          <div class="cuenta__icon"> <img [src]="cuenta.img" alt="Cuenta"></div>
           <h6 class="maven">Nequi</h6>
         </div>
 
         <div class="cuentas__balance maven">
           <h6 class="balance__text">Balance</h6>
-          <h6 class="balance__number">$ 25,400.00</h6>
-        </div>
-      </div>
-      <!-- Cuenta -->
-      <div class="content__cuentas">
-        <div class="cuentas__cuenta">
-          <div class="cuenta__icon"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAkFBMVEXsHCb////rAADsGCPrABTrABDrBhfrAA3/+/vsEh7rAArzh4r1mJv739/2pafrAAb3sLL0kpX0jpH3srT60dLtKDH5ycv4urzwX2TtMjn72tv+8vP719jxbXH2qav4vL7yeHz96+zvT1Xyc3f1nqH85eXxaGzzgITtJzDvVlv6zc/vSU/uQEf5w8TuQkj1oaQzUR6kAAALlklEQVR4nO2b6ZqquhKGSQKB0NoIzuI8D217/3d3qhJQRO22FY+s/dT7Y+3dCpgvqSkDlkUQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEkiHc34JUI6XIuFOeO+i/qFDZfj+s9jzGvP1wqLv9jIhW3oh474bXGtq/e3arisPlyi7p6h2VXiq9ZbYEi2zsu0ytE4MsjzunzfwLh+uEEFDU+BDogAO7YraDI3ozb+hrVbXmZEe7Ngjc3+g+IwBpCm+PD+szzwCt3bfw8Qo2iy3J8/CujKPx1DdpbHXPnIrCoQFZiMNbIt/02q3Z9J8EVnyzm72junxGuHr9+54ZfCSdYTfQ4Ltgmc4ngjP0TeVP6c9S34T/ETMlnoHERs07mIqEY+wcypuIrsMFe5yd9iNTXsbmduXXDJqW3UsF3VcYmg9/0IZKHEGkz0dOusL3/urYVgi0xUEb35jVHHnaZruCNssdSMFDIbm3l3H2HsLNjzT32VWo39L/6kCCm/NFGQnaM3UJbVCyKz7WBPl50yhnrlzjQBDsox1rW/QZ6iT1n7dKOoeAHqFIGDxuoBiqc0P79srfgdGEAR/aTcZD32aycoVTwMQzg8rkBBKCGW5bSD5U/gsStnu/9oI+Rqnzpwv2CArNSRMOEvYdgZZdsBUDwFUwSpsVMXM3DvksVTxUHC23Jwrrd/YZqfFUiZ7QxhhbqOioAS22Xxhn5AIxqV+xsQPAI5o3rcmQNLNMaqvDAEGw85m1K4IyCgz0NX2FPcg1TzPHbnVHAZO5VzRAYv6J3S0SBLzMlXea+WSKHufzuhWUyrzA2eGcZrjqMdV7aAD5krPvGpCG+JtGLF+BhptF4p52KXxabcJviyV9osrPF1JIhml9fz9pYUGP7e+1EKNvx/cB3HfnTkrKwfTe7Am3futbRizHKud3DEguTJ21M7Zh31yOEy9eDsNYe7dvtYTRocn6j5Y6otOudYwpXX4fv6xKCQ2OjLLtT39y0VPnBWPVW8+4cW6E8dk8wE1YtPtu/8rZh89qCGNaDuIXXNM0Wa/jj6o60gmqUKbWBf3e3RvEHhc69ZRC24J4xtCf5LTrcNblcdccazPTA1E7byKJrfchxW3caQE5mlVt9/IPCYfWudluWH902gwxgzKbd8aQ6iU/7rdXcpPUoEFuPoyhhMnrVlfTgsq7/+ZBC3BO9z7t8aPnqnimGqrLqYdBVHLG7nUq6rVzJ/g6vZ+24qTDc4/9uLs3QqaAtc+elCpWDTrO9b7C51LvoyQ8omzsrY7j10/3uh9lidroNlg4dVr9sf/kbfKI3o7MKJU7yhfTxwMyFQojQnAdJdFN2ExVKaTxc4Xf+0dsdGITAD+Ax0wMEj1Zwf74R2XUGIfX6O2Pz1FATU975QhlrRfFqqq0x/yM6zjBHZBSuV6ulslW07zeGO36uUPBuOGr095U1roarzgqNfzYer76Epfj3fN/v7yNpjNH5nPQa+/Z+u0Azi1d/mJkJFQ7OpgG8YyQluvWwsI1uLhRLQAd+k+M5mFp+Bq+/r/vWSSE6ZhXXkDQj3a5Uofjqp7aPU4WgdXSFMUTjavrHwDk1QxPvZ386eRJA9DtfTXa0xGQfhOOhAhYGSW9gcokdgRslQK74Oo5sRqEFTwKBXk+3uMezCsHt4lZ9hM8cS8s/xbOZwup9sq/vccCm2Ne8ysLZKlqNO4IHf6vXOHb7+VwOS/fEBo2NHqtc2UntVPfpIXcfthEjQMZKXY+BgtDlXOH+6KefsVIXagjuBtiJsZ/xQ6yt7PaOB3BXK+mWYM9W6KI/Fl63FdbOW4qHApIWcjzDw5rHp+oQgxasE4Z3lvXNARiMsOcKcbov0OswJq9FJtIksQd7C+toE0uTR5oaUUhzj+UM8618RqGFPcdG0K22jqPRaVtMCC+xYB4nQ3K6a5TaYU5hEthFgKNp57MFRLC6ufoyW8B3DTRavX/Ye7CWvabQrRvTFHoEzlK7o+u3gbTkOOeJZgj1nCanMHVzv6bVnmULHjQ3A+iaoZNXCN/53c6gYc5CoUM/OOe6ptDX6S6wdG2Sm4hpB8RzH9qA2yf1euBNP+cUplkFw9Miq1A6URpOsQlnCh0xT8NphD0EP/fg9tpVK8XGDx3st4viQeqcByWTWiYuadDVdlLn5BSmboyxdpJRGMxM9J/ElwrxsIn+zksUOgfWesxMryhUX/jwpQp0ufaVi81aPh4xQxc5OZT+OGnDfQptDFatJczgwguFunZvd5SPPqoVii8TcgpRaGoXjksFmKVzN6h0EI3jVUyqDObHDHNTIbpu9ahQF7crDtHfruQVqm/0DvzObycKsZyYP3QS4FKhKUE+Hb+WaXT2+0XiifqIWjLb0Ml+noTWnMK0RMcHQoROFOJ/TFlxqRByQ+LiJ4XQs97lYcYHFCrjAZ5tJhBXymtTzyxVotWDabFsxtmgm1P4mdS4mGCgeEkUogpTaqA3aIVoNPoZWMGZ+Se6glGIv3Z4JCVqhUkTBExMNubk9UbpmdCFF+pbJklOVNpO4ynfxWdRJ5/xu7qAw1LJC441DV6k/VapNJZaSXrHCoYNdYX3zY4KMbQ9cv4SFe7NDJFbnc+FCdBLx6T0q7MwW+dEPIPljE3E0/+Gx/SfV+gN4OHa6HHamijUsXjDXd6cpGaEXTfCdthoR134buedFOJ43jkrPFdomjdZLBbHWf5k5yTJ4MosF0spj5kcbfHP9J5sSMophAGJGzrx1bOVt4m+Naj8W6aC0obLvAVTuNAE99Xgpu3pECb66fjvwSZT0ifEFVyo0TXLjUU/PRwtbdrHBYBsssoplKPkmtDk+WQ1UXWTZbC5SEoFYZsk3xRqk3T3CkLY8TCUC0Pb/fNCsLCyrzzgOw+u7ia95HJjLUQnzNT/TWquZaekevwHKlXY5NNao9cKk2NfYhpGY7xZOVGrtz10fRFF5peE+9FqbA9r+E5Utr0tzI3XYTQ7ioKMsfj7trLgu2g4ajQarfZhvAuOk0s1HYW3nuZ8VNMAabndWr+9OR9s96MfGjkmH0IEOy5WoJUnE3dL4qqEwKWO9Ffhk8D0sG1uETKzBoH+UXvAFZV0fFwFwWXv7Mfu7TpQ8sx8w+Fu3nRk8s7EWcYvALn5YSH2PRSsEKdoj8TTV5CYQ9EKMTzc2FD4PyNXmUhT5GYmDGK9BGcxsKs9HYpcVrBCmKWV4t0ZuUqWr8Rmsyn20X45jrS79XSqo4o+NsS3bFyCU1EvbIZbO3uX5l3w6sv22WE2OXzmTHxBgMKrRXsBgMJaGRQ2XnbwHCYgnyVQ6L7u5QHeum9z9MXADOnBtb9fgQltGSpT9f3gstHvT57euRP+avjkRekiqJv1gLdjh3cdlvgzuFo1LYGRmiM9qxfEGii8y/IOmx0xr/h3r3GLthxDaOmk/+iO302U9dgqxmvAtb8rK+bPoOzJa7z7QXBNZV/keX1pTVj87NHUQnGWjPWswsJNMI1Z3CyLExocGEVv9sTbvxn0UaaFVS6B0KxmlbHG9/MaJV/inoZfJhM1CHxzgLU6lyuqP51Hzv2pAn8MPRU/+Srxq3CbuGsxGXY4922pEOkE3G1y/8qLe3h6kHfhUie91OfurI2bGPMfFqjfi+DNod5mqbbnq0Gns5x9DPcLGJLRxxQ33RyjW9q48G5vQjwBWh0dPuDSzmB12Ov9vknovqaQLwbh8mV7ktvhMntLk377MxyDmNmqMhz14sx25InqcHfr/Hl5UD5vDirtVqNa7W33w2gjnM18m5eCkvfht99chvV9o1etNva1qCP4Dwf/ywS4mBvorWZfv/iA+1Hr3TgcjraNXm/bah/Cwbfgga0ylwbuA0f1yoRI3E+f/3Vs9W+rIQiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiilPwP1gehog671Q4AAAAASUVORK5CYII=" alt="Cuenta"></div>
-          <h6 class="maven">Daviplata</h6>
-        </div>
-
-        <div class="cuentas__balance maven">
-          <h6 class="balance__text">Balance</h6>
-          <h6 class="balance__number">$ 25,400.00</h6>
-        </div>
-      </div>
-      <!-- Cuenta -->
-      <div class="content__cuentas">
-        <div class="cuentas__cuenta">
-          <div class="cuenta__icon"> <img src="https://portalvhdshl0fsz1rywfcp.blob.core.windows.net/instituicoes-bancarias-logo/bancodavivienda-1.png" alt="Cuenta"></div>
-          <h6 class="maven">Davivienda</h6>
-        </div>
-
-        <div class="cuentas__balance maven">
-          <h6 class="balance__text">Balance</h6>
-          <h6 class="balance__number">$ 25,400.00</h6>
-        </div>
-      </div>
-      <!-- Cuenta -->
-      <div class="content__cuentas">
-        <div class="cuentas__cuenta">
-          <div class="cuenta__icon"> <img src="https://portalvhdshl0fsz1rywfcp.blob.core.windows.net/instituicoes-bancarias-logo/bancolombia-1.png" alt="Cuenta"></div>
-          <h6 class="maven">Bancolombia</h6>
-        </div>
-
-        <div class="cuentas__balance maven">
-          <h6 class="balance__text">Balance</h6>
-          <h6 class="balance__number">$ 25,400.00</h6>
+          <h6 class="balance__number">$ {{ cuenta.balance | number:'1.0-0'}}</h6>
         </div>
       </div>
 

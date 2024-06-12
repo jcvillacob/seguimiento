@@ -7,8 +7,10 @@
         <div class="chart__data">
           <canvas #chartResumenCumplimiento id="chartResumenCumplimiento" class="data__chart"></canvas>
           <div class="data__text maven">
-            <p class="text__text">Congratulations!</p>
-            <p class="text__text">This month you saved $ 25,000.00. You saved 41.67% of your earnings</p>
+            <p class="text__text">Felicitaciones!</p>
+            <p class="text__text">Este mes has ahorrado $ {{ cumplimientoData.ingreso - cumplimientoData.gasto |
+              number:'1.0-0' }}. Has ahorrado {{ (cumplimientoData.ingreso - cumplimientoData.gasto) * 100 /
+              cumplimientoData.ingreso | number:'1.0-2' }}% de tus ganancias</p>
           </div>
         </div>
       </div>

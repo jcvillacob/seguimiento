@@ -9,7 +9,7 @@
           <div class="name__icon"><i class="fa-solid fa-coins"></i></div>
           <div class="name__name maven">
             <div class="name__title">Presupuesto Total</div>
-            <div class="name__faltante">Remaining $ 3,973,000.00</div>
+            <div class="name__faltante">Restante $ {{ presupuesto.budget - presupuesto.gastado | number:'1.0-0' }}</div>
           </div>
         </div>
 
@@ -18,7 +18,7 @@
         </div>
 
         <div class="goal__money maven">
-          $ 5,000.00 of $ 1,000,000.00
+          $ {{ presupuesto.gastado | number:'1.0-0' }} de $ {{ presupuesto.budget | number:'1.0-0' }}
         </div>
       </div>
 

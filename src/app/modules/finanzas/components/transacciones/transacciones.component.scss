@@ -84,6 +84,12 @@
   min-width: 300px;
 }
 
+@media screen and (max-width: 1400px) {
+  .resumen__card {
+    min-width: 90%;
+  }
+}
+
 .card__saldo {
   & p {
     color: var(--px-text);

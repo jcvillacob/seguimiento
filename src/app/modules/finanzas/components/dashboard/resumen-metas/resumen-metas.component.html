@@ -4,51 +4,20 @@
   <div class="resumenCard">
     <div class="resumenCard__content">
       <!-- Goal -->
-      <div class="content__goal">
+      <div class="content__goal" *ngFor="let goal of goals">
         <div class="goal__name">
-          <div class="name__icon"><i class="fa-solid fa-car"></i></div>
-          <div class="name__name maven">Nuevo Carro</div>
+          <div class="name__icon"><i [ngClass]="goal.icono"></i></div>
+          <div class="name__name maven">{{ goal.name }}</div>
         </div>
 
         <div class="goal__bar">
-          <div class="bar__complete"></div>
+          <div class="bar__complete" [style.translate]="(goal.ahorrado - goal.meta) * 100 / goal.meta + '%'"></div>
         </div>
 
         <div class="goal__money maven">
-          $ 5,000.00 of $ 1,000,000.00
+          $ {{ goal.ahorrado | number:'1.0-0' }} of $ {{ goal.meta | number:'1.0-0' }}
         </div>
       </div>
-      <!-- Goal -->
-      <div class="content__goal">
-        <div class="goal__name">
-          <div class="name__icon"><i class="fa-solid fa-home"></i></div>
-          <div class="name__name maven">Nueva casa</div>
-        </div>
-
-        <div class="goal__bar">
-          <div class="bar__complete"></div>
-        </div>
-
-        <div class="goal__money maven">
-          $ 5,000.00 of $ 1,000,000.00
-        </div>
-      </div>
-      <!-- Goal -->
-      <div class="content__goal">
-        <div class="goal__name">
-          <div class="name__icon"><i class="fa-solid fa-plane"></i></div>
-          <div class="name__name maven">Viaje Santa Marta</div>
-        </div>
-
-        <div class="goal__bar">
-          <div class="bar__complete"></div>
-        </div>
-
-        <div class="goal__money maven">
-          $ 5,000.00 of $ 1,000,000.00
-        </div>
-      </div>
-
     </div>
 
     <div class="resumenCard__footer">

@@ -15,3 +15,13 @@
 .dashboardContainer__column {
   width: calc(50% - 8px);
 }
+
+@media screen and (max-width: 850px) {
+  .dashboardContainer {
+    flex-direction: column;
+  }
+
+  .dashboardContainer__column {
+    width: 100%;
+  }
+}
