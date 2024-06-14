@@ -2,11 +2,12 @@ import { Component, HostListener } from '@angular/core';
 import { isSidebarExpanded } from '../main.component';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TransactionsModalComponent } from './transactions-modal/transactions-modal.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, CommonModule, RouterLinkActive],
+  imports: [RouterLink, CommonModule, RouterLinkActive, TransactionsModalComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
