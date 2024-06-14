@@ -1,86 +1,79 @@
 <!-- Modal crear Cuenta -->
-<div class="modal__crear" [ngClass]="{'modal' : modal}">
-    <!-- Contenedor -->
-    <div class="crear__container">
-        <!-- header -->
-        <div class="container__title">
-            <h5 class="title__nueva maven">Nuevo Gasto</h5>
-            <div class="title__cerrar" (click)="toggleModal()">
-                <i class="fa-solid fa-xmark"></i>
-            </div>
-        </div>
-        <!-- Formulario -->
-        <form action="" class="crear__form maven">
-            <div class="form__saldo">
-                <input type="number" placeholder="$ 0.00">
-            </div>
-
-            <div class="form__banco">
-                <label for="banks">Institución Financiera</label>
-                <div class="banco__lista">
-                    <div class="lista__selected" (click)="verBancos()">
-                        <div class="selected__img">
-                            <img [src]="bancoSelected.img" alt="">
-                        </div>
-                        <span>{{ bancoSelected.name }}</span>
-                        <div class="lista__lista" [ngClass]="{'bancoss' : verBanco}">
-                            <div class="lista__bancos" *ngFor="let bank of banks; index as i"
-                                (click)="seleccionarBanco(i)">
-                                <div class="selected__img">
-                                    <img [src]="bank.img" alt="">
-                                </div>
-                                <span>{{ bank.name }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form__banco">
-                <label for="banks">Institución Financiera</label>
-                <div class="banco__lista">
-                    <div class="lista__selected" (click)="verBancos()">
-                        <div class="selected__img">
-                            <img [src]="bancoSelected.img" alt="">
-                        </div>
-                        <span>{{ bancoSelected.name }}</span>
-                        <div class="lista__lista" [ngClass]="{'bancoss' : verBanco}">
-                            <div class="lista__bancos" *ngFor="let bank of banks; index as i"
-                                (click)="seleccionarBanco(i)">
-                                <div class="selected__img">
-                                    <img [src]="bank.img" alt="">
-                                </div>
-                                <span>{{ bank.name }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form__descripcion maven">
-                <i class="fa-regular fa-file"></i>
-                <input type="text" placeholder="Descripción">
-            </div>
-
-            <div class="form__descripcion maven">
-                <i class="fa-solid fa-building-columns"></i>
-                <input type="text" placeholder="Ahorros">
-            </div>
-
-            <div class="form__incluir">
-                <div class="incluir__text">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <p>Incluir en la suma del Dashboard</p>
-                </div>
-
-                <div class="incluir__toggle">
-                    <input type="checkbox" checked>
-                </div>
-            </div>
-
-            <div class="form__buttons">
-                <button class="buttons__guardar">Guardar</button>
-            </div>
-        </form>
+<div class="modal__crear" [ngClass]="{'modal' : transactionsModal() != 'close'}">
+  <!-- Contenedor -->
+  <div class="crear__container">
+    <!-- header -->
+    <div class="container__title">
+      <h5 class="title__nueva maven">Registrar {{ transactionsModal() | titlecase }}</h5>
+      <div class="title__cerrar" (click)="toggleModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
     </div>
+    <!-- Formulario -->
+    <form action="" class="crear__form maven">
+      <div class="form__saldo">
+        <input type="number" placeholder="$ 0.00">
+      </div>
+
+      <div class="form__date">
+        <div class="date__date">
+          <input type="date" name="fecha" class="maven">
+          <div class="date__spec">
+            <div class="date__today">Hoy</div>
+            <div class="date__today">Ayer</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form__banco">
+        <label for="banks">Institución Financiera</label>
+        <div class="banco__lista">
+          <div class="lista__selected" (click)="verBancos()">
+            <div class="selected__img">
+              <img [src]="bancoSelected.img" alt="">
+            </div>
+            <span>{{ bancoSelected.name }}</span>
+            <div class="lista__lista" [ngClass]="{'bancoss' : verBanco}">
+              <div class="lista__bancos" *ngFor="let bank of banks; index as i" (click)="seleccionarBanco(i)">
+                <div class="selected__img">
+                  <img [src]="bank.img" alt="">
+                </div>
+                <span>{{ bank.name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form__banco">
+        <label for="banks">Categoría</label>
+        <div class="banco__lista">
+          <div class="lista__selected">
+            <i class="fa-solid fa-drumstick-bite"></i>
+            <span>Alimentación</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form__descripcion maven">
+        <i class="fa-regular fa-file"></i>
+        <input type="text" placeholder="Descripción">
+      </div>
+
+      <div class="form__incluir">
+        <div class="incluir__text">
+          <i class="fa-solid fa-circle-info"></i>
+          <p>Registrar recurrente</p>
+        </div>
+
+        <div class="incluir__toggle">
+          <input type="checkbox">
+        </div>
+      </div>
+
+      <div class="form__buttons">
+        <button class="buttons__guardar">Guardar {{ transactionsModal() }}</button>
+      </div>
+    </form>
+  </div>
 </div>

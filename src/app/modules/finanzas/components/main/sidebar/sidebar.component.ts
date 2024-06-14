@@ -2,7 +2,9 @@ import { Component, HostListener } from '@angular/core';
 import { isSidebarExpanded } from '../main.component';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TransactionsModalComponent } from './transactions-modal/transactions-modal.component';
+import { TransactionsModalComponent, transactionsModal } from './transactions-modal/transactions-modal.component';
+import { FinanzasService } from '../../../services/finanzas.service';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -13,6 +15,7 @@ import { TransactionsModalComponent } from './transactions-modal/transactions-mo
 })
 export class SidebarComponent {
   isSidebarExpanded = isSidebarExpanded;
+  transactionsModal = transactionsModal;
   news = false;
   menuItems = [
     { icon: 'OXVih02dFZ53', title: 'Dashboard', href: 'dashboard' },
@@ -25,7 +28,7 @@ export class SidebarComponent {
     { icon: 'ybfklM8wYSX1', title: 'Configuraciones', href: 'configuraciones' }
   ];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private finanzasService: FinanzasService) {
   }
 
   ngOnInit() {}
@@ -42,11 +45,16 @@ export class SidebarComponent {
     this.news = true;
   }
 
+  transactionsModals(transaction: string) {
+    this.transactionsModal.set(transaction);
+    setTimeout(() => {
+      this.news = false;
+    }, 50)
+  }
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
     const clickedElement = event.target as HTMLElement;
-
-    // Aquí verificas si el clic fue dentro del botón o en uno de sus hijos
     if (!clickedElement.closest('.sidebar__plusbutton')) {
       this.news = false;
     }

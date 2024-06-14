@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, computed, signal } from '@angular/core';
+import { FinanzasService } from '../../../../services/finanzas.service';
+
+export const transactionsModal = signal('close');
 
 @Component({
   selector: 'app-transactions-modal',
@@ -9,6 +12,7 @@ import { Component, HostListener } from '@angular/core';
   styleUrl: './transactions-modal.component.scss'
 })
 export class TransactionsModalComponent {
+  transactionsModal = transactionsModal;
   banks = [
     {name: 'Efecivo', img: 'banks/efectivo.avif'},
     {name: 'Nequi', img: 'banks/nequi.jpg'},
@@ -27,13 +31,15 @@ export class TransactionsModalComponent {
   activo = -1;
 
   /* para crear Cuenta */
-  modal = true;
   bancoSelected = this.banks[0];
   verBanco = false;
 
 
+  constructor(private finanzasService: FinanzasService) {
+  }
+
   toggleModal() {
-    this.modal = !this.modal;
+    this.transactionsModal.set('close');
   }
 
   verBancos() {
