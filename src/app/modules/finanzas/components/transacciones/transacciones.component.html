@@ -7,7 +7,6 @@
   </div>
 </div>
 
-
 <div class="transactionsContainer">
   <div class="transactions">
     <table class="transactions__table maven">
@@ -16,70 +15,27 @@
           <th>Fecha</th>
           <th>Descripción</th>
           <th>Categoría</th>
-          <th>Cuenta</th>
+          <th>Banco</th>
           <th>Valor</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{{'2024-06-01' | date}}</td>
-          <td>Compra de suministros</td>
-          <td>Oficina</td>
-          <td>Cuenta 1</td>
-          <td>$ 100.00</td>
-          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
-        </tr>
-        <tr>
-          <td>{{'2024-06-01' | date}}</td>
-          <td>Pago de servicios</td>
-          <td>Servicios</td>
-          <td>Cuenta 2</td>
-          <td>200.00</td>
-          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
-        </tr>
-        <tr>
-          <td>{{'2024-06-01' | date}}</td>
-          <td>Pago de servicios</td>
-          <td>Servicios</td>
-          <td>Cuenta 2</td>
-          <td>200.00</td>
-          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
-        </tr>
-        <tr class="subtotal">
-          <td colspan="4">Subtotal</td>
-          <td class="subtotal-value">0.00</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>{{'2024-06-02' | date}}</td>
-          <td>Venta de productos</td>
-          <td>Ventas</td>
-          <td>Cuenta 1</td>
-          <td>300.00</td>
-          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
-        </tr>
-        <tr>
-          <td>{{'2024-06-02' | date}}</td>
-          <td>Reembolso</td>
-          <td>Otros</td>
-          <td>Cuenta 2</td>
-          <td>50.00</td>
-          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
-        </tr>
-        <tr>
-          <td>{{'2024-06-02' | date}}</td>
-          <td>Reembolso</td>
-          <td>Otros</td>
-          <td>Cuenta 2</td>
-          <td>50.00</td>
-          <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
-        </tr>
-        <tr class="subtotal">
-          <td colspan="4">Subtotal</td>
-          <td class="subtotal-value">0.00</td>
-          <td></td>
-        </tr>
+        <ng-container *ngFor="let group of transactionsGroupedByDate">
+          <tr *ngFor="let transaction of group.transactions">
+            <td>{{ group.date }}</td>
+            <td>{{ transaction.Descripcion }}</td>
+            <td>{{ transaction.NombreCategoria }}</td>
+            <td>{{ transaction.NombreBanco }}</td>
+            <td [ngStyle]="{'color': getMontoColor(transaction)}">{{ transaction.Monto | currency }}</td>
+            <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
+          </tr>
+          <tr class="subtotal">
+            <td colspan="4">Subtotal</td>
+            <td class="subtotal-value">{{ group.subtotal | currency }}</td>
+            <td></td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>
@@ -89,7 +45,7 @@
     <div class="resumen__card">
       <div class="card__saldo maven">
         <p>Saldo Actual</p>
-        <h5>{{ 25000 | currency}}</h5>
+        <h5>{{ calculateBalance() | currency }}</h5>
       </div>
       <div class="card__icon">
         <i class="fa-solid fa-coins"></i>
@@ -98,7 +54,7 @@
     <div class="resumen__card">
       <div class="card__saldo maven">
         <p>Ingresos</p>
-        <h5>{{ 25000 | currency}}</h5>
+        <h5>{{ calculateIngresos() | currency }}</h5>
       </div>
       <div class="card__icon">
         <i class="fa-solid fa-angle-up"></i>
@@ -107,7 +63,7 @@
     <div class="resumen__card">
       <div class="card__saldo maven">
         <p>Gastos</p>
-        <h5>{{ 25000 | currency}}</h5>
+        <h5>{{ calculateGastos() | currency }}</h5>
       </div>
       <div class="card__icon">
         <i class="fa-solid fa-angle-down"></i>
@@ -116,7 +72,7 @@
     <div class="resumen__card">
       <div class="card__saldo maven">
         <p>Balance Mes</p>
-        <h5>{{ 25000 | currency}}</h5>
+        <h5>{{ calculateBalanceMes() | currency }}</h5>
       </div>
       <div class="card__icon">
         <i class="fa-solid fa-scale-unbalanced-flip"></i>

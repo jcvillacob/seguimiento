@@ -8,7 +8,7 @@ import { FinanzasRoutingModule } from './finanzas-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    FinanzasRoutingModule
-  ]
+    FinanzasRoutingModule,
+  ],
 })
 export class FinanzasModule { }

@@ -21,15 +21,15 @@
       <!-- count's title -->
       <div class="cuenta__title">
         <div class="title__name">
-          <div class="name__icon"> <img [src]="count.img" alt="Cuenta"></div>
-          <h6 class="maven">{{ count.name }}</h6>
+          <div class="name__icon"> <img [src]="count.BancoIcono" alt="Cuenta"></div>
+          <h6 class="maven">{{ count.BancoNombre }}</h6>
         </div>
         <div class="title__setting" (click)="menuSetting(i)">
           <i class="fa-solid fa-ellipsis-vertical"></i>
           <div [id]="'setting__' + {i}" class="setting__menu" [ngClass]="{'active': i == activo}">
             <ul class="maven">
-              <li>Editar</li>
-              <li>Archivar</li>
+              <li (click)="editCuenta(count)">Editar</li>
+              <li (click)="archivarCuenta(count.CuentaID, 0)">Archivar</li>
               <li>Transacciones</li>
               <li>Reajustar Saldo</li>
             </ul>
@@ -39,7 +39,7 @@
       <!--  -->
       <div class="cuenta__balance maven">
         <h6 class="balance__text">Balance</h6>
-        <h6 class="balance__number">{{ count.balance | currency }}</h6>
+        <h6 class="balance__number">$ {{ count.Saldo | number:'1.0-0'}}</h6>
       </div>
       <!--  -->
       <div class="cuenta__button">
@@ -53,7 +53,7 @@
     <div class="resumen__card">
       <div class="card__saldo maven">
         <p>Saldo Actual</p>
-        <h5>{{ 25000 | currency}}</h5>
+        <h5>$ {{ balance | number:'1.0-0'}}</h5>
       </div>
       <div class="card__icon">
         <i class="fa-solid fa-money-check-dollar"></i>
@@ -69,7 +69,7 @@
   <div class="crear__container">
     <!-- header -->
     <div class="container__title">
-      <h5 class="title__nueva maven">Nueva Cuenta</h5>
+      <h5 class="title__nueva maven">{{ title }}</h5>
       <div class="title__cerrar" (click)="toggleModal()">
         <i class="fa-solid fa-xmark"></i>
       </div>
@@ -77,7 +77,7 @@
     <!-- Formulario -->
     <form action="" class="crear__form maven">
       <div class="form__saldo">
-        <input type="number" placeholder="$ 0.00">
+        <input type="number" placeholder="$ 0.00" [(ngModel)]="saldo" name="saldo">
       </div>
 
       <div class="form__banco">
@@ -85,15 +85,15 @@
         <div class="banco__lista">
           <div class="lista__selected"  (click)="verBancos()">
             <div class="selected__img">
-              <img [src]="bancoSelected.img" alt="">
+              <img [src]="bancoSelected.Icono" alt="">
             </div>
-            <span>{{ bancoSelected.name }}</span>
+            <span>{{ bancoSelected.Nombre }}</span>
             <div class="lista__lista" [ngClass]="{'bancoss' : verBanco}">
               <div class="lista__bancos" *ngFor="let bank of banks; index as i" (click)="seleccionarBanco(i)">
                 <div class="selected__img">
-                  <img [src]="bank.img" alt="">
+                  <img [src]="bank.Icono" alt="">
                 </div>
-                <span>{{ bank.name }}</span>
+                <span>{{ bank.Nombre }}</span>
               </div>
             </div>
           </div>
@@ -102,12 +102,12 @@
 
       <div class="form__descripcion maven">
         <i class="fa-regular fa-file"></i>
-        <input type="text" placeholder="Descripción">
+        <input type="text" placeholder="Descripción" [(ngModel)]="descripcion" name="descripcion">
       </div>
 
       <div class="form__descripcion maven">
         <i class="fa-solid fa-building-columns"></i>
-        <input type="text" placeholder="Ahorros">
+        <input type="text" placeholder="Ahorros" [(ngModel)]="bancoSelected.Tipo" disabled="" name="Tipo">
       </div>
 
       <div class="form__incluir">
@@ -117,12 +117,12 @@
         </div>
 
         <div class="incluir__toggle">
-          <input type="checkbox" checked>
+          <input type="checkbox" checked  [(ngModel)]="incluirEnDashboard" name="incluirEnDashboard">
         </div>
       </div>
 
       <div class="form__buttons">
-        <button class="buttons__guardar">Guardar</button>
+        <button class="buttons__guardar" (click)="saveCuenta()">Guardar</button>
       </div>
     </form>
   </div>

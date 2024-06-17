@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FinanzasService } from '../../../services/finanzas.service';
 
 @Component({
   selector: 'app-resumen-cuentas',
@@ -10,10 +11,16 @@ import { RouterLink } from '@angular/router';
   styleUrl: './resumen-cuentas.component.scss'
 })
 export class ResumenCuentasComponent {
-  cuentas: any[] = [
-    {name: 'Efectivo', balance: 15000, img: 'banks/efectivo.avif'},
-    {name: 'Nequi', balance: 25000, img: 'banks/nequi.jpg'},
-    {name: 'Davivienda', balance: 35000, img: 'banks/davivienda.png'},
-  ]
+  cuentas: any[] = [];
 
+  constructor(private finanzasService: FinanzasService) {
+    this.getcuentas();
+  }
+
+  /* Cuentas */
+  getcuentas() {
+    this.finanzasService.getCuentas().subscribe(data => {
+      this.cuentas = data;
+    });
+  }
 }

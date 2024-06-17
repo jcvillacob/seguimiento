@@ -10,17 +10,17 @@
       </div>
     </div>
     <!-- Formulario -->
-    <form action="" class="crear__form maven">
+    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="crear__form maven">
       <div class="form__saldo">
-        <input type="number" placeholder="$ 0.00">
+        <input type="number" placeholder="$ 0.00" formControlName="saldo">
       </div>
 
       <div class="form__date">
         <div class="date__date">
-          <input type="date" name="fecha" class="maven">
+          <input type="date" name="fecha" formControlName="fecha" class="maven">
           <div class="date__spec">
-            <div class="date__today">Hoy</div>
-            <div class="date__today">Ayer</div>
+            <div class="date__today" (click)="setTodayDate()">Hoy</div>
+            <div class="date__today" (click)="setYesterdayDate()">Ayer</div>
           </div>
         </div>
       </div>
@@ -30,15 +30,15 @@
         <div class="banco__lista">
           <div class="lista__selected" (click)="verBancos()">
             <div class="selected__img">
-              <img [src]="bancoSelected.img" alt="">
+              <img [src]="bancoSelected.BancoIcono" alt="Banco">
             </div>
-            <span>{{ bancoSelected.name }}</span>
+            <span>{{ bancoSelected.BancoNombre }}</span>
             <div class="lista__lista" [ngClass]="{'bancoss' : verBanco}">
               <div class="lista__bancos" *ngFor="let bank of banks; index as i" (click)="seleccionarBanco(i)">
                 <div class="selected__img">
-                  <img [src]="bank.img" alt="">
+                  <img [src]="bank.BancoIcono" alt="">
                 </div>
-                <span>{{ bank.name }}</span>
+                <span>{{ bank.BancoNombre }}</span>
               </div>
             </div>
           </div>
@@ -48,16 +48,22 @@
       <div class="form__banco">
         <label for="banks">Categoría</label>
         <div class="banco__lista">
-          <div class="lista__selected">
-            <i class="fa-solid fa-drumstick-bite"></i>
-            <span>Alimentación</span>
+          <div class="lista__selected categorias" (click)="verCategories()">
+            <i [ngClass]="categorySelected.Icono"></i>
+            <span>{{ categorySelected.Nombre }}</span>
+            <div class="lista__lista" [ngClass]="{'bancoss' : verCategory}">
+              <div class="lista__bancos" *ngFor="let category of categorias; index as i" (click)="seleccionarCategoria(i)">
+                <i [ngClass]="category.Icono"></i>
+                <span>{{ category.Nombre }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="form__descripcion maven">
         <i class="fa-regular fa-file"></i>
-        <input type="text" placeholder="Descripción">
+        <input type="text" placeholder="Descripción"  formControlName="descripcion">
       </div>
 
       <div class="form__incluir">
@@ -67,12 +73,12 @@
         </div>
 
         <div class="incluir__toggle">
-          <input type="checkbox">
+          <input type="checkbox" formControlName="recurrente">
         </div>
       </div>
 
       <div class="form__buttons">
-        <button class="buttons__guardar">Guardar {{ transactionsModal() }}</button>
+        <button type="submit" class="buttons__guardar">Guardar {{ transactionsModal() }}</button>
       </div>
     </form>
   </div>

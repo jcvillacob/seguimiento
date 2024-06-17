@@ -8,13 +8,13 @@
       <!-- Cuenta -->
       <div class="content__cuentas" *ngFor="let cuenta of cuentas">
         <div class="cuentas__cuenta">
-          <div class="cuenta__icon"> <img [src]="cuenta.img" alt="Cuenta"></div>
-          <h6 class="maven">Nequi</h6>
+          <div class="cuenta__icon"> <img [src]="cuenta.BancoIcono" alt="Cuenta"></div>
+          <h6 class="maven">{{ cuenta.BancoNombre }}</h6>
         </div>
 
         <div class="cuentas__balance maven">
           <h6 class="balance__text">Balance</h6>
-          <h6 class="balance__number">$ {{ cuenta.balance | number:'1.0-0'}}</h6>
+          <h6 class="balance__number">$ {{ cuenta.Saldo | number:'1.0-0'}}</h6>
         </div>
       </div>
 
