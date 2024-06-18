@@ -28,13 +28,18 @@ export class FinanzasService {
   }
 
   getTransaccionByUser(): Observable<any[]> {
-    const usuarioID = '1003';
+    const usuarioID = '1';
     return this.http.get<any[]>(`${this.apiUrl}/transacciones/usuario/${usuarioID}`);
   }
 
-  getGastosMes(): Observable<any[]> {
-    const usuarioID = '1003';
-    return this.http.get<any[]>(`${this.apiUrl}/transacciones/gastosmes/${usuarioID}`);
+  getTransaccionesMes(monthYear: string): Observable<any[]> {
+    const usuarioID = '1';
+    return this.http.get<any[]>(`${this.apiUrl}/transacciones/transaccionesmes/${usuarioID}?${monthYear}`);
+  }
+
+  balancesUltimosSeisMeses(): Observable<any[]> {
+    const usuarioID = '1';
+    return this.http.get<any[]>(`${this.apiUrl}/transacciones/balancesUltimosSeisMeses/${usuarioID}`);
   }
 
   createTransaccion(data: any): Observable<any> {
@@ -57,7 +62,7 @@ export class FinanzasService {
 
   /* Cuentas */
   getCuentas(): Observable<any[]> {
-    const usuarioID = '1003';
+    const usuarioID = '1';
     return this.http.get<any[]>(`${this.apiUrl}/cuentas/usuario/${usuarioID}`);
   }
 

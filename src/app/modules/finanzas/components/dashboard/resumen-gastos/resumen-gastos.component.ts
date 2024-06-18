@@ -1,6 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
+import { transaccionesMes } from '../dashboard.component';
 
 @Component({
   selector: 'app-resumen-gastos',
@@ -11,14 +12,20 @@ import { Chart, registerables } from 'chart.js';
 })
 export class ResumenGastosComponent implements AfterViewInit {
   @ViewChild('chartResumenGasto') chartResumenGasto!: ElementRef<HTMLCanvasElement>;
-  categoriasData: any = [
-    { name: 'Arriendo', gasto: 650000, color: 'rgb(255, 99, 132)' },
-    { name: 'Transporte', gasto: 100000, color: 'rgb((54, 162, 235)' },
-    { name: 'Alimentación', gasto: 80000, color: 'rgb(255, 205, 86)' },
-    { name: 'Otros', gasto: 400000, color: 'rgb(135, 135, 135)' },
-  ];
+  transaccionesMes = transaccionesMes;
+  chartInstance: Chart<'doughnut'> | null = null;
+  categoriasData: any = [];
 
   constructor(private cdr: ChangeDetectorRef) {
+    effect(() => {
+      const data: any = this.transaccionesMes();
+      if(data.transacciones) {
+        this.categoriasData = data.transacciones.filter((d: any) => d.Tipo == 'Gasto');
+        this.createPieChart();
+      } else {
+        console.log('no hay dato');
+      }
+    });
     Chart.register(...registerables);
   }
 
@@ -28,21 +35,61 @@ export class ResumenGastosComponent implements AfterViewInit {
   }
 
   processData(data: any) {
-    const labels = data.map((item: any) => item.name);
-    const gastos = data.map((item: any) => item.gasto);
-    const colors = data.map((item: any) => item.color);
-    const total = gastos.reduce((acc: number, gasto: number) => acc + gasto, 0);
-
+    // Agrupar las transacciones por categoría
+    const groupedData = data.reduce((acc: any, item: any) => {
+      const existingCategory = acc.find((cat: any) => cat.NombreCategoria === item.NombreCategoria);
+      if (existingCategory) {
+        existingCategory.Monto += item.Monto;
+      } else {
+        acc.push({ ...item });
+      }
+      return acc;
+    }, []);
+  
+    // Ordenar las categorías por monto de mayor a menor
+    groupedData.sort((a: any, b: any) => b.Monto - a.Monto);
+  
+    // Agrupar las categorías adicionales en "Otros" si hay más de tres categorías
+    let labels = [];
+    let gastos = [];
+    let colors = [];
+    let total = 0;
+  
+    if (groupedData.length > 3) {
+      const topThree = groupedData.slice(0, 3);
+      const others = groupedData.slice(3);
+  
+      labels = topThree.map((item: any) => item.NombreCategoria);
+      gastos = topThree.map((item: any) => item.Monto);
+      colors = topThree.map((item: any) => item.Color);
+      total = gastos.reduce((acc: number, Monto: number) => acc + Monto, 0);
+  
+      const othersTotal = others.reduce((acc: number, item: any) => acc + item.Monto, 0);
+      labels.push('Otros');
+      gastos.push(othersTotal);
+      colors.push('rgb(135, 135, 135)');
+      total += othersTotal;
+    } else {
+      labels = groupedData.map((item: any) => item.NombreCategoria);
+      gastos = groupedData.map((item: any) => item.Monto);
+      colors = groupedData.map((item: any) => item.Color);
+      total = gastos.reduce((acc: number, Monto: number) => acc + Monto, 0);
+    }
+  
     return { labels, gastos, colors, total };
   }
-
+  
   createPieChart() {
     const { labels, gastos, colors, total } = this.processData(this.categoriasData);
 
     const canvas = this.chartResumenGasto.nativeElement;
     const context = canvas.getContext('2d');
     if (context) {
-      new Chart(context, {
+      if (this.chartInstance) {
+        this.chartInstance.destroy();
+      }
+        
+      this.chartInstance = new Chart<'doughnut'>(context, {
         type: 'doughnut',
         data: {
           labels: labels,

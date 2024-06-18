@@ -1,26 +1,32 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
+import { balancesUltimosSeisMeses } from '../dashboard.component';
 
 @Component({
   selector: 'app-resumen-balance-ultimos',
   standalone: true,
   imports: [RouterLink],
   templateUrl: './resumen-balance-ultimos.component.html',
-  styleUrl: './resumen-balance-ultimos.component.scss'
+  styleUrls: ['./resumen-balance-ultimos.component.scss']
 })
 export class ResumenBalanceUltimosComponent implements AfterViewInit {
   @ViewChild('chartResumenUltimos') chartResumenUltimos!: ElementRef<HTMLCanvasElement>;
-  balanceData: any[] = [
-    { mes: 'Enero', ingreso: 400000, gasto: 50000},
-    { mes: 'Febrero', ingreso: 400000, gasto: 400000},
-    { mes: 'Marzo', ingreso: 450000, gasto: 300000},
-    { mes: 'Abril', ingreso: 400000, gasto: 90000},
-    { mes: 'Mayo', ingreso: 200000, gasto: 50000},
-    { mes: 'Junio', ingreso: 300000, gasto: 100000},
-  ];
+  chartInstance: Chart | null = null;
+  balancesUltimosSeisMeses = balancesUltimosSeisMeses;
+  balanceData: any[] = [];
 
   constructor(private cdr: ChangeDetectorRef) {
+    effect(() => {
+      const data: any = this.balancesUltimosSeisMeses();
+      if (data) {
+        this.balanceData = data;
+        console.log(this.balanceData)
+        this.createLineChart();
+      } else {
+        console.log('no hay dato');
+      }
+    });
     Chart.register(...registerables);
   }
 
@@ -30,8 +36,26 @@ export class ResumenBalanceUltimosComponent implements AfterViewInit {
   }
 
   processData(data: any) {
-    const labels = data.map((item: any) => item.mes);
-    const balances = data.map((item: any) => item.ingreso - item.gasto);
+    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const currentDate = new Date();
+    const result = [];
+
+    for (let i = 5; i >= 0; i--) {
+      const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const monthName = months[month - 1];
+
+      const record = data.find((item: any) => item.Año === year && item.Mes === month) || { Ingresos: 0, Gastos: 0 };
+      result.push({
+        mes: monthName,
+        ingreso: record.Ingresos,
+        gasto: record.Gastos
+      });
+    }
+
+    const labels = result.map((item: any) => item.mes);
+    const balances = result.map((item: any) => item.ingreso - item.gasto);
 
     return { labels, balances };
   }
@@ -42,7 +66,11 @@ export class ResumenBalanceUltimosComponent implements AfterViewInit {
     const canvas = this.chartResumenUltimos.nativeElement;
     const context = canvas.getContext('2d');
     if (context) {
-      new Chart(context, {
+      if (this.chartInstance) {
+        this.chartInstance.destroy();
+      }
+
+      this.chartInstance = new Chart(context, {
         type: 'line',
         data: {
           labels: labels,
@@ -68,6 +96,4 @@ export class ResumenBalanceUltimosComponent implements AfterViewInit {
       });
     }
   }
-
 }
-

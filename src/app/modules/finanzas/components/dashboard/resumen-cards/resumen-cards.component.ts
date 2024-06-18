@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
+import { transaccionesMes } from '../dashboard.component';
 
 @Component({
   selector: 'app-resumen-cards',
@@ -9,11 +10,17 @@ import { Component } from '@angular/core';
   styleUrl: './resumen-cards.component.scss'
 })
 export class ResumenCardsComponent {
-  cards: any = {
-    balance: 639400,
-    ingresos: 1200000,
-    gastos: 800000,
-    tarjetas: 500000
+  transaccionesMes = transaccionesMes;
+  cards: any = {};
+
+  constructor() {
+    effect(() => {
+      const data: any = this.transaccionesMes();
+      if(!data.transacciones) {
+        console.log(data);
+      }
+      this.cards = data;
+    });
   }
 
 }

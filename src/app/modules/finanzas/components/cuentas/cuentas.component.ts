@@ -79,7 +79,7 @@ export class CuentasComponent {
 
   createCuenta() {
     const cuentaData = {
-      usuarioID: 1003,
+      usuarioID: 1,
       bancoID: this.bancoSelected.BancoID,
       saldo: this.saldo,
       descripcion: this.descripcion,

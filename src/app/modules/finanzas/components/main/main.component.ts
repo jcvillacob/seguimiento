@@ -4,7 +4,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-export const isSidebarExpanded = signal(true);
+export const isSidebarExpanded = signal(false);
+export const monthYear = signal('');
 
 @Component({
   selector: 'app-main',
@@ -15,6 +16,7 @@ export const isSidebarExpanded = signal(true);
 })
 export class MainComponent {
   isSidebarExpanded = isSidebarExpanded;
+  monthYear = monthYear;
   new_Date = false;
   year = 2024;
   month = 'junio';
@@ -30,7 +32,10 @@ export class MainComponent {
 
   selectMonth(month: string) {
     this.month = month;
-
+    this.monthYear.set(`mes=${this.months.indexOf(month)+1}&year=${this.year}`)
+    setTimeout(() => {
+      this.new_Date = false;
+    }, 50);
   }
 
   @HostListener('document:click', ['$event'])

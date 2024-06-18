@@ -1,5 +1,5 @@
 <!-- Modal crear Cuenta -->
-<div class="modal__crear" [ngClass]="{'modal' : transactionsModal() != 'close'}">
+<div class="modal__crear" [ngClass]="{'modal' : transactionsModal() != 'close'}" *ngIf="banks.length">
   <!-- Contenedor -->
   <div class="crear__container">
     <!-- header -->

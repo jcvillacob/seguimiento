@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { transactionsModal } from '../main/sidebar/transactions-modal/transactions-modal.component';
 import { FinanzasService } from '../../services/finanzas.service';
+import { monthYear } from '../main/main.component';
 
 @Component({
   selector: 'app-transacciones',
@@ -12,19 +13,27 @@ import { FinanzasService } from '../../services/finanzas.service';
 })
 export class TransaccionesComponent {
   transactionsModal = transactionsModal;
+  monthYear = monthYear;
+  balanceMes!: number;
+  gastosMes!: number;
+  ingresosMes!: number;
   transactions: any[] = [];
   transactionsGroupedByDate: { date: string, transactions: any[], subtotal: number }[] = [];
-  counts = [
-    { name: 'Efectivo', img: 'banks/efectivo.avif', balance: 25000 },
-    { name: 'Nequi', img: 'banks/nequi.jpg', balance: 25000 },
-    { name: 'Bancolombia', img: 'banks/bancolombia.jpg', balance: 25000 },
-    { name: 'Banco Davivienda', img: 'banks/davivienda.png', balance: 25000 },
-    { name: 'Daviplata', img: 'banks/daviplata.png', balance: 25000 },
-  ];
 
   constructor(private finanzasService: FinanzasService) {
-    this.finanzasService.getTransaccionByUser().subscribe(data => {
-      this.transactions = data;
+    effect(() => {
+      const text = this.monthYear();
+      this.getTransactions(text);
+    });
+  }
+
+  getTransactions(monthYear: string) {
+    this.finanzasService.getTransaccionesMes(monthYear).subscribe((data: any) => {
+      console.log(data);
+      this.transactions = data.transacciones;
+      this.gastosMes = data.gastos;
+      this.ingresosMes = data.ingresos;
+      this.balanceMes = data.balance;
       this.groupTransactionsByDate();
     });
   }
@@ -45,11 +54,16 @@ export class TransaccionesComponent {
 
     this.transactionsGroupedByDate = Object.keys(grouped).map(date => {
       const transactions = grouped[date];
-      const subtotal = transactions.reduce((sum: any, transaction: any) => sum + transaction.Monto, 0);
+      const subtotal = transactions.reduce((sum: any, transaction: any) => {
+        let monto;
+        monto = transaction.Tipo == 'Ingreso' ? transaction.Monto : -transaction.Monto;
+        return sum + monto
+      }, 0);
       return { date, transactions, subtotal };
     });
   }
 
+/* 
   calculateIngresos(): number {
     return this.transactions
       .filter(transaction => transaction.Tipo === 'Ingreso')
@@ -77,7 +91,8 @@ export class TransaccionesComponent {
 
     return ingresosMes - gastosMes;
   }
-
+ */
+  
   getMontoColor(transaction: any): string {
     return transaction.Tipo === 'Ingreso' ? 'green' : 'red';
   }

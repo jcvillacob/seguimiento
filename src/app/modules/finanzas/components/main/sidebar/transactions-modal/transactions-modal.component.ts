@@ -20,7 +20,7 @@ export class TransactionsModalComponent {
   activo = -1;
 
   /* para crear Cuenta */
-  bancoSelected: any = { "BancoIcono": "banks/efectivo.avif" };
+  bancoSelected: any = { BancoIcono: "banks/efectivo.avif" };
   categorySelected: any = { Icono: '' };
   verBanco = false;
   verCategory = false;
@@ -41,6 +41,7 @@ export class TransactionsModalComponent {
       this.categorySelected = this.Todascategorias[0];
       this.finanzasService.getCuentas().subscribe(data => {
         this.banks = data;
+        console.log(data);
         this.bancoSelected = this.banks[0];
       });
     });

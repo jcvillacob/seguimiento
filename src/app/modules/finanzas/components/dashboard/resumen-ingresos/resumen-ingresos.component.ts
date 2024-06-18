@@ -1,7 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { transaccionesMes } from '../dashboard.component';
 
 @Component({
   selector: 'app-resumen-ingresos',
@@ -12,13 +12,20 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 })
 export class ResumenIngresosComponent implements AfterViewInit {
   @ViewChild('chartResumenIngresos') chartResumenIngresos!: ElementRef<HTMLCanvasElement>;
-  categoriasData: any = [
-    { name: 'Salario', ingreso: 1200000, color: 'rgb(66, 135, 245)' },
-    { name: 'Freelance', ingreso: 500000, color: 'rgb(23, 84, 28)' },
-    { name: 'Otros', ingreso: 50000, color: 'rgb(135, 135, 135)' },
-  ];
+  transaccionesMes = transaccionesMes;
+  chartInstance: Chart<'doughnut'> | null = null;
+  categoriasData: any = [];
 
   constructor(private cdr: ChangeDetectorRef) {
+    effect(() => {
+      const data: any = this.transaccionesMes();
+      if (data.transacciones) {
+        this.categoriasData = data.transacciones.filter((d: any) => d.Tipo == 'Ingreso');
+        this.createPieChart();
+      } else {
+        console.log('no hay dato');
+      }
+    });
     Chart.register(...registerables);
   }
 
@@ -28,10 +35,46 @@ export class ResumenIngresosComponent implements AfterViewInit {
   }
 
   processData(data: any) {
-    const labels = data.map((item: any) => item.name);
-    const ingresos = data.map((item: any) => item.ingreso);
-    const colors = data.map((item: any) => item.color);
-    const total = ingresos.reduce((acc: number, ingreso: number) => acc + ingreso, 0);
+    // Agrupar las transacciones por categoría
+    const groupedData = data.reduce((acc: any, item: any) => {
+      const existingCategory = acc.find((cat: any) => cat.NombreCategoria === item.NombreCategoria);
+      if (existingCategory) {
+        existingCategory.Monto += item.Monto;
+      } else {
+        acc.push({ ...item });
+      }
+      return acc;
+    }, []);
+
+    // Ordenar las categorías por monto de mayor a menor
+    groupedData.sort((a: any, b: any) => b.Monto - a.Monto);
+
+    // Agrupar las categorías adicionales en "Otros" si hay más de tres categorías
+    let labels = [];
+    let ingresos = [];
+    let colors = [];
+    let total = 0;
+
+    if (groupedData.length > 3) {
+      const topThree = groupedData.slice(0, 3);
+      const others = groupedData.slice(3);
+
+      labels = topThree.map((item: any) => item.NombreCategoria);
+      ingresos = topThree.map((item: any) => item.Monto);
+      colors = topThree.map((item: any) => item.Color);
+      total = ingresos.reduce((acc: number, Monto: number) => acc + Monto, 0);
+
+      const othersTotal = others.reduce((acc: number, item: any) => acc + item.Monto, 0);
+      labels.push('Otros');
+      ingresos.push(othersTotal);
+      colors.push('rgb(135, 135, 135)');
+      total += othersTotal;
+    } else {
+      labels = groupedData.map((item: any) => item.NombreCategoria);
+      ingresos = groupedData.map((item: any) => item.Monto);
+      colors = groupedData.map((item: any) => item.Color);
+      total = ingresos.reduce((acc: number, Monto: number) => acc + Monto, 0);
+    }
 
     return { labels, ingresos, colors, total };
   }
@@ -42,7 +85,11 @@ export class ResumenIngresosComponent implements AfterViewInit {
     const canvas = this.chartResumenIngresos.nativeElement;
     const context = canvas.getContext('2d');
     if (context) {
-      new Chart(context, {
+      if (this.chartInstance) {
+        this.chartInstance.destroy();
+      }
+
+      this.chartInstance = new Chart<'doughnut'>(context, {
         type: 'doughnut',
         data: {
           labels: labels,
@@ -53,7 +100,6 @@ export class ResumenIngresosComponent implements AfterViewInit {
             offset: 10,
             hoverOffset: 20,
             weight: 1,
-
           }]
         },
         options: {
@@ -65,7 +111,7 @@ export class ResumenIngresosComponent implements AfterViewInit {
         },
         plugins: [{
           id: 'centerText',
-          beforeDraw: function(chart) {
+          beforeDraw: function (chart) {
             const ctx = chart.ctx;
             const width = chart.width;
             const height = chart.height;

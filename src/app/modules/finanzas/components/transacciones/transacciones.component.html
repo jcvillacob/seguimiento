@@ -27,12 +27,12 @@
             <td>{{ transaction.Descripcion }}</td>
             <td>{{ transaction.NombreCategoria }}</td>
             <td>{{ transaction.NombreBanco }}</td>
-            <td [ngStyle]="{'color': getMontoColor(transaction)}">{{ transaction.Monto | currency }}</td>
+            <td [ngStyle]="{'color': getMontoColor(transaction)}">$ {{ transaction.Monto | number:'1.0-0' }}</td>
             <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
           </tr>
           <tr class="subtotal">
             <td colspan="4">Subtotal</td>
-            <td class="subtotal-value">{{ group.subtotal | currency }}</td>
+            <td class="subtotal-value">$ {{ group.subtotal | number:'1.0-0' }}</td>
             <td></td>
           </tr>
         </ng-container>
@@ -45,7 +45,7 @@
     <div class="resumen__card">
       <div class="card__saldo maven">
         <p>Saldo Actual</p>
-        <h5>{{ calculateBalance() | currency }}</h5>
+        <h5>{{ balanceMes | number:'1.0-0' }}</h5>
       </div>
       <div class="card__icon">
         <i class="fa-solid fa-coins"></i>
@@ -54,7 +54,7 @@
     <div class="resumen__card">
       <div class="card__saldo maven">
         <p>Ingresos</p>
-        <h5>{{ calculateIngresos() | currency }}</h5>
+        <h5>{{ ingresosMes | number:'1.0-0' }}</h5>
       </div>
       <div class="card__icon">
         <i class="fa-solid fa-angle-up"></i>
@@ -63,7 +63,7 @@
     <div class="resumen__card">
       <div class="card__saldo maven">
         <p>Gastos</p>
-        <h5>{{ calculateGastos() | currency }}</h5>
+        <h5>{{ gastosMes | number:'1.0-0' }}</h5>
       </div>
       <div class="card__icon">
         <i class="fa-solid fa-angle-down"></i>
@@ -72,7 +72,7 @@
     <div class="resumen__card">
       <div class="card__saldo maven">
         <p>Balance Mes</p>
-        <h5>{{ calculateBalanceMes() | currency }}</h5>
+        <h5>{{ balanceMes | number:'1.0-0' }}</h5>
       </div>
       <div class="card__icon">
         <i class="fa-solid fa-scale-unbalanced-flip"></i>

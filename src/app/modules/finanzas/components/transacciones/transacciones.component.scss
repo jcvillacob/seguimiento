@@ -118,15 +118,39 @@
 }
 
 @media screen and (max-width: 620px) {
+  .titleContainer {
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+    & .title {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
   .transactionsContainer {
     flex-direction: column-reverse;
+  }
+  
+  .transactions {
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  .transactions__table {
+    width: auto;
   }
 
   .resumen {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
   }
 
@@ -138,11 +162,13 @@
 /* Tabla */
 .transactions__table {
   width: 100%;
+
   border-collapse: collapse;
   margin: 0;
   border-radius: 25px;
   overflow: hidden;
   color: var(--px-text);
+  table-layout: fixed;
 }
 
 th {
@@ -153,6 +179,7 @@ th {
   padding: 10px;
   font-weight: 400;
   border-bottom: 1px solid var(--px-dark);
+  white-space: nowrap;
 }
 
 td {
@@ -160,6 +187,7 @@ td {
   text-align: center;
   border-bottom: 1px solid var(--px-theme-2-opacity);
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .table__actions {
