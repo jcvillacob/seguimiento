@@ -21,23 +21,34 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let group of transactionsGroupedByDate">
-          <tr *ngFor="let transaction of group.transactions">
-            <td>{{ group.date }}</td>
-            <td>{{ transaction.Descripcion }}</td>
-            <td>{{ transaction.NombreCategoria }}</td>
-            <td>{{ transaction.NombreBanco }}</td>
-            <td [ngStyle]="{'color': getMontoColor(transaction)}">$ {{ transaction.Monto | number:'1.0-0' }}</td>
-            <td class="table__actions"><div><i class="fa-solid fa-ellipsis-vertical"></i></div></td>
-          </tr>
-          <tr class="subtotal">
-            <td colspan="4">Subtotal</td>
-            <td class="subtotal-value">$ {{ group.subtotal | number:'1.0-0' }}</td>
-            <td></td>
-          </tr>
+        <ng-container *ngIf="transactionsGroupedByDate && transactionsGroupedByDate.length > 0; else noData">
+          <ng-container *ngFor="let group of transactionsGroupedByDate">
+            <tr *ngFor="let transaction of group.transactions">
+              <td>{{ group.date }}</td>
+              <td>{{ transaction.Descripcion }}</td>
+              <td>{{ transaction.NombreCategoria }}</td>
+              <td>{{ transaction.NombreBanco }}</td>
+              <td [ngStyle]="{'color': getMontoColor(transaction)}">$ {{ transaction.Monto | number:'1.0-0' }}</td>
+              <td class="table__actions">
+                <div><i class="fa-solid fa-ellipsis-vertical"></i></div>
+              </td>
+            </tr>
+            <tr class="subtotal">
+              <td colspan="4">Subtotal</td>
+              <td class="subtotal-value">$ {{ group.subtotal | number:'1.0-0' }}</td>
+              <td></td>
+            </tr>
+          </ng-container>
         </ng-container>
       </tbody>
     </table>
+    <ng-template #noData class="no_data maven">
+      <tr>
+        <td colspan="6">
+          <p>No hay datos de transacciones disponibles.</p>
+        </td>
+      </tr>
+    </ng-template>
   </div>
 
   <!-- Resumen -->
@@ -45,7 +56,7 @@
     <div class="resumen__card">
       <div class="card__saldo maven">
         <p>Saldo Actual</p>
-        <h5>{{ balanceMes | number:'1.0-0' }}</h5>
+        <h5>{{ saldoActual | number:'1.0-0' }}</h5>
       </div>
       <div class="card__icon">
         <i class="fa-solid fa-coins"></i>

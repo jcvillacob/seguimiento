@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
+import { transaccionesMes } from '../dashboard.component';
 
 @Component({
   selector: 'app-resumen-cumplimiento',
@@ -12,12 +13,21 @@ import { Chart, registerables } from 'chart.js';
 })
 export class ResumenCumplimientoComponent implements AfterViewInit {
   @ViewChild('chartResumenCumplimiento') chartResumenCumplimiento!: ElementRef<HTMLCanvasElement>;
+  chartInstance: Chart<'doughnut'> | null = null;
+  transaccionesMes = transaccionesMes;
   cumplimientoData: any = {
-    ingreso: 1200000,
-    gasto: 900000
+    ingresos: 1200000,
+    gastos: 900000
   };
 
   constructor(private cdr: ChangeDetectorRef) {
+    effect(() => {
+      const data: any = this.transaccionesMes();
+      if (data) {
+        this.cumplimientoData = data;
+        this.createPieChart();
+      }
+    });
     Chart.register(...registerables);
   }
 
@@ -30,11 +40,15 @@ export class ResumenCumplimientoComponent implements AfterViewInit {
     const canvas = this.chartResumenCumplimiento.nativeElement;
     const context = canvas.getContext('2d');
     if (context) {
-      const cumplimiento = (this.cumplimientoData.ingreso - this.cumplimientoData.gasto) * 100 / this.cumplimientoData.ingreso;
+      const cumplimiento = (this.cumplimientoData.ingresos - this.cumplimientoData.gastos) * 100 / this.cumplimientoData.ingresos;
       const limite = 20;
       const color = cumplimiento < limite ? '#bf0412' : '#10B981';
 
-      new Chart(context, {
+      if (this.chartInstance) {
+        this.chartInstance.destroy();
+      }
+
+      this.chartInstance = new Chart(context, {
         type: 'doughnut',
         data: {
           datasets: [

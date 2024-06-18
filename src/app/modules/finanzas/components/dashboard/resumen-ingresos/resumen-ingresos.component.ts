@@ -22,8 +22,6 @@ export class ResumenIngresosComponent implements AfterViewInit {
       if (data.transacciones) {
         this.categoriasData = data.transacciones.filter((d: any) => d.Tipo == 'Ingreso');
         this.createPieChart();
-      } else {
-        console.log('no hay dato');
       }
     });
     Chart.register(...registerables);
@@ -61,7 +59,7 @@ export class ResumenIngresosComponent implements AfterViewInit {
 
       labels = topThree.map((item: any) => item.NombreCategoria);
       ingresos = topThree.map((item: any) => item.Monto);
-      colors = topThree.map((item: any) => item.Color);
+      colors = topThree.map((item: any) => item.ColorCategoria);
       total = ingresos.reduce((acc: number, Monto: number) => acc + Monto, 0);
 
       const othersTotal = others.reduce((acc: number, item: any) => acc + item.Monto, 0);
@@ -72,7 +70,7 @@ export class ResumenIngresosComponent implements AfterViewInit {
     } else {
       labels = groupedData.map((item: any) => item.NombreCategoria);
       ingresos = groupedData.map((item: any) => item.Monto);
-      colors = groupedData.map((item: any) => item.Color);
+      colors = groupedData.map((item: any) => item.ColorCategoria);
       total = ingresos.reduce((acc: number, Monto: number) => acc + Monto, 0);
     }
 

@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, Signal, computed, effect, signal } from '@angular/core';
 import { FinanzasService } from '../../../../services/finanzas.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { balancesUltimosSeisMeses, transaccionesMes } from '../../../dashboard/dashboard.component';
+import { monthYear } from '../../main.component';
+import { toastSignal } from '../../../../../../shared/components/toast/toast.component';
 
 export const transactionsModal = signal('close');
 
@@ -14,6 +17,10 @@ export const transactionsModal = signal('close');
 })
 export class TransactionsModalComponent {
   transactionsModal = transactionsModal;
+  transaccionesMes = transaccionesMes;
+  balancesUltimosSeisMeses = balancesUltimosSeisMeses;
+  toastSignal = toastSignal;
+  monthYear = monthYear;
   banks: any[] = [];
   categorias: any[] = [];
   Todascategorias: any[] = [];
@@ -41,14 +48,13 @@ export class TransactionsModalComponent {
       this.categorySelected = this.Todascategorias[0];
       this.finanzasService.getCuentas().subscribe(data => {
         this.banks = data;
-        console.log(data);
         this.bancoSelected = this.banks[0];
       });
     });
     effect(() => {
       const text = this.transactionsModal();
-      this.categorias= this.Todascategorias.filter(d => d.Tipo == text);
-      if(this.categorias.length) {
+      this.categorias = this.Todascategorias.filter(d => d.Tipo == text);
+      if (this.categorias.length) {
         this.categorySelected = this.categorias[0];
       }
     });
@@ -104,10 +110,17 @@ export class TransactionsModalComponent {
 
       this.finanzasService.createTransaccion(formData).subscribe(
         response => {
-          console.log('Transacción creada con éxito:', response);
+          this.toastSignal.set('Transacción Creada Correctamente.')
           this.toggleModal();
           this.transactionForm.reset();
           this.transactionForm.patchValue({ saldo: 0, recurrente: false });
+          const text = this.monthYear();
+          this.finanzasService.getTransaccionesMes(text).subscribe((data: any) => {
+            this.transaccionesMes.set(data);
+            this.finanzasService.balancesUltimosSeisMeses().subscribe(data => {
+              this.balancesUltimosSeisMeses.set(data);
+            })
+          });
         },
         error => {
           console.error('Error al crear la transacción:', error);

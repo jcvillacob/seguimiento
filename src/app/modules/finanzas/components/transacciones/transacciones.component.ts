@@ -17,6 +17,7 @@ export class TransaccionesComponent {
   balanceMes!: number;
   gastosMes!: number;
   ingresosMes!: number;
+  saldoActual!: number;
   transactions: any[] = [];
   transactionsGroupedByDate: { date: string, transactions: any[], subtotal: number }[] = [];
 
@@ -29,11 +30,11 @@ export class TransaccionesComponent {
 
   getTransactions(monthYear: string) {
     this.finanzasService.getTransaccionesMes(monthYear).subscribe((data: any) => {
-      console.log(data);
       this.transactions = data.transacciones;
       this.gastosMes = data.gastos;
       this.ingresosMes = data.ingresos;
       this.balanceMes = data.balance;
+      this.saldoActual = data.saldoActual;
       this.groupTransactionsByDate();
     });
   }
@@ -63,7 +64,7 @@ export class TransaccionesComponent {
     });
   }
 
-/* 
+/*
   calculateIngresos(): number {
     return this.transactions
       .filter(transaction => transaction.Tipo === 'Ingreso')
@@ -92,7 +93,7 @@ export class TransaccionesComponent {
     return ingresosMes - gastosMes;
   }
  */
-  
+
   getMontoColor(transaction: any): string {
     return transaction.Tipo === 'Ingreso' ? 'green' : 'red';
   }

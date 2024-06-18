@@ -1,5 +1,5 @@
 <nav class="sidebar" [ngClass]="{ 'active': isSidebarExpanded() }">
-  <img src="https://web.mobills.com.br/static/media/LogoNameMobillsLight.d000784f.svg" alt="Logo" class="sidebar__logo">
+  <img src="Logo/logo.png" alt="Logo" class="sidebar__logo">
 
   <button class="sidebar__plusbutton" (click)="new()">
     <i class="fa-solid fa-plus"></i>
@@ -21,6 +21,12 @@
       <span class="item__name maven">{{ item.title }}</span>
     </li>
     }
+    <li class="list__item" (click)="logout()">
+      <div class="item__icon">
+        <img [src]="'https://img.icons8.com/?size=48&id=j2pPMjU3208I&format=png'" alt="">
+      </div>
+      <span class="item__name maven">Cerrar Sesión</span>
+    </li>
   </ul>
 </nav>
 

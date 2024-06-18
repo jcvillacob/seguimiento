@@ -14,17 +14,14 @@ export class ResumenBalanceMesComponent implements AfterViewInit {
   @ViewChild('chartResumenBalance') chartResumenBalance!: ElementRef<HTMLCanvasElement>;
   chartInstance: Chart | null = null;
   balancesUltimosSeisMeses = balancesUltimosSeisMeses;
-  balanceData: any[] = [];
+  balanceData: { mes: string, ingreso: number, gasto: number }[] = [];
 
   constructor(private cdr: ChangeDetectorRef) {
     effect(() => {
       const data: any = this.balancesUltimosSeisMeses();
-      if (data) {
-        this.balanceData = this.getLastThreeMonthsData(data); // Tomar solo los últimos 3 meses
-        console.log(this.balanceData);
+      if (Array.isArray(data)) {
+        this.balanceData = this.getLastThreeMonthsData(data);
         this.createBarChart();
-      } else {
-        console.log('no hay dato');
       }
     });
     Chart.register(...registerables);
@@ -35,12 +32,12 @@ export class ResumenBalanceMesComponent implements AfterViewInit {
     this.cdr.detectChanges();
   }
 
-  getLastThreeMonthsData(data: any) {
+  getLastThreeMonthsData(data: any[]): { mes: string, ingreso: number, gasto: number }[] {
     const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     const currentDate = new Date();
-    const result = [];
+    const result: { mes: string, ingreso: number, gasto: number }[] = [];
 
-    for (let i = 2; i >= 0; i--) { // Últimos 3 meses
+    for (let i = 2; i >= 0; i--) {
       const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
       const year = date.getFullYear();
       const month = date.getMonth() + 1;

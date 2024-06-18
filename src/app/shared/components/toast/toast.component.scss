@@ -1,0 +1,30 @@
+.toast__container {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  z-index: 9999999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.container__logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: green;
+  color: white;
+}
+
+.text {
+  color: var(--px-text);
+  font-size: 16px;
+  font-weight: 400;
+}

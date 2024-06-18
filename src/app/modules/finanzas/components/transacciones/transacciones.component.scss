@@ -49,7 +49,7 @@
 
 .transactions {
   width: 70%;
-  min-height: 350px;
+  min-height: none;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -136,7 +136,7 @@
   .transactionsContainer {
     flex-direction: column-reverse;
   }
-  
+
   .transactions {
     width: 100%;
     overflow-x: scroll;
@@ -215,4 +215,9 @@ td {
   font-weight: bold;
   border-bottom: 1px solid var(--px-dark);
   color: var(--px-theme-2);
+}
+
+.no_data {
+  width: 100%;
+  text-align: center;
 }

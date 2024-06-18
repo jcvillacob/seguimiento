@@ -9,7 +9,7 @@
           <i class="fa-solid fa-chevron-right"></i>
         </div>
         <div class="numbers__number">
-          $ {{ cards.balance | number:'1.0-0' }}
+          $ {{ cards.saldoActual | number:'1.0-0' }}
         </div>
       </div>
 
@@ -62,11 +62,11 @@
     <div class="cards__data maven">
       <div class="data__numbers">
         <div class="numbers__text">
-          <p>Tarjetas</p>
+          <p>Balance Mes</p>
           <i class="fa-solid fa-chevron-right"></i>
         </div>
         <div class="numbers__number">
-          $ {{ cards.tarjetas || 0 | number:'1.0-0' }}
+          $ {{ cards.balance || 0 | number:'1.0-0' }}
         </div>
       </div>
 

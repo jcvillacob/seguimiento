@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environments';
+import { AuthService } from '../../../core/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { environment } from '../../../../environments/environments';
 export class FinanzasService {
   private apiUrl = environment.apiURL;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
 
   }
 
@@ -28,17 +29,17 @@ export class FinanzasService {
   }
 
   getTransaccionByUser(): Observable<any[]> {
-    const usuarioID = '1';
+    const usuarioID = this.authService.getUsuarioID();
     return this.http.get<any[]>(`${this.apiUrl}/transacciones/usuario/${usuarioID}`);
   }
 
   getTransaccionesMes(monthYear: string): Observable<any[]> {
-    const usuarioID = '1';
+    const usuarioID = this.authService.getUsuarioID();
     return this.http.get<any[]>(`${this.apiUrl}/transacciones/transaccionesmes/${usuarioID}?${monthYear}`);
   }
 
   balancesUltimosSeisMeses(): Observable<any[]> {
-    const usuarioID = '1';
+    const usuarioID = this.authService.getUsuarioID();
     return this.http.get<any[]>(`${this.apiUrl}/transacciones/balancesUltimosSeisMeses/${usuarioID}`);
   }
 
@@ -62,7 +63,7 @@ export class FinanzasService {
 
   /* Cuentas */
   getCuentas(): Observable<any[]> {
-    const usuarioID = '1';
+    const usuarioID = this.authService.getUsuarioID();
     return this.http.get<any[]>(`${this.apiUrl}/cuentas/usuario/${usuarioID}`);
   }
 

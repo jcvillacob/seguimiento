@@ -22,8 +22,6 @@ export class ResumenGastosComponent implements AfterViewInit {
       if(data.transacciones) {
         this.categoriasData = data.transacciones.filter((d: any) => d.Tipo == 'Gasto');
         this.createPieChart();
-      } else {
-        console.log('no hay dato');
       }
     });
     Chart.register(...registerables);
@@ -45,25 +43,25 @@ export class ResumenGastosComponent implements AfterViewInit {
       }
       return acc;
     }, []);
-  
+
     // Ordenar las categorías por monto de mayor a menor
     groupedData.sort((a: any, b: any) => b.Monto - a.Monto);
-  
+
     // Agrupar las categorías adicionales en "Otros" si hay más de tres categorías
     let labels = [];
     let gastos = [];
     let colors = [];
     let total = 0;
-  
+
     if (groupedData.length > 3) {
       const topThree = groupedData.slice(0, 3);
       const others = groupedData.slice(3);
-  
+
       labels = topThree.map((item: any) => item.NombreCategoria);
       gastos = topThree.map((item: any) => item.Monto);
-      colors = topThree.map((item: any) => item.Color);
+      colors = topThree.map((item: any) => item.ColorCategoria);
       total = gastos.reduce((acc: number, Monto: number) => acc + Monto, 0);
-  
+
       const othersTotal = others.reduce((acc: number, item: any) => acc + item.Monto, 0);
       labels.push('Otros');
       gastos.push(othersTotal);
@@ -72,13 +70,13 @@ export class ResumenGastosComponent implements AfterViewInit {
     } else {
       labels = groupedData.map((item: any) => item.NombreCategoria);
       gastos = groupedData.map((item: any) => item.Monto);
-      colors = groupedData.map((item: any) => item.Color);
+      colors = groupedData.map((item: any) => item.ColorCategoria);
       total = gastos.reduce((acc: number, Monto: number) => acc + Monto, 0);
     }
-  
+
     return { labels, gastos, colors, total };
   }
-  
+
   createPieChart() {
     const { labels, gastos, colors, total } = this.processData(this.categoriasData);
 
@@ -88,7 +86,7 @@ export class ResumenGastosComponent implements AfterViewInit {
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }
-        
+
       this.chartInstance = new Chart<'doughnut'>(context, {
         type: 'doughnut',
         data: {

@@ -5,8 +5,8 @@
 }
 
 .nav__img {
-  width: 144px;
-  height: 48px;
+  width: auto;
+  height: 70px;
   padding-left: 16px;
 }
 
@@ -15,7 +15,7 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  min-height: 90%;
+  min-height: calc(100vh - 150px);
 }
 
 .container__izquierda, .container__derecha {
@@ -26,7 +26,7 @@
 }
 
 .izquierda__title {
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--px-heading);
   font-size: 32px;
   font-weight: 900;
   line-height: 1.235;
@@ -38,7 +38,7 @@
 }
 
 .izquierda__text {
-  color: rgb(128, 128, 128);
+  color: var(--px-text);
   font-size: 16px;
   font-weight: 400;
   max-width: 450px;
@@ -55,7 +55,7 @@
     justify-content: center;
     margin-top: 30px;
   }
-  
+
   .nav__img {
     width: 80%;
     height: auto;

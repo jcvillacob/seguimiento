@@ -20,11 +20,8 @@ export class ResumenBalanceUltimosComponent implements AfterViewInit {
     effect(() => {
       const data: any = this.balancesUltimosSeisMeses();
       if (data) {
-        this.balanceData = data;
-        console.log(this.balanceData)
+        this.balanceData = Array.isArray(data) ? data : [];
         this.createLineChart();
-      } else {
-        console.log('no hay dato');
       }
     });
     Chart.register(...registerables);

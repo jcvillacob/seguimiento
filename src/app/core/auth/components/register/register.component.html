@@ -1,48 +1,51 @@
 <div class="buttons">
-    <div class="buttons__buttons">
-        <button class="buttons__google maven">
-            <img src="/icons/logo-de-google.svg" alt="logo-google" class="google__icon">
-            Acceder con Google
-        </button>
-    </div>
+  <div class="buttons__buttons">
+    <button class="buttons__google maven">
+      <img src="/icons/logo-de-google.svg" alt="logo-google" class="google__icon">
+      Acceder con Google
+    </button>
+  </div>
 
-    <div class="buttons__buttons">
-        <button class="buttons__apple maven">
-            <img src="/icons/apple-logo.svg" alt="logo-apple" class="apple__icon">
-            Inicia sesión con Apple
-        </button>
-    </div>
+  <div class="buttons__buttons">
+    <button class="buttons__apple maven">
+      <img src="/icons/apple-logo.svg" alt="logo-apple" class="apple__icon">
+      Inicia sesión con Apple
+    </button>
+  </div>
 </div>
 
 <p class="separate">O</p>
 
+<form [formGroup]="registerForm" (ngSubmit)="register()" class="form">
+  <div class="form__inputGroup noto">
+    <input formControlName="nombre" type="text" required autocomplete="off">
+    <label for="nombre">Nombre</label>
+  </div>
 
-<form action="" class="form">
-    <div class="form__inputGroup noto">
-        <input type="text" required="" autocomplete="off">
-        <label for="username">Username</label>
-    </div>
+  <div class="form__inputGroup noto">
+    <input formControlName="username" type="text" required autocomplete="off">
+    <label for="username">Username</label>
+  </div>
 
-    <div class="form__inputGroup noto">
-        <input type="email" required="" autocomplete="off">
-        <label for="email">Correo Electrónico</label>
-    </div>
+  <div class="form__inputGroup noto">
+    <input formControlName="email" type="email" required autocomplete="off">
+    <label for="email">Correo Electrónico</label>
+  </div>
 
-    <div class="form__inputGroup noto">
-        <input type="password" required="" autocomplete="off">
-        <label for="password">Password</label>
-    </div>
+  <div class="form__inputGroup noto">
+    <input formControlName="contraseña" type="password" required autocomplete="off">
+    <label for="contraseña">Password</label>
+  </div>
 
-    <button class="form__button noto">Guardar y Registrar</button>
+  <button type="submit" class="form__button noto">Guardar y Registrar</button>
 </form>
 
 <div class="finalText maven">
-    <p class="finalTex__text">
-        Al registrar, acepto los <span>Términos de uso</span> e <span>Términos y Aviso de Privacidad</span> de Mobills.
-    </p>
+  <p class="finalTex__text">
+    Al registrar, acepto los <span>Términos de uso</span> e <span>Términos y Aviso de Privacidad</span> de Mobills.
+  </p>
 </div>
 
-
 <div class="registrar noto">
-    ¿Ya tienes una cuenta? <span class="registrar__enlace" routerLink="../login">Inicia sesión</span>
+  ¿Ya tienes una cuenta? <span class="registrar__enlace" routerLink="../login">Inicia sesión</span>
 </div>

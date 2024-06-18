@@ -4,6 +4,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TransactionsModalComponent, transactionsModal } from './transactions-modal/transactions-modal.component';
 import { FinanzasService } from '../../../services/finanzas.service';
+import { AuthService } from '../../../../../core/auth/services/auth.service';
 
 
 @Component({
@@ -28,13 +29,14 @@ export class SidebarComponent {
     { icon: 'ybfklM8wYSX1', title: 'Configuraciones', href: 'configuraciones' }
   ];
 
-  constructor(private router: Router, private finanzasService: FinanzasService) {
+  constructor(private router: Router, private finanzasService: FinanzasService, private authService: AuthService) {
   }
 
   ngOnInit() {}
 
   logout() {
-    this.router.navigate(['/login']);
+    console.log('logout');
+    this.authService.logout();
   }
 
   toggleSidebar() {

@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FinanzasService } from '../../services/finanzas.service';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../../core/auth/services/auth.service';
+import { toastSignal } from '../../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-cuentas',
@@ -14,6 +16,7 @@ import { FormsModule } from '@angular/forms';
   ]
 })
 export class CuentasComponent {
+  toastSignal = toastSignal;
   banks: any[] = [];
   counts: any[] = [];
   balance: number = 0;
@@ -32,7 +35,7 @@ export class CuentasComponent {
   incluirEnDashboard: boolean = true;
   cuentaID: number | null = null;  // Para manejar la actualización
 
-  constructor(private finanzasService: FinanzasService) {
+  constructor(private finanzasService: FinanzasService, private authService: AuthService) {
     this.getcuentas();
   }
 
@@ -79,7 +82,7 @@ export class CuentasComponent {
 
   createCuenta() {
     const cuentaData = {
-      usuarioID: 1,
+      usuarioID: this.authService.getUsuarioID(),
       bancoID: this.bancoSelected.BancoID,
       saldo: this.saldo,
       descripcion: this.descripcion,
@@ -88,6 +91,7 @@ export class CuentasComponent {
     };
 
     this.finanzasService.createCuenta(cuentaData).subscribe(response => {
+      this.toastSignal.set('Cuenta Creada Correctamente.')
       this.toggleModal();
       this.getcuentas();
     }, error => {
@@ -106,6 +110,7 @@ export class CuentasComponent {
 
     if (this.cuentaID !== null) {
       this.finanzasService.updateCuenta(this.cuentaID, cuentaData).subscribe(response => {
+        this.toastSignal.set('Cuenta Actualizada Correctamente.')
         this.toggleModal();
         this.getcuentas();
       }, error => {
@@ -135,6 +140,7 @@ export class CuentasComponent {
 
   archivarCuenta(cuentaID: number, inactivo: number) {
     this.finanzasService.updateActivo(cuentaID, inactivo).subscribe(data => {
+      this.toastSignal.set('Cuenta Archivada Correctamente.')
       this.getcuentas();
     })
   }
