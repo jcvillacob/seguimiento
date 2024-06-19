@@ -31,17 +31,17 @@
               <td [ngStyle]="{'color': getMontoColor(transaction)}">$ {{ transaction.Monto | number:'1.0-0' }}</td>
               <td class="table__actions">
                 <div class="transactions__menu" (click)="toggleTransactionMenu(transaction.TransaccionID)">
-                  <i class="fa-solid fa-ellipsis-vertical"></i>
-                  <div [id]="'transaction__menu' + transaction.TransaccionID" class="transaction__menu" [ngClass]="{'active_i': activeTransactionMenu === transaction.TransaccionID}">
-                    <ul class="maven">
+                  <i class="fa-solid fa-ellipsis-vertical icon"></i>
+                  <div [id]="'transaction__menu' + transaction.TransaccionID" class="transaction__menu" [ngClass]="{'active_t': activeTransactionMenu === transaction.TransaccionID}">
+                    <ul class="menu__list maven">
                       <li (click)="editTransaction(transaction)">Editar</li>
                       <li (click)="deleteTransaction(transaction.TransaccionID)">Eliminar</li>
                     </ul>
                   </div>
                 </div>
               </td>
-              
-              
+
+
             </tr>
             <tr class="subtotal">
               <td colspan="4">Subtotal</td>

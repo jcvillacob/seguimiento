@@ -45,6 +45,10 @@ export class FinanzasService {
     return this.http.post<any>(`${this.apiUrl}/transacciones`, data);
   }
 
+  updateTransaccion(transaccionId: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/transacciones/${transaccionId}`, data);
+  }
+
   deleteTransaccion(transaccionId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/transacciones/${transaccionId}`);
   }

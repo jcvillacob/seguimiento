@@ -194,7 +194,7 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  & div {
+  & .icon {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -228,19 +228,20 @@ td {
 
 .transaction__menu {
   position: absolute;
-  top: 20px; /* ajusta según sea necesario */
+  display: none;
+  top: 0px;
   right: 0;
   background-color: var(--px-white);
   border-radius: 15px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.267);
-  padding: 16px;
-  display: none;
+  padding: 10px;
+  z-index: 9999;
 
-  &.active_i {
-    display: block;
+  &.active_t {
+    display: flex;
   }
 
-  ul {
+  & .menu__list {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -249,7 +250,7 @@ td {
     gap: 4px;
   }
 
-  ul li {
+  & .menu__list li {
     width: 100%;
     font-size: 16px;
     padding: 8px;

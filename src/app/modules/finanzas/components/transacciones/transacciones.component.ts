@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, HostListener } from '@angular/core';
-import { transactionsModal } from '../main/sidebar/transactions-modal/transactions-modal.component';
+import { transactionsModal, transactionsModalEdit } from '../main/sidebar/transactions-modal/transactions-modal.component';
 import { FinanzasService } from '../../services/finanzas.service';
 import { monthYear } from '../main/main.component';
+import { transaccionesMes } from '../dashboard/dashboard.component';
+import { toastSignal } from '../../../../shared/components/toast/toast.component';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-transacciones',
@@ -13,7 +16,10 @@ import { monthYear } from '../main/main.component';
 })
 export class TransaccionesComponent {
   transactionsModal = transactionsModal;
+  transaccionesMes = transaccionesMes;
+  transactionsModalEdit = transactionsModalEdit;
   monthYear = monthYear;
+  toastSignal = toastSignal;
   balanceMes!: number;
   gastosMes!: number;
   ingresosMes!: number;
@@ -23,20 +29,23 @@ export class TransaccionesComponent {
   activeTransactionMenu: number | null = null;
 
   constructor(private finanzasService: FinanzasService) {
+    this.getTransactions(this.monthYear())
     effect(() => {
-      const text = this.monthYear();
-      this.getTransactions(text);
+      const data: any = this.transaccionesMes();
+      if (data.transacciones) {
+        this.transactions = data.transacciones;
+        this.gastosMes = data.gastos;
+        this.ingresosMes = data.ingresos;
+        this.balanceMes = data.balance;
+        this.saldoActual = data.saldoActual;
+        this.groupTransactionsByDate();
+      }
     });
   }
 
   getTransactions(monthYear: string) {
     this.finanzasService.getTransaccionesMes(monthYear).subscribe((data: any) => {
-      this.transactions = data.transacciones;
-      this.gastosMes = data.gastos;
-      this.ingresosMes = data.ingresos;
-      this.balanceMes = data.balance;
-      this.saldoActual = data.saldoActual;
-      this.groupTransactionsByDate();
+      this.transaccionesMes.set(data);
     });
   }
 
@@ -71,17 +80,34 @@ export class TransaccionesComponent {
 
   toggleTransactionMenu(transaccionID: number) {
     this.activeTransactionMenu = this.activeTransactionMenu === transaccionID ? null : transaccionID;
-    console.log('activeTransactionMenu:', this.activeTransactionMenu);
   }
 
   editTransaction(transaction: any) {
-    console.log('Edit transaction:', transaction);
-    // Lógica para editar la transacción
+    this.transactionsModalEdit.set(transaction);
+    this.transactionsModal.set(transaction.Tipo);
   }
 
   deleteTransaction(transaccionID: number) {
-    console.log('Delete transaction:', transaccionID);
-    // Lógica para eliminar la transacción
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¡Se eliminará completamente!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, Eliminar!",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.finanzasService.deleteTransaccion(transaccionID).subscribe(data => {
+          this.toastSignal.set('Transferencia Eliminada Correctamente.');
+          const text = this.monthYear();
+          this.finanzasService.getTransaccionesMes(text).subscribe((data: any) => {
+            this.transaccionesMes.set(data);
+          })
+        })
+      }
+    });
   }
 
   @HostListener('document:click', ['$event'])

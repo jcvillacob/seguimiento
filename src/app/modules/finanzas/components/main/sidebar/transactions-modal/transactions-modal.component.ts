@@ -1,27 +1,13 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  HostListener,
-  Signal,
-  computed,
-  effect,
-  signal,
-} from '@angular/core';
+import { Component, HostListener, effect, signal } from '@angular/core';
 import { FinanzasService } from '../../../../services/finanzas.service';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import {
-  balancesUltimosSeisMeses,
-  transaccionesMes,
-} from '../../../dashboard/dashboard.component';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { balancesUltimosSeisMeses, transaccionesMes } from '../../../dashboard/dashboard.component';
 import { monthYear } from '../../main.component';
 import { toastSignal } from '../../../../../../shared/components/toast/toast.component';
 
 export const transactionsModal = signal('close');
+export const transactionsModalEdit = signal({});
 
 @Component({
   selector: 'app-transactions-modal',
@@ -33,6 +19,7 @@ export const transactionsModal = signal('close');
 export class TransactionsModalComponent {
   transactionsModal = transactionsModal;
   transaccionesMes = transaccionesMes;
+  transactionsModalEdit = transactionsModalEdit;
   balancesUltimosSeisMeses = balancesUltimosSeisMeses;
   toastSignal = toastSignal;
   monthYear = monthYear;
@@ -42,20 +29,18 @@ export class TransactionsModalComponent {
   Todascategorias: any[] = [];
   activo = -1;
 
-  /* para crear Cuenta */
+  /* para crear Transaccion */
   bancoSelected: any = { BancoIcono: 'banks/efectivo.avif' };
   destinationBankSelected: any = { BancoIcono: '' };
   categorySelected: any = { Icono: '' };
   verBanco = false;
   verDestinationBank = false;
   verCategory = false;
+  type = 'Registrar ';
 
   transactionForm: FormGroup;
 
-  constructor(
-    private finanzasService: FinanzasService,
-    private fb: FormBuilder
-  ) {
+  constructor(private finanzasService: FinanzasService, private fb: FormBuilder) {
     this.transactionForm = this.fb.group({
       saldo: [0, Validators.required],
       fecha: ['', Validators.required],
@@ -75,18 +60,49 @@ export class TransactionsModalComponent {
     });
     effect(() => {
       const text = this.transactionsModal();
+      const transaccion: any = this.transactionsModalEdit();
+
       this.categorias = this.Todascategorias.filter((d) => d.Tipo == text);
       if (this.categorias.length) {
         this.categorySelected = this.categorias[0];
       }
+
+      if (transaccion.TransaccionID) {
+        this.type = 'Editar ';
+        // Actualizar los campos del formulario con los datos de la transacción a editar
+        this.transactionForm.patchValue({
+          saldo: transaccion.Monto,
+          fecha: transaccion.Fecha.split('T')[0],
+          descripcion: transaccion.Descripcion,
+          recurrente: transaccion.Recurrente || false, // Si tiene un campo recurrente
+        });
+
+        // Seleccionar banco y categoría basados en los datos de la transacción a editar
+        this.bancoSelected = this.banks.find(bank => bank.CuentaID === transaccion.CuentaID) || this.banks[0];
+        this.categorySelected = this.Todascategorias.find(cat => cat.CategoriaID === transaccion.CategoriaID) || this.Todascategorias[0];
+
+        if (transaccion.Tipo === 'transferencia') {
+          this.destinationBankSelected = this.destinationBanks.find(bank => bank.CuentaID === transaccion.CuentaDestinoID) || this.destinationBanks[0];
+        }
+      }
     });
+
   }
 
   toggleModal() {
     this.transactionsModal.set('close');
+    this.transactionsModalEdit.set({});
+    this.type = 'Registrar ';
     this.verBanco = false;
     this.verDestinationBank = false;
     this.verCategory = false;
+    this.transactionForm = this.fb.group({
+      saldo: [0, Validators.required],
+      fecha: ['', Validators.required],
+      descripcion: [''],
+      recurrente: [false],
+    });
+    this.bancoSelected = this.banks[0];
   }
 
   verBancos() {
@@ -132,6 +148,7 @@ export class TransactionsModalComponent {
 
   onSubmit() {
     if (this.transactionForm.valid) {
+      const transaccion: any = this.transactionsModalEdit();
       const formData = {
         cuentaID: this.bancoSelected.CuentaID,
         categoriaID: this.categorySelected.CategoriaID,
@@ -142,61 +159,75 @@ export class TransactionsModalComponent {
         recurrente: this.transactionForm.value.recurrente,
       };
 
-      if (this.transactionsModal() === 'transferencia') {
-        // Lógica para crear transferencia
-        const transferData = {
-          cuentaOrigenID: this.bancoSelected.CuentaID,
-          cuentaDestinoID: this.destinationBankSelected.CuentaID,
-          monto: this.transactionForm.value.saldo,
-          fecha: this.transactionForm.value.fecha,
-          descripcion: this.transactionForm.value.descripcion,
-        };
-        this.finanzasService.createTransferencia(transferData).subscribe(
+      if (transaccion.TransaccionID) {
+        // Lógica para editar una transacción existente
+        this.finanzasService.updateTransaccion(transaccion.TransaccionID, formData).subscribe(
           (response) => {
-            this.toastSignal.set('Transferencia Creada Correctamente.');
+            this.toastSignal.set('Transacción Actualizada Correctamente.');
             this.toggleModal();
             this.transactionForm.reset();
             this.transactionForm.patchValue({ saldo: 0, recurrente: false });
             const text = this.monthYear();
-            this.finanzasService
-              .getTransaccionesMes(text)
-              .subscribe((data: any) => {
-                this.transaccionesMes.set(data);
-                this.finanzasService
-                  .balancesUltimosSeisMeses()
-                  .subscribe((data) => {
-                    this.balancesUltimosSeisMeses.set(data);
-                  });
+            this.finanzasService.getTransaccionesMes(text).subscribe((data: any) => {
+              this.transaccionesMes.set(data);
+              this.finanzasService.balancesUltimosSeisMeses().subscribe((data) => {
+                this.balancesUltimosSeisMeses.set(data);
               });
+            });
           },
           (error) => {
-            console.error('Error al crear la transferencia:', error);
+            console.error('Error al actualizar la transacción:', error);
           }
         );
       } else {
-        // Lógica para crear transacción normal
-        this.finanzasService.createTransaccion(formData).subscribe(
-          (response) => {
-            this.toastSignal.set('Transacción Creada Correctamente.');
-            this.toggleModal();
-            this.transactionForm.reset();
-            this.transactionForm.patchValue({ saldo: 0, recurrente: false });
-            const text = this.monthYear();
-            this.finanzasService
-              .getTransaccionesMes(text)
-              .subscribe((data: any) => {
+        if (this.transactionsModal() === 'transferencia') {
+          // Lógica para crear transferencia
+          const transferData = {
+            cuentaOrigenID: this.bancoSelected.CuentaID,
+            cuentaDestinoID: this.destinationBankSelected.CuentaID,
+            monto: this.transactionForm.value.saldo,
+            fecha: this.transactionForm.value.fecha,
+            descripcion: this.transactionForm.value.descripcion,
+          };
+          this.finanzasService.createTransferencia(transferData).subscribe(
+            (response) => {
+              this.toastSignal.set('Transferencia Creada Correctamente.');
+              this.toggleModal();
+              this.transactionForm.reset();
+              this.transactionForm.patchValue({ saldo: 0, recurrente: false });
+              const text = this.monthYear();
+              this.finanzasService.getTransaccionesMes(text).subscribe((data: any) => {
                 this.transaccionesMes.set(data);
-                this.finanzasService
-                  .balancesUltimosSeisMeses()
-                  .subscribe((data) => {
-                    this.balancesUltimosSeisMeses.set(data);
-                  });
+                this.finanzasService.balancesUltimosSeisMeses().subscribe((data) => {
+                  this.balancesUltimosSeisMeses.set(data);
+                });
               });
-          },
-          (error) => {
-            console.error('Error al crear la transacción:', error);
-          }
-        );
+            },
+            (error) => {
+              console.error('Error al crear la transferencia:', error);
+            }
+          );
+        } else {
+          // Lógica para crear transacción normal
+          this.finanzasService.createTransaccion(formData).subscribe(
+            (response) => {
+              this.toastSignal.set('Transacción Creada Correctamente.');
+              this.toggleModal();
+              this.transactionForm.reset();
+              this.transactionForm.patchValue({ saldo: 0, recurrente: false });
+              const text = this.monthYear();
+              this.finanzasService.getTransaccionesMes(text).subscribe((data: any) => {
+                this.transaccionesMes.set(data);
+                this.finanzasService.balancesUltimosSeisMeses().subscribe((data) => {
+                  this.balancesUltimosSeisMeses.set(data);
+                });
+              });
+            },
+            (error) => {
+              console.error('Error al crear la transacción:', error);
+            }
+          );
+        }
       }
     } else {
       console.log('Formulario inválido');

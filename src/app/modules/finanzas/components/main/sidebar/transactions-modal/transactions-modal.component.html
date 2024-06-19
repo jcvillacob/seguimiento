@@ -4,7 +4,7 @@
   <div class="crear__container">
     <!-- header -->
     <div class="container__title">
-      <h5 class="title__nueva maven">Registrar {{ transactionsModal() | titlecase }}</h5>
+      <h5 class="title__nueva maven">{{ type + transactionsModal() | titlecase }}</h5>
       <div class="title__cerrar" (click)="toggleModal()">
         <i class="fa-solid fa-xmark"></i>
       </div>
