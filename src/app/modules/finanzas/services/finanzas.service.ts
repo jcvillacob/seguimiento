@@ -10,9 +10,7 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 export class FinanzasService {
   private apiUrl = environment.apiURL;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-
-  }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   /* Categorias */
   getCategorias(): Observable<any[]> {
@@ -44,16 +42,16 @@ export class FinanzasService {
   }
 
   createTransaccion(data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/transacciones`, data)
+    return this.http.post<any>(`${this.apiUrl}/transacciones`, data);
   }
 
   deleteTransaccion(transaccionId: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/transacciones/${transaccionId}`)
+    return this.http.delete<any>(`${this.apiUrl}/transacciones/${transaccionId}`);
   }
 
   /* Transferencias */
   createTransferencia(data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/transferencias`, data)
+    return this.http.post<any>(`${this.apiUrl}/transferencias`, data);
   }
 
   /* Bancos */
@@ -76,12 +74,11 @@ export class FinanzasService {
   }
 
   updateActivo(cuentaId: number, activo: number): Observable<any> {
-    const data = {activo: activo};
+    const data = { activo: activo };
     return this.http.put<any>(`${this.apiUrl}/cuentas/archivar/${cuentaId}`, data);
   }
 
   deleteCuenta(cuentaId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/cuentas/${cuentaId}`);
   }
-
 }

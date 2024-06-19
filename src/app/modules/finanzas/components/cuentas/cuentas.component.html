@@ -2,9 +2,18 @@
   <h4 class="title maven">Cuentas</h4>
   <div class="actions">
     <div class="actions__action" (click)="toggleModal()"><i class="fa-solid fa-plus"></i></div>
-    <div class="actions__action"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+    <div class="actions__action" (click)="menuSettingActions()">
+      <i class="fa-solid fa-ellipsis-vertical"></i>
+      <div id="actions__setting" class="actions__menu" [ngClass]="{'active': actionsActive}">
+        <ul class="maven">
+          <li (click)="action1()">Cuentas Archivadas</li>
+          <li (click)="action2()">Eliminar todas</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
+
 
 
 <div class="cuentasContainer">

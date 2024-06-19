@@ -45,14 +45,37 @@
         </div>
       </div>
 
-      <div class="form__banco">
+      <!-- Campo adicional para la cuenta destino en caso de transferencia -->
+      <div *ngIf="transactionsModal() === 'transferencia'" class="form__banco">
+        <label for="destinationBanks">Cuenta Destino</label>
+        <div class="banco__lista">
+          <div class="lista__selected transferencia" (click)="verDestinationBanks()">
+            <div class="selected__img">
+              <img [src]="destinationBankSelected.BancoIcono" alt="Banco">
+            </div>
+            <span>{{ destinationBankSelected.BancoNombre }}</span>
+            <div class="lista__lista" [ngClass]="{'bancoss' : verDestinationBank}">
+              <div class="lista__bancos" *ngFor="let bank of destinationBanks; index as i"
+                (click)="seleccionarDestinationBank(i)">
+                <div class="selected__img">
+                  <img [src]="bank.BancoIcono" alt="">
+                </div>
+                <span>{{ bank.BancoNombre }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form__banco" *ngIf="transactionsModal() !== 'transferencia'">
         <label for="banks">Categoría</label>
         <div class="banco__lista">
           <div class="lista__selected categorias" (click)="verCategories()">
             <i [ngClass]="categorySelected.Icono"></i>
             <span>{{ categorySelected.Nombre }}</span>
             <div class="lista__lista" [ngClass]="{'bancoss' : verCategory}">
-              <div class="lista__bancos" *ngFor="let category of categorias; index as i" (click)="seleccionarCategoria(i)">
+              <div class="lista__bancos" *ngFor="let category of categorias; index as i"
+                (click)="seleccionarCategoria(i)">
                 <i [ngClass]="category.Icono"></i>
                 <span>{{ category.Nombre }}</span>
               </div>
@@ -61,12 +84,12 @@
         </div>
       </div>
 
-      <div class="form__descripcion maven">
+      <div class="form__descripcion maven" *ngIf="transactionsModal() !== 'transferencia'">
         <i class="fa-regular fa-file"></i>
-        <input type="text" placeholder="Descripción"  formControlName="descripcion">
+        <input type="text" placeholder="Descripción" formControlName="descripcion">
       </div>
 
-      <div class="form__incluir">
+      <div class="form__incluir"  *ngIf="transactionsModal() !== 'transferencia'">
         <div class="incluir__text">
           <i class="fa-solid fa-circle-info"></i>
           <p>Registrar recurrente</p>
@@ -81,5 +104,6 @@
         <button type="submit" class="buttons__guardar">Guardar {{ transactionsModal() }}</button>
       </div>
     </form>
+
   </div>
 </div>

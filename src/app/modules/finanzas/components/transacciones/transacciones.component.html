@@ -23,15 +23,25 @@
       <tbody>
         <ng-container *ngIf="transactionsGroupedByDate && transactionsGroupedByDate.length > 0; else noData">
           <ng-container *ngFor="let group of transactionsGroupedByDate">
-            <tr *ngFor="let transaction of group.transactions">
+            <tr *ngFor="let transaction of group.transactions; index as i">
               <td>{{ group.date }}</td>
               <td>{{ transaction.Descripcion }}</td>
               <td>{{ transaction.NombreCategoria }}</td>
               <td>{{ transaction.NombreBanco }}</td>
               <td [ngStyle]="{'color': getMontoColor(transaction)}">$ {{ transaction.Monto | number:'1.0-0' }}</td>
               <td class="table__actions">
-                <div><i class="fa-solid fa-ellipsis-vertical"></i></div>
+                <div class="transactions__menu" (click)="toggleTransactionMenu(transaction.TransaccionID)">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                  <div [id]="'transaction__menu' + transaction.TransaccionID" class="transaction__menu" [ngClass]="{'active_i': activeTransactionMenu === transaction.TransaccionID}">
+                    <ul class="maven">
+                      <li (click)="editTransaction(transaction)">Editar</li>
+                      <li (click)="deleteTransaction(transaction.TransaccionID)">Eliminar</li>
+                    </ul>
+                  </div>
+                </div>
               </td>
+              
+              
             </tr>
             <tr class="subtotal">
               <td colspan="4">Subtotal</td>

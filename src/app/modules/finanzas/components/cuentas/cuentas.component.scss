@@ -20,6 +20,7 @@
 }
 
 .actions__action {
+  position: relative;
   padding: 10px;
   background-color: var(--px-white);
   border-radius: 50%;
@@ -36,6 +37,44 @@
   &:hover {
     background-color: var(--px-theme-2);
     color: var(--px-white);
+  }
+}
+
+.actions__menu {
+  position: absolute;
+  top: 0;
+  left: -100px; // ajusta según sea necesario
+  background-color: var(--px-white);
+  border-radius: 15px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.267);
+  padding: 16px;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  ul li {
+    width: 100%;
+    font-size: 16px;
+    padding: 8px;
+    color: #585858;
+    cursor: pointer;
+    border-radius: 6px;
+
+    &:hover {
+      background-color: var(--px-theme);
+      color: var(--px-white);
+    }
   }
 }
 
@@ -157,42 +196,42 @@
   &:hover {
     background-color: var(--px-theme);
     color: var(--px-white);
-    }
-    }
+  }
+}
 
-    .setting__menu {
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-color: var(--px-white);
-      border-radius: 15px;
-      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.267);
-      padding: 16px;
-      & ul {
-        list-style: none;
+.setting__menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--px-white);
+  border-radius: 15px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.267);
+  padding: 16px;
+  & ul {
+    list-style: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     gap: 4px;
-    }
-    display: none;
-    &.active {
-      display: block;
-      }
-      }
+  }
+  display: none;
+  &.active {
+    display: block;
+  }
+}
 
-      .setting__menu ul li {
-        width: 100%;
-        font-size: 16px;
-        padding: 8px;
-        color: #585858;
-        cursor: pointer;
-        border-radius: 6px;
-        &:hover {
-          background-color: var(--px-theme);
-          color: var(--px-white);
-          }
+.setting__menu ul li {
+  width: 100%;
+  font-size: 16px;
+  padding: 8px;
+  color: #585858;
+  cursor: pointer;
+  border-radius: 6px;
+  &:hover {
+    background-color: var(--px-theme);
+    color: var(--px-white);
+  }
 }
 
 .cuenta__balance {
@@ -349,7 +388,6 @@
   }
 }
 
-
 .crear__form {
   padding: 10px 36px 20px;
   & div {
@@ -389,7 +427,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0
+  margin: 0;
 }
 
 .lista__selected {
@@ -449,7 +487,6 @@
     background-color: #0000001c;
   }
 }
-
 
 .form__descripcion {
   width: 100%;

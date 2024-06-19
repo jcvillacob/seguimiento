@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect } from '@angular/core';
+import { Component, effect, HostListener } from '@angular/core';
 import { transactionsModal } from '../main/sidebar/transactions-modal/transactions-modal.component';
 import { FinanzasService } from '../../services/finanzas.service';
 import { monthYear } from '../main/main.component';
@@ -20,6 +20,7 @@ export class TransaccionesComponent {
   saldoActual!: number;
   transactions: any[] = [];
   transactionsGroupedByDate: { date: string, transactions: any[], subtotal: number }[] = [];
+  activeTransactionMenu: number | null = null;
 
   constructor(private finanzasService: FinanzasService) {
     effect(() => {
@@ -64,37 +65,30 @@ export class TransaccionesComponent {
     });
   }
 
-/*
-  calculateIngresos(): number {
-    return this.transactions
-      .filter(transaction => transaction.Tipo === 'Ingreso')
-      .reduce((acc, transaction) => acc + transaction.Monto, 0);
-  }
-
-  calculateGastos(): number {
-    return this.transactions
-      .filter(transaction => transaction.Tipo === 'Gasto')
-      .reduce((acc, transaction) => acc + transaction.Monto, 0);
-  }
-
-  calculateBalance(): number {
-    return this.calculateIngresos() - this.calculateGastos();
-  }
-
-  calculateBalanceMes(): number {
-    const ingresosMes = this.transactions
-      .filter(transaction => transaction.Tipo === 'Ingreso' && new Date(transaction.Fecha).getMonth() === new Date().getMonth())
-      .reduce((acc, transaction) => acc + transaction.Monto, 0);
-
-    const gastosMes = this.transactions
-      .filter(transaction => transaction.Tipo === 'Gasto' && new Date(transaction.Fecha).getMonth() === new Date().getMonth())
-      .reduce((acc, transaction) => acc + transaction.Monto, 0);
-
-    return ingresosMes - gastosMes;
-  }
- */
-
   getMontoColor(transaction: any): string {
     return transaction.Tipo === 'Ingreso' ? 'green' : 'red';
+  }
+
+  toggleTransactionMenu(transaccionID: number) {
+    this.activeTransactionMenu = this.activeTransactionMenu === transaccionID ? null : transaccionID;
+    console.log('activeTransactionMenu:', this.activeTransactionMenu);
+  }
+
+  editTransaction(transaction: any) {
+    console.log('Edit transaction:', transaction);
+    // Lógica para editar la transacción
+  }
+
+  deleteTransaction(transaccionID: number) {
+    console.log('Delete transaction:', transaccionID);
+    // Lógica para eliminar la transacción
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const clickedElement = event.target as HTMLElement;
+    if (!clickedElement.closest('.transactions__menu')) {
+      this.activeTransactionMenu = null;
+    }
   }
 }

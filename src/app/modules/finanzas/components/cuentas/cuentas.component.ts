@@ -11,9 +11,7 @@ import { toastSignal } from '../../../../shared/components/toast/toast.component
   imports: [CommonModule, FormsModule],
   templateUrl: './cuentas.component.html',
   styleUrls: ['./cuentas.component.scss'],
-  providers: [
-    FinanzasService
-  ]
+  providers: [FinanzasService],
 })
 export class CuentasComponent {
   toastSignal = toastSignal;
@@ -21,11 +19,17 @@ export class CuentasComponent {
   counts: any[] = [];
   balance: number = 0;
   activo = -1;
+  actionsActive = false;
 
   /* para crear y actualizar Cuenta */
   title = 'Nueva Cuenta';
   modal = false;
-  bancoSelected = { "BancoID": 1, "Nombre": "Efecivo", "Tipo": "Efectivo", "Icono": "banks/efectivo.avif" };
+  bancoSelected = {
+    BancoID: 1,
+    Nombre: 'Efecivo',
+    Tipo: 'Efectivo',
+    Icono: 'banks/efectivo.avif',
+  };
   verBanco = false;
 
   /* Form inputs */
@@ -33,15 +37,22 @@ export class CuentasComponent {
   descripcion: string = '';
   tipo: string = 'Ahorros';
   incluirEnDashboard: boolean = true;
-  cuentaID: number | null = null;  // Para manejar la actualización
+  cuentaID: number | null = null; // Para manejar la actualización
 
-  constructor(private finanzasService: FinanzasService, private authService: AuthService) {
+  constructor(
+    private finanzasService: FinanzasService,
+    private authService: AuthService
+  ) {
     this.getcuentas();
   }
 
   /* Modales */
   menuSetting(i: number) {
     this.activo = i;
+  }
+
+  menuSettingActions() {
+    this.actionsActive = !this.actionsActive;
   }
 
   toggleModal() {
@@ -59,13 +70,12 @@ export class CuentasComponent {
     this.bancoSelected = this.banks[i];
   }
 
-
   /* Cuentas */
   getcuentas() {
-    this.finanzasService.getBancos().subscribe(data => {
+    this.finanzasService.getBancos().subscribe((data) => {
       this.bancoSelected = data[0];
       this.banks = data;
-      this.finanzasService.getCuentas().subscribe(data => {
+      this.finanzasService.getCuentas().subscribe((data) => {
         this.counts = data;
         this.balance = this.counts.reduce((acc, count) => acc + count.Saldo, 0);
       });
@@ -87,16 +97,19 @@ export class CuentasComponent {
       saldo: this.saldo,
       descripcion: this.descripcion,
       tipo: this.tipo,
-      activo: this.incluirEnDashboard
+      activo: this.incluirEnDashboard,
     };
 
-    this.finanzasService.createCuenta(cuentaData).subscribe(response => {
-      this.toastSignal.set('Cuenta Creada Correctamente.')
-      this.toggleModal();
-      this.getcuentas();
-    }, error => {
-      console.error('Error creating account:', error);
-    });
+    this.finanzasService.createCuenta(cuentaData).subscribe(
+      (response) => {
+        this.toastSignal.set('Cuenta Creada Correctamente.');
+        this.toggleModal();
+        this.getcuentas();
+      },
+      (error) => {
+        console.error('Error creating account:', error);
+      }
+    );
   }
 
   updateCuenta() {
@@ -105,17 +118,20 @@ export class CuentasComponent {
       saldo: this.saldo,
       descripcion: this.descripcion,
       tipo: this.tipo,
-      activo: this.incluirEnDashboard
+      activo: this.incluirEnDashboard,
     };
 
     if (this.cuentaID !== null) {
-      this.finanzasService.updateCuenta(this.cuentaID, cuentaData).subscribe(response => {
-        this.toastSignal.set('Cuenta Actualizada Correctamente.')
-        this.toggleModal();
-        this.getcuentas();
-      }, error => {
-        console.error('Error updating account:', error);
-      });
+      this.finanzasService.updateCuenta(this.cuentaID, cuentaData).subscribe(
+        (response) => {
+          this.toastSignal.set('Cuenta Actualizada Correctamente.');
+          this.toggleModal();
+          this.getcuentas();
+        },
+        (error) => {
+          console.error('Error updating account:', error);
+        }
+      );
     }
   }
 
@@ -125,7 +141,9 @@ export class CuentasComponent {
     this.saldo = cuenta.Saldo;
     this.descripcion = cuenta.Descripcion;
     this.incluirEnDashboard = cuenta.Activo;
-    this.bancoSelected = this.banks.find(bank => bank.BancoID === cuenta.BancoID) || this.bancoSelected;
+    this.bancoSelected =
+      this.banks.find((bank) => bank.BancoID === cuenta.BancoID) ||
+      this.bancoSelected;
     this.toggleModal();
   }
 
@@ -139,10 +157,20 @@ export class CuentasComponent {
   }
 
   archivarCuenta(cuentaID: number, inactivo: number) {
-    this.finanzasService.updateActivo(cuentaID, inactivo).subscribe(data => {
-      this.toastSignal.set('Cuenta Archivada Correctamente.')
+    this.finanzasService.updateActivo(cuentaID, inactivo).subscribe((data) => {
+      this.toastSignal.set('Cuenta Archivada Correctamente.');
       this.getcuentas();
-    })
+    });
+  }
+
+  action1() {
+    // Acción 1
+    console.log('Acción 1 ejecutada');
+  }
+
+  action2() {
+    // Acción 2
+    console.log('Acción 2 ejecutada');
   }
 
   @HostListener('document:click', ['$event'])
@@ -153,6 +181,9 @@ export class CuentasComponent {
     }
     if (!clickedElement.closest('.lista__selected')) {
       this.verBanco = false;
+    }
+    if (!clickedElement.closest('.actions__action')) {
+      this.actionsActive = false;
     }
   }
 }

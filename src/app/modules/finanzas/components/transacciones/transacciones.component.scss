@@ -221,3 +221,45 @@ td {
   width: 100%;
   text-align: center;
 }
+
+.transactions__menu {
+  position: relative;
+}
+
+.transaction__menu {
+  position: absolute;
+  top: 20px; /* ajusta según sea necesario */
+  right: 0;
+  background-color: var(--px-white);
+  border-radius: 15px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.267);
+  padding: 16px;
+  display: none;
+
+  &.active_i {
+    display: block;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  ul li {
+    width: 100%;
+    font-size: 16px;
+    padding: 8px;
+    color: #585858;
+    cursor: pointer;
+    border-radius: 6px;
+
+    &:hover {
+      background-color: var(--px-theme);
+      color: var(--px-white);
+    }
+  }
+}

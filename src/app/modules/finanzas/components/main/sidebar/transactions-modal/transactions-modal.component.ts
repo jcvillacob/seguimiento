@@ -1,8 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Signal, computed, effect, signal } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Signal,
+  computed,
+  effect,
+  signal,
+} from '@angular/core';
 import { FinanzasService } from '../../../../services/finanzas.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { balancesUltimosSeisMeses, transaccionesMes } from '../../../dashboard/dashboard.component';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  balancesUltimosSeisMeses,
+  transaccionesMes,
+} from '../../../dashboard/dashboard.component';
 import { monthYear } from '../../main.component';
 import { toastSignal } from '../../../../../../shared/components/toast/toast.component';
 
@@ -13,7 +28,7 @@ export const transactionsModal = signal('close');
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './transactions-modal.component.html',
-  styleUrl: './transactions-modal.component.scss'
+  styleUrl: './transactions-modal.component.scss',
 })
 export class TransactionsModalComponent {
   transactionsModal = transactionsModal;
@@ -22,38 +37,45 @@ export class TransactionsModalComponent {
   toastSignal = toastSignal;
   monthYear = monthYear;
   banks: any[] = [];
+  destinationBanks: any[] = [];
   categorias: any[] = [];
   Todascategorias: any[] = [];
   activo = -1;
 
   /* para crear Cuenta */
-  bancoSelected: any = { BancoIcono: "banks/efectivo.avif" };
+  bancoSelected: any = { BancoIcono: 'banks/efectivo.avif' };
+  destinationBankSelected: any = { BancoIcono: '' };
   categorySelected: any = { Icono: '' };
   verBanco = false;
+  verDestinationBank = false;
   verCategory = false;
 
   transactionForm: FormGroup;
 
-
-  constructor(private finanzasService: FinanzasService, private fb: FormBuilder) {
+  constructor(
+    private finanzasService: FinanzasService,
+    private fb: FormBuilder
+  ) {
     this.transactionForm = this.fb.group({
       saldo: [0, Validators.required],
       fecha: ['', Validators.required],
       descripcion: [''],
-      recurrente: [false]
+      recurrente: [false],
     });
 
-    this.finanzasService.getCategorias().subscribe(data => {
+    this.finanzasService.getCategorias().subscribe((data) => {
       this.Todascategorias = data;
       this.categorySelected = this.Todascategorias[0];
-      this.finanzasService.getCuentas().subscribe(data => {
+      this.finanzasService.getCuentas().subscribe((data) => {
         this.banks = data;
+        this.destinationBanks = data;
         this.bancoSelected = this.banks[0];
+        this.destinationBankSelected = this.destinationBanks[0];
       });
     });
     effect(() => {
       const text = this.transactionsModal();
-      this.categorias = this.Todascategorias.filter(d => d.Tipo == text);
+      this.categorias = this.Todascategorias.filter((d) => d.Tipo == text);
       if (this.categorias.length) {
         this.categorySelected = this.categorias[0];
       }
@@ -63,11 +85,16 @@ export class TransactionsModalComponent {
   toggleModal() {
     this.transactionsModal.set('close');
     this.verBanco = false;
+    this.verDestinationBank = false;
     this.verCategory = false;
   }
 
   verBancos() {
     this.verBanco = !this.verBanco;
+  }
+
+  verDestinationBanks() {
+    this.verDestinationBank = !this.verDestinationBank;
   }
 
   verCategories() {
@@ -76,6 +103,10 @@ export class TransactionsModalComponent {
 
   seleccionarBanco(i: number) {
     this.bancoSelected = this.banks[i];
+  }
+
+  seleccionarDestinationBank(i: number) {
+    this.destinationBankSelected = this.destinationBanks[i];
   }
 
   seleccionarCategoria(i: number) {
@@ -94,6 +125,9 @@ export class TransactionsModalComponent {
     if (!clickedElement.closest('.categorias')) {
       this.verCategory = false;
     }
+    if (!clickedElement.closest('.transferencia')) {
+      this.verDestinationBank = false;
+    }
   }
 
   onSubmit() {
@@ -105,39 +139,81 @@ export class TransactionsModalComponent {
         monto: this.transactionForm.value.saldo,
         fecha: this.transactionForm.value.fecha,
         descripcion: this.transactionForm.value.descripcion,
-        recurrente: this.transactionForm.value.recurrente
+        recurrente: this.transactionForm.value.recurrente,
       };
 
-      this.finanzasService.createTransaccion(formData).subscribe(
-        response => {
-          this.toastSignal.set('Transacción Creada Correctamente.')
-          this.toggleModal();
-          this.transactionForm.reset();
-          this.transactionForm.patchValue({ saldo: 0, recurrente: false });
-          const text = this.monthYear();
-          this.finanzasService.getTransaccionesMes(text).subscribe((data: any) => {
-            this.transaccionesMes.set(data);
-            this.finanzasService.balancesUltimosSeisMeses().subscribe(data => {
-              this.balancesUltimosSeisMeses.set(data);
-            })
-          });
-        },
-        error => {
-          console.error('Error al crear la transacción:', error);
-        }
-      );
+      if (this.transactionsModal() === 'transferencia') {
+        // Lógica para crear transferencia
+        const transferData = {
+          cuentaOrigenID: this.bancoSelected.CuentaID,
+          cuentaDestinoID: this.destinationBankSelected.CuentaID,
+          monto: this.transactionForm.value.saldo,
+          fecha: this.transactionForm.value.fecha,
+          descripcion: this.transactionForm.value.descripcion,
+        };
+        this.finanzasService.createTransferencia(transferData).subscribe(
+          (response) => {
+            this.toastSignal.set('Transferencia Creada Correctamente.');
+            this.toggleModal();
+            this.transactionForm.reset();
+            this.transactionForm.patchValue({ saldo: 0, recurrente: false });
+            const text = this.monthYear();
+            this.finanzasService
+              .getTransaccionesMes(text)
+              .subscribe((data: any) => {
+                this.transaccionesMes.set(data);
+                this.finanzasService
+                  .balancesUltimosSeisMeses()
+                  .subscribe((data) => {
+                    this.balancesUltimosSeisMeses.set(data);
+                  });
+              });
+          },
+          (error) => {
+            console.error('Error al crear la transferencia:', error);
+          }
+        );
+      } else {
+        // Lógica para crear transacción normal
+        this.finanzasService.createTransaccion(formData).subscribe(
+          (response) => {
+            this.toastSignal.set('Transacción Creada Correctamente.');
+            this.toggleModal();
+            this.transactionForm.reset();
+            this.transactionForm.patchValue({ saldo: 0, recurrente: false });
+            const text = this.monthYear();
+            this.finanzasService
+              .getTransaccionesMes(text)
+              .subscribe((data: any) => {
+                this.transaccionesMes.set(data);
+                this.finanzasService
+                  .balancesUltimosSeisMeses()
+                  .subscribe((data) => {
+                    this.balancesUltimosSeisMeses.set(data);
+                  });
+              });
+          },
+          (error) => {
+            console.error('Error al crear la transacción:', error);
+          }
+        );
+      }
     } else {
       console.log('Formulario inválido');
     }
   }
 
   setTodayDate() {
-    this.transactionForm.controls['fecha'].setValue(new Date().toISOString().substring(0, 10));
+    this.transactionForm.controls['fecha'].setValue(
+      new Date().toISOString().substring(0, 10)
+    );
   }
 
   setYesterdayDate() {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    this.transactionForm.controls['fecha'].setValue(yesterday.toISOString().substring(0, 10));
+    this.transactionForm.controls['fecha'].setValue(
+      yesterday.toISOString().substring(0, 10)
+    );
   }
 }
