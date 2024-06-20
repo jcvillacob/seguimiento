@@ -116,7 +116,7 @@ export class ResumenGastosComponent implements AfterViewInit {
             const fontSize = (height / 200).toFixed(2);
 
             ctx.restore();
-            ctx.font = fontSize + "em sans-serif";
+            ctx.font = fontSize + "em Maven Pro";
             ctx.textBaseline = "middle";
 
             const text1 = "Total:";

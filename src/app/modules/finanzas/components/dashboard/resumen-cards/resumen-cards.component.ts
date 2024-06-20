@@ -17,7 +17,6 @@ export class ResumenCardsComponent {
     effect(() => {
       const data: any = this.transaccionesMes();
       this.cards = data;
-      console.log(this.cards);
     });
   }
 

@@ -23,13 +23,12 @@ export class AuthService {
       this.isLoggedIn.next(true);
       this.usuarioLogged = {
         "UsuarioID": 1,
-        "Nombre": "Juan Camilo Villacob",
-        "Email": "jucaviza6@gmail.com",
-        "Username": "jvillacob",
+        "Nombre": "Usuario Test",
+        "Email": "test@mail.com",
+        "Username": "test",
         "iat": 1710430791,
         "exp": 1710448791
       };
-      console.log(this.usuarioLogged);
     }
   }
 
