@@ -58,7 +58,7 @@ export class CuentasComponent {
   toggleModal() {
     this.modal = !this.modal;
     if (!this.modal) {
-      this.resetForm(); // Resetear el formulario cuando se cierra el modal
+      this.resetForm();
     }
   }
 

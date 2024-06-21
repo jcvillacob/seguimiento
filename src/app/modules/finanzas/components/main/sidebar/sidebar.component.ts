@@ -62,7 +62,7 @@ export class SidebarComponent {
     }
   }
 
-  ruta(href: string) {
-    this.router.navigate([href], { relativeTo: this.router.routerState.root.firstChild });
+  ruta() {
+    this.isSidebarExpanded.set(false);
   }
 }
