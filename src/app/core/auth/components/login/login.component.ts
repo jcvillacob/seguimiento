@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-login',
@@ -33,7 +35,13 @@ export class LoginComponent {
           this.router.navigate(['/finanzas']);
         },
         error => {
-          console.error('Error al iniciar sesión', error);
+          Swal.fire({
+            title: "Usuario o Contraseña Incorrectos",
+            text: "No se ha podido Iniciar Sesión",
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Aceptar",
+          })
         }
       );
     }

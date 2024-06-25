@@ -38,3 +38,251 @@
     color: var(--px-white);
   }
 }
+
+
+/* Transacciones Container */
+.transactionsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.transactions {
+  width: 70%;
+  min-height: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 5%;
+  background-color: var(--px-white);
+  border-radius: 25px;
+  margin-top: 25px;
+}
+
+.resumen {
+  width: 30%;
+  padding: 8px;
+  min-width: 250px;
+  padding-top: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 25px;
+}
+
+/* Resumen */
+.resumen__card {
+  padding: 16px;
+  background-color: var(--px-white);
+  border-radius: 15px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.212);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 300px;
+}
+
+@media screen and (max-width: 1400px) {
+  .resumen__card {
+    min-width: 90%;
+  }
+}
+
+.card__saldo {
+  & p {
+    color: var(--px-text);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  & h5 {
+    font-size: 22px;
+    color: var(--px-heading);
+    font-weight: 500;
+    line-height: 1.334;
+    margin-top: 10px;
+  }
+}
+
+.card__icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--px-white);
+  background-color: var(--px-theme);
+}
+
+@media screen and (max-width: 620px) {
+  .titleContainer {
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+    & .title {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .transactionsContainer {
+    flex-direction: column-reverse;
+  }
+
+  .transactions {
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  .transactions__table {
+    width: auto;
+  }
+
+  .resumen {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .resumen__card {
+    min-width: 300px;
+  }
+}
+
+/* Tabla */
+.transactions__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  border-radius: 25px;
+  overflow: hidden;
+  color: var(--px-text);
+  table-layout: fixed;
+}
+
+th {
+  background-color: var(--px-theme);
+  color: var(--px-white);
+  text-align: center;
+  font-size: 16px;
+  padding: 10px;
+  font-weight: 400;
+  border-bottom: 1px solid var(--px-dark);
+  white-space: nowrap;
+}
+
+td {
+  padding: 20px 10px 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--px-theme-2-opacity);
+  font-size: 14px;
+  white-space: nowrap;
+  height: 100%;
+}
+
+.category i {
+  margin-right: 10px;
+}
+
+.table__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & .icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.4s;
+    &:hover {
+      background-color: var(--px-theme-2);
+      color: var(--px-white);
+    }
+  }
+}
+
+.subtotal {
+  background-color: var(--px-theme-2-opacity);
+  font-weight: bold;
+  border-bottom: 1px solid var(--px-dark);
+  color: var(--px-theme-2);
+}
+
+.no_data {
+  width: 100%;
+  text-align: center;
+}
+
+.transactions__menu {
+  position: relative;
+}
+
+.transaction__menu {
+  position: absolute;
+  display: none;
+  top: 0px;
+  right: 0;
+  background-color: var(--px-white);
+  border-radius: 15px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.267);
+  padding: 10px;
+  z-index: 9999;
+
+  &.active_t {
+    display: flex;
+  }
+
+  & .menu__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  & .menu__list li {
+    width: 100%;
+    font-size: 16px;
+    padding: 8px;
+    color: #585858;
+    cursor: pointer;
+    border-radius: 6px;
+
+    &:hover {
+      background-color: var(--px-theme);
+      color: var(--px-white);
+    }
+  }
+}
+
+.goal__bar {
+  width: 100%;
+  height: 16px;
+  border-radius: 15px;
+  background-color: var(--px-bg);
+  overflow: hidden;
+  position: relative;
+}
+
+.bar__complete {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--px-theme);
+  border-radius: 15px;
+}
