@@ -85,4 +85,23 @@ export class FinanzasService {
   deleteCuenta(cuentaId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/cuentas/${cuentaId}`);
   }
+
+  /* Presupuestos */
+  getPresupuestos(): Observable<any[]> {
+    const usuarioID = this.authService.getUsuarioID();
+    return this.http.get<any[]>(`${this.apiUrl}/presupuesto/usuario/${usuarioID}`);
+  }
+
+  createPresupuesto(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/presupuesto`, data);
+  }
+
+  updatePresupuesto(presupuestoId: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/presupuesto/${presupuestoId}`, data);
+  }
+
+  deletePresupuesto(presupuestoId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/presupuesto/${presupuestoId}`);
+  }
+
 }
