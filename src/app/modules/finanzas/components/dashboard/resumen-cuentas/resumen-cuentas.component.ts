@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FinanzasService } from '../../../services/finanzas.service';
+import { transaccionesMes } from '../dashboard.component';
 
 @Component({
   selector: 'app-resumen-cuentas',
@@ -11,10 +12,14 @@ import { FinanzasService } from '../../../services/finanzas.service';
   styleUrl: './resumen-cuentas.component.scss'
 })
 export class ResumenCuentasComponent {
+  transaccionesMes = transaccionesMes;
   cuentas: any[] = [];
 
   constructor(private finanzasService: FinanzasService) {
-    this.getcuentas();
+    effect(() => {
+      const data: any = this.transaccionesMes();
+      this.getcuentas();
+    });
   }
 
   /* Cuentas */

@@ -5,6 +5,8 @@ import { FinanzasService } from '../../services/finanzas.service';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { toastSignal } from '../../../../shared/components/toast/toast.component';
 import Swal from 'sweetalert2';
+import { findIndex } from 'rxjs';
+import { presupuestoMes } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-presupuesto',
@@ -14,18 +16,20 @@ import Swal from 'sweetalert2';
   styleUrl: './presupuesto.component.scss'
 })
 export class PresupuestoComponent {
-  presupuestos: any[] = [
-    { categoriaIcono: 'fa-solid fa-home', categoriaNombre: 'Arriendo', presupuesto: 750000, gastado: 650000 },
-    { categoriaIcono: 'fa-solid fa-phone', categoriaNombre: 'Comunicaciones', presupuesto: 750000, gastado: 650000 },
-    { categoriaIcono: 'fa-solid fa-home', categoriaNombre: 'Arriendo', presupuesto: 750000, gastado: 650000 },
-    { categoriaIcono: 'fa-solid fa-home', categoriaNombre: 'Arriendo', presupuesto: 750000, gastado: 650000 },
-  ];
+  presupuestoMes = presupuestoMes;
+  presupuestos: any[] = [];
+
+  /* Resumen */
+  totalPresupuesto: number = 0;
+  totalGastado: number = 0;
+  porcentajeCumplimiento: number = 0;
 
   /* para crear y actualizar Cuenta */
   toastSignal = toastSignal;
   categorias: any[] = [];
   title = 'Nuevo Presupuesto';
   modal = false;
+  activePresupuestoMenu = -1;
   categoriaSelected = {
     CategoriaID: 1,
     Nombre: "Arriendo",
@@ -38,7 +42,7 @@ export class PresupuestoComponent {
   descripcion: string = '';
   tipo: string = 'Ahorros';
   incluirEnDashboard: boolean = true;
-  presupuestoID: number | null = null; // Para manejar la actualización
+  presupuestoID: number | null = null;
 
   constructor(
     private finanzasService: FinanzasService,
@@ -48,15 +52,21 @@ export class PresupuestoComponent {
   }
 
   getPresupuestos() {
-    this.finanzasService.getPresupuestos().subscribe(data => {
+    this.finanzasService.getPresupuestos().subscribe((data: any) => {
       this.presupuestos = data;
-      console.log(this.presupuestos)
+      this.presupuestoMes.set(data);
+      this.calculateTotals();
       this.finanzasService.getCategorias().subscribe(data => {
         this.categorias = data.filter(c => c.Tipo == 'Gasto');
         this.categoriaSelected = this.categorias[0];
-        console.log(this.categorias);
-      })
-    })
+      });
+    });
+  }
+
+  calculateTotals() {
+    this.totalPresupuesto = this.presupuestos.reduce((sum, presupuesto) => sum + presupuesto.Monto, 0);
+    this.totalGastado = this.presupuestos.reduce((sum, presupuesto) => sum + presupuesto.Gastado, 0);
+    this.porcentajeCumplimiento = (this.totalGastado / this.totalPresupuesto) * 100;
   }
 
   getTranslationPercentage(presupuesto: any): string {
@@ -86,6 +96,27 @@ export class PresupuestoComponent {
     this.presupuesto = 0;
     this.categoriaSelected = this.categorias[0];
   }
+
+  menuPresupuesto(presupuestoID: number) {
+    this.activePresupuestoMenu = presupuestoID;
+  }
+
+  editPresupuesto(presupuesto: any) {
+    this.title = 'Editar Presupuesto';
+    this.presupuestoID = presupuesto.PresupuestoID;
+    this.presupuesto = presupuesto.Monto;
+    const findIndex = this.categorias.findIndex(categoria => categoria.CategoriaID === presupuesto.CategoriaID);
+    if (findIndex !== -1) {
+      this.categoriaSelected = this.categorias[findIndex];
+    } else {
+      // Manejar el caso donde no se encuentra la categoría
+      console.error('Categoría no encontrada');
+    }
+    this.modal = !this.modal;
+  }
+
+
+
 
   saveCuenta() {
     if (this.presupuestoID === null) {
@@ -147,6 +178,9 @@ export class PresupuestoComponent {
     const clickedElement = event.target as HTMLElement;
     if (!clickedElement.closest('.lista__selected')) {
       this.verCategory = false;
+    }
+    if (!clickedElement.closest('.transactions__menu')) {
+      this.activePresupuestoMenu = -1;
     }
   }
 

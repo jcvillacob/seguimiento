@@ -18,9 +18,16 @@ export class MainComponent {
   isSidebarExpanded = isSidebarExpanded;
   monthYear = monthYear;
   new_Date = false;
-  year = 2024;
-  month = 'junio';
+  year: number;
+  month: string;
   months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+  constructor() {
+    const currentDate = new Date();
+    this.year = currentDate.getFullYear();
+    this.month = this.months[currentDate.getMonth()];
+    this.selectMonth(this.month);
+  }
 
   newDate() {
     this.new_Date = true;

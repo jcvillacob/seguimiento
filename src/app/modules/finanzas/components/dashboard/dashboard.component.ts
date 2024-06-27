@@ -13,6 +13,7 @@ import { monthYear } from '../main/main.component';
 
 export const transaccionesMes = signal({});
 export const balancesUltimosSeisMeses = signal({});
+export const presupuestoMes = signal([]);
 
 @Component({
   selector: 'app-dashboard',
@@ -26,18 +27,26 @@ export class DashboardComponent {
   transaccionesMes = transaccionesMes;
   balancesUltimosSeisMeses = balancesUltimosSeisMeses;
   monthYear = monthYear;
+  presupuestoMes = presupuestoMes;
+  presupuesto!: any;
 
   constructor(private finanzasService: FinanzasService) {
     effect(() => {
       const text = this.monthYear();
+      const presup = this.presupuestoMes();
+      if (this.presupuesto !== presup && !presup.length) {
+        this.finanzasService.getPresupuestos().subscribe((data: any) => {
+          this.presupuesto = data;
+          this.presupuestoMes.set(data);
+        })
+      }
+
       this.finanzasService.getTransaccionesMes(text).subscribe((data: any) => {
         this.transaccionesMes.set(data);
         this.finanzasService.balancesUltimosSeisMeses().subscribe(data => {
           this.balancesUltimosSeisMeses.set(data);
         })
       });
-    });
+    })
   }
-
-
 }

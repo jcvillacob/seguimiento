@@ -9,14 +9,14 @@
           <div class="name__icon"><i class="fa-solid fa-coins"></i></div>
           <div class="name__name maven">
             <div class="name__title">Presupuesto Total</div>
-            <div class="name__faltante">Restante $ {{ presupuesto.budget - presupuesto.gastado | number:'1.0-0' }}</div>
+            <div class="name__faltante">Restante $ {{ budget - gastado | number:'1.0-0' }}</div>
           </div>
         </div>
         <div class="goal__bar">
-          <div class="bar__complete"></div>
+          <div class="bar__complete" [style.translate]="getTranslationPercentage()"></div>
         </div>
         <div class="goal__money maven">
-          $ {{ presupuesto.gastado | number:'1.0-0' }} de $ {{ presupuesto.budget | number:'1.0-0' }}
+          $ {{ gastado | number:'1.0-0' }} de $ {{ budget | number:'1.0-0' }}
         </div>
       </div>
     </div>

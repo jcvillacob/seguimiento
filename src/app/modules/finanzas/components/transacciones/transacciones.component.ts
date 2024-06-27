@@ -19,6 +19,7 @@ export class TransaccionesComponent {
   transaccionesMes = transaccionesMes;
   transactionsModalEdit = transactionsModalEdit;
   monthYear = monthYear;
+  monthYears = '';
   toastSignal = toastSignal;
   balanceMes!: number;
   gastosMes!: number;
@@ -29,9 +30,12 @@ export class TransaccionesComponent {
   activeTransactionMenu: number | null = null;
 
   constructor(private finanzasService: FinanzasService) {
-    this.getTransactions(this.monthYear())
     effect(() => {
       const data: any = this.transaccionesMes();
+      const monthYear: any = this.monthYear();
+      if(this.monthYears != monthYear) {
+        this.getTransactions(monthYear);
+      }
       if (data.transacciones) {
         this.transactions = data.transacciones;
         this.gastosMes = data.gastos;
@@ -46,6 +50,7 @@ export class TransaccionesComponent {
   getTransactions(monthYear: string) {
     this.finanzasService.getTransaccionesMes(monthYear).subscribe((data: any) => {
       this.transaccionesMes.set(data);
+      this.monthYears = monthYear;
     });
   }
 
