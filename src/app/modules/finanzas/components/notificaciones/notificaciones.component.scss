@@ -1,0 +1,153 @@
+.titleContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--px-heading);
+}
+
+
+/* Estilos comunes */
+.resumenContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.resumenTitle {
+  font-size: 20px;
+  color: var(--px-heading);
+  font-weight: 500;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.resumenCard {
+  width: 100%;
+
+}
+
+.resumenCard__content {
+  width: 100%;
+}
+
+.content__notification {
+  margin-top: 15px;
+  width: 100%;
+  background-color: var(--px-white);
+  padding: 16px;
+  padding-bottom: 6px;
+  border-radius: 25px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.content__header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  font-size: 12px;
+}
+
+.header__delete {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  & i {
+    font-size: 18px;
+    color: var(--px-text);
+  }
+  &:hover {
+    background-color: var(--px-text);
+    &:hover i {
+      color: var(--px-white);
+    }
+  }
+}
+
+.content__body {
+  display: flex;
+}
+
+.body__vuelo {
+  width: 70%;
+}
+
+.body__salida {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 15px;
+}
+
+.salida__data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: var(--px-text);
+  & .data__hora {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  & .data__loc {
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.salida__vuelo {
+  width: auto;
+  display: block;
+  color: var(--px-dark);
+}
+
+.body__precio {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.precio__salida {
+  font-size: 18px;
+  color: var(--px-text);
+  font-weight: 500;
+  & span {
+    font-size: 14px;
+    color: var(--px-dark);
+  }
+}
+
+.precio__total {
+  font-size: 20px;
+  color: var(--px-text);
+  font-weight: 600;
+  & span {
+    font-size: 14px;
+    color: var(--px-dark);
+  }
+}
+
+.no-flights {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 20px;
+  color: var(--px-text);
+}

@@ -104,4 +104,11 @@ export class FinanzasService {
     return this.http.delete<any>(`${this.apiUrl}/presupuesto/${presupuestoId}`);
   }
 
+
+  /* Vuelos */
+  getVuelos(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/vuelos/`);
+  }
+
+
 }

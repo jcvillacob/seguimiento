@@ -1,0 +1,60 @@
+<div class="titleContainer">
+  <h4 class="title maven">Notificaciones</h4>
+</div>
+
+<div class="resumenContainer">
+  <h6 class="resumenTitle maven">Vuelos</h6>
+
+  <div *ngIf="notifications.length > 0; else noFlights" class="resumenCard">
+    <div class="resumenCard__content">
+      <div class="content__notification" *ngFor="let notification of notifications">
+        <!-- Header Notification -->
+        <div class="content__header maven">
+          <div class="header__fechaNotification">{{ notification.outbound_date | date }} - {{ notification.return_date | date }}</div>
+          <div class="header__delete"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+
+        <!-- Body Notification -->
+        <div class="content__body">
+          <!-- Salida -->
+          <div class="body__vuelo">
+            <div class="body__salida maven">
+              <div class="salida__data">
+                <span class="data__hora">{{ notification.outbound_departure_time }}</span>
+                <span class="data__loc">{{ notification.outbound_departure_city }}</span>
+              </div>
+              <div class="salida__vuelo"><i class="fa-solid fa-plane-circle-check"></i></div>
+              <div class="salida__data">
+                <span class="data__hora">{{ notification.outbound_arrival_time }}</span>
+                <span class="data__loc">{{ notification.outbound_arrival_city }}</span>
+              </div>
+            </div>
+
+            <!-- Regreso -->
+            <div class="body__salida maven">
+              <div class="salida__data">
+                <span class="data__hora">{{ notification.return_departure_time }}</span>
+                <span class="data__loc">{{ notification.return_departure_city }}</span>
+              </div>
+              <div class="salida__vuelo"><i class="fa-solid fa-plane-circle-check"></i></div>
+              <div class="salida__data">
+                <span class="data__hora">{{ notification.return_departure_time }}</span>
+                <span class="data__loc">{{ notification.return_arrival_city }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="body__precio maven">
+            <span class="precio__salida"><span>Salida: </span>${{ 0 | number }}</span>
+            <span class="precio__salida"><span>Regreso: </span>${{ 0 | number }}</span>
+            <span class="precio__total"><span>Total: </span>${{ notification.total_price | number }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noFlights>
+    <div class="no-flights maven">No vuelos disponibles en este momento</div>
+  </ng-template>
+</div>

@@ -26,6 +26,7 @@ export class SidebarComponent {
     { icon: 'VnLQBQNTyMdN', title: 'Presupuesto', href: 'presupuesto' },
     { icon: 'q0lJYalRDd5h', title: 'Reportes', href: 'reportes' },
     { icon: 'RxzGRwYEbiqu', title: 'Más Opciones', href: 'opciones' },
+    { icon: 'emQp0VZNpjef', title: 'Notificaciones', href: 'notificaciones' },
     { icon: 'ybfklM8wYSX1', title: 'Configuraciones', href: 'configuraciones' }
   ];
 
