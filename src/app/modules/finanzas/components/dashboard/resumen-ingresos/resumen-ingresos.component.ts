@@ -28,12 +28,14 @@ export class ResumenIngresosComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.createPieChart();
-    this.cdr.detectChanges();
+    // Crear el gráfico después de que la vista se haya renderizado completamente
+    setTimeout(() => {
+      this.createPieChart();
+      this.cdr.detectChanges();
+    }, 0); // Forzar el cálculo después de la vista renderizada
   }
 
   processData(data: any) {
-    // Agrupar las transacciones por categoría
     const groupedData = data.reduce((acc: any, item: any) => {
       const existingCategory = acc.find((cat: any) => cat.NombreCategoria === item.NombreCategoria);
       if (existingCategory) {
@@ -44,10 +46,8 @@ export class ResumenIngresosComponent implements AfterViewInit {
       return acc;
     }, []);
 
-    // Ordenar las categorías por monto de mayor a menor
     groupedData.sort((a: any, b: any) => b.Monto - a.Monto);
 
-    // Agrupar las categorías adicionales en "Otros" si hay más de tres categorías
     let labels = [];
     let ingresos = [];
     let colors = [];
@@ -113,7 +113,9 @@ export class ResumenIngresosComponent implements AfterViewInit {
             const ctx = chart.ctx;
             const width = chart.width;
             const height = chart.height;
-            const fontSize = (height / 200).toFixed(2);
+
+            // Ajustar el tamaño de la fuente basado en el tamaño actual del gráfico
+            const fontSize = Math.min(Math.max((height / 200), 0.5), 1.5).toFixed(2);
 
             ctx.restore();
             ctx.font = fontSize + "em Maven Pro";
