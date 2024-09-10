@@ -1,11 +1,4 @@
-<div class="titleContainer">
-  <h4 class="title maven">Transacciones</h4>
-  <div class="actions">
-    <div class="actions__action" (click)="transactionsModals()"><i class="fa-solid fa-plus"></i></div>
-    <div class="actions__action"><i class="fa-solid fa-filter"></i></div>
-    <div class="actions__action"><i class="fa-solid fa-ellipsis-vertical"></i></div>
-  </div>
-</div>
+<app-encabezados [nombre]="'Transacciones'" (botonMas)="transactionsModals($event)"></app-encabezados>
 
 <div class="transactionsContainer">
   <div class="transactions">
@@ -62,42 +55,5 @@
   </div>
 
   <!-- Resumen -->
-  <div class="resumen">
-    <div class="resumen__card">
-      <div class="card__saldo maven">
-        <p>Saldo Actual</p>
-        <h5>{{ saldoActual | number:'1.0-0' }}</h5>
-      </div>
-      <div class="card__icon">
-        <i class="fa-solid fa-coins"></i>
-      </div>
-    </div>
-    <div class="resumen__card">
-      <div class="card__saldo maven">
-        <p>Ingresos</p>
-        <h5>{{ ingresosMes | number:'1.0-0' }}</h5>
-      </div>
-      <div class="card__icon">
-        <i class="fa-solid fa-angle-up"></i>
-      </div>
-    </div>
-    <div class="resumen__card">
-      <div class="card__saldo maven">
-        <p>Gastos</p>
-        <h5>{{ gastosMes | number:'1.0-0' }}</h5>
-      </div>
-      <div class="card__icon">
-        <i class="fa-solid fa-angle-down"></i>
-      </div>
-    </div>
-    <div class="resumen__card">
-      <div class="card__saldo maven">
-        <p>Balance Mes</p>
-        <h5>{{ balanceMes | number:'1.0-0' }}</h5>
-      </div>
-      <div class="card__icon">
-        <i class="fa-solid fa-scale-unbalanced-flip"></i>
-      </div>
-    </div>
-  </div>
+  <app-resumenes class="resumenCards" [resumenes]="resumenes"></app-resumenes>
 </div>

@@ -7,6 +7,7 @@ import { WorkingComponent } from '../../shared/components/working/working.compon
 import { TransaccionesComponent } from './components/transacciones/transacciones.component';
 import { PresupuestoComponent } from './components/presupuesto/presupuesto.component';
 import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
+import { CreditosComponent } from './components/creditos/creditos.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'cuentas', component: CuentasComponent },
       { path: 'transacciones', component: TransaccionesComponent },
-      { path: 'credito', component: WorkingComponent },
+      { path: 'credito', component: CreditosComponent },
       { path: 'presupuesto', component: PresupuestoComponent },
       { path: 'reportes', component: WorkingComponent },
       { path: 'opciones', component: WorkingComponent },

@@ -1,44 +1,3 @@
-.titleContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-}
-
-.title {
-  font-size: 32px;
-  font-weight: 500;
-  color: var(--px-heading);
-}
-
-.actions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.actions__action {
-  padding: 10px;
-  background-color: var(--px-white);
-  border-radius: 50%;
-  margin-right: 10px;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 1px 1px 3px var(--px-dark);
-  cursor: pointer;
-  transition: all 0.3s;
-
-  &:hover {
-    background-color: var(--px-theme-2);
-    color: var(--px-white);
-  }
-}
-
 /* Transacciones Container */
 .transactionsContainer {
   width: 100%;
@@ -60,61 +19,8 @@
   margin-top: 25px;
 }
 
-.resumen {
+.resumenCards {
   width: 30%;
-  padding: 8px;
-  min-width: 250px;
-  padding-top: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 25px;
-}
-
-/* Resumen */
-.resumen__card {
-  padding: 16px;
-  background-color: var(--px-white);
-  border-radius: 15px;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.212);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-width: 300px;
-}
-
-@media screen and (max-width: 1400px) {
-  .resumen__card {
-    min-width: 90%;
-  }
-}
-
-.card__saldo {
-  & p {
-    color: var(--px-text);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.5;
-  }
-  & h5 {
-    font-size: 22px;
-    color: var(--px-heading);
-    font-weight: 500;
-    line-height: 1.334;
-    margin-top: 10px;
-  }
-}
-
-.card__icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--px-white);
-  background-color: var(--px-theme);
 }
 
 @media screen and (max-width: 620px) {
@@ -146,16 +52,8 @@
     width: auto;
   }
 
-  .resumen {
+  .resumenCards {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .resumen__card {
-    min-width: 300px;
   }
 }
 

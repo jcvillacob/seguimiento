@@ -1,20 +1,4 @@
-<div class="titleContainer">
-  <h4 class="title maven">Cuentas</h4>
-  <div class="actions">
-    <div class="actions__action" (click)="toggleModal()"><i class="fa-solid fa-plus"></i></div>
-    <div class="actions__action" (click)="menuSettingActions()">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
-      <div id="actions__setting" class="actions__menu" [ngClass]="{'active': actionsActive}">
-        <ul class="maven">
-          <li (click)="action1()">Cuentas Archivadas</li>
-          <li (click)="action2()">Eliminar todas</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-
+<app-encabezados [nombre]="'Cuentas'" (botonMas)="toggleModal()"></app-encabezados>
 
 <div class="cuentasContainer">
   <div class="cuentas">
@@ -58,17 +42,7 @@
   </div>
 
   <!-- Resumen -->
-  <div class="resumen">
-    <div class="resumen__card">
-      <div class="card__saldo maven">
-        <p>Saldo Actual</p>
-        <h5>$ {{ balance | number:'1.0-0'}}</h5>
-      </div>
-      <div class="card__icon">
-        <i class="fa-solid fa-money-check-dollar"></i>
-      </div>
-    </div>
-  </div>
+  <app-resumenes class="resumenCards" [resumenes]="resumenes"></app-resumenes>
 </div>
 
 

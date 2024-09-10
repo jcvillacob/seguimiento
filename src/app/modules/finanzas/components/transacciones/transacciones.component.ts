@@ -6,11 +6,13 @@ import { monthYear } from '../main/main.component';
 import { transaccionesMes } from '../dashboard/dashboard.component';
 import { toastSignal } from '../../../../shared/components/toast/toast.component';
 import Swal from 'sweetalert2'
+import { EncabezadosComponent } from '../../../../shared/components/encabezados/encabezados.component';
+import { ResumenesComponent } from '../../../../shared/components/resumenes/resumenes.component';
 
 @Component({
   selector: 'app-transacciones',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, EncabezadosComponent, ResumenesComponent],
   templateUrl: './transacciones.component.html',
   styleUrls: ['./transacciones.component.scss']
 })
@@ -21,10 +23,7 @@ export class TransaccionesComponent {
   monthYear = monthYear;
   monthYears = '';
   toastSignal = toastSignal;
-  balanceMes!: number;
-  gastosMes!: number;
-  ingresosMes!: number;
-  saldoActual!: number;
+  resumenes: any[] = [];
   transactions: any[] = [];
   transactionsGroupedByDate: { date: string, transactions: any[], subtotal: number }[] = [];
   activeTransactionMenu: number | null = null;
@@ -38,10 +37,12 @@ export class TransaccionesComponent {
       }
       if (data.transacciones) {
         this.transactions = data.transacciones;
-        this.gastosMes = data.gastos;
-        this.ingresosMes = data.ingresos;
-        this.balanceMes = data.balance;
-        this.saldoActual = data.saldoActual;
+        this.resumenes = [
+          { name: 'Saldo Actual', number: data.saldoActual, icon: 'fa-coins'},
+          { name: 'Ingresos', number: data.ingresos, icon: 'fa-angle-up'},
+          { name: 'Gastos', number: data.gastos, icon: 'fa-angle-down'},
+          { name: 'Balance Mes', number: data.balance, icon: 'fa-scale-unbalanced-flip'},
+        ]
         this.groupTransactionsByDate();
       }
     });
@@ -54,7 +55,7 @@ export class TransaccionesComponent {
     });
   }
 
-  transactionsModals() {
+  transactionsModals(botonMas: string) {
     this.transactionsModal.set('Gasto');
   }
 

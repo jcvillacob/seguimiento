@@ -4,11 +4,13 @@ import { FinanzasService } from '../../services/finanzas.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { toastSignal } from '../../../../shared/components/toast/toast.component';
+import { ResumenesComponent } from '../../../../shared/components/resumenes/resumenes.component';
+import { EncabezadosComponent } from '../../../../shared/components/encabezados/encabezados.component';
 
 @Component({
   selector: 'app-cuentas',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ResumenesComponent, EncabezadosComponent],
   templateUrl: './cuentas.component.html',
   styleUrls: ['./cuentas.component.scss'],
   providers: [FinanzasService],
@@ -20,6 +22,7 @@ export class CuentasComponent {
   balance: number = 0;
   activo = -1;
   actionsActive = false;
+  resumenes: any[] = [];
 
   /* para crear y actualizar Cuenta */
   title = 'Nueva Cuenta';
@@ -77,7 +80,7 @@ export class CuentasComponent {
       this.banks = data;
       this.finanzasService.getCuentas().subscribe((data) => {
         this.counts = data;
-        this.balance = this.counts.reduce((acc, count) => acc + count.Saldo, 0);
+        this.resumenes = [{ name: 'Saldo Actual', number: this.counts.reduce((acc, count) => acc + count.Saldo, 0), icon: 'fa-coins'}];
       });
     });
   }
