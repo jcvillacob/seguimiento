@@ -8,11 +8,12 @@ import { toastSignal } from '../../../../shared/components/toast/toast.component
 import Swal from 'sweetalert2'
 import { EncabezadosComponent } from '../../../../shared/components/encabezados/encabezados.component';
 import { ResumenesComponent } from '../../../../shared/components/resumenes/resumenes.component';
+import { TableComponent } from '../../../../shared/components/table/table.component';
 
 @Component({
   selector: 'app-transacciones',
   standalone: true,
-  imports: [CommonModule, EncabezadosComponent, ResumenesComponent],
+  imports: [CommonModule, EncabezadosComponent, ResumenesComponent, TableComponent],
   templateUrl: './transacciones.component.html',
   styleUrls: ['./transacciones.component.scss']
 })
@@ -27,6 +28,15 @@ export class TransaccionesComponent {
   transactions: any[] = [];
   transactionsGroupedByDate: { date: string, transactions: any[], subtotal: number }[] = [];
   activeTransactionMenu: number | null = null;
+
+  transactionColumns = [
+    { header: 'Fecha', field: 'date', type: 'text' },
+    { header: 'Descripción', field: 'Descripcion', type: 'text' },
+    { header: 'Categoría', field: 'NombreCategoria', type: 'text' },
+    { header: 'Banco', field: 'NombreBanco', type: 'text' },
+    { header: 'Valor', field: 'Monto', type: 'number' },
+  ];
+
 
   constructor(private finanzasService: FinanzasService) {
     effect(() => {

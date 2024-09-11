@@ -7,11 +7,12 @@ import { toastSignal } from '../../../../shared/components/toast/toast.component
 import Swal from 'sweetalert2';
 import { findIndex } from 'rxjs';
 import { presupuestoMes } from '../dashboard/dashboard.component';
+import { EncabezadosComponent } from '../../../../shared/components/encabezados/encabezados.component';
 
 @Component({
   selector: 'app-presupuesto',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, EncabezadosComponent],
   templateUrl: './presupuesto.component.html',
   styleUrl: './presupuesto.component.scss'
 })

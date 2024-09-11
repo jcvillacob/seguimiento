@@ -1,7 +1,7 @@
 <app-encabezados [nombre]="'Transacciones'" (botonMas)="transactionsModals($event)"></app-encabezados>
 
 <div class="transactionsContainer">
-  <div class="transactions">
+  <!-- <div class="transactions">
     <table class="transactions__table maven">
       <thead>
         <tr>
@@ -52,7 +52,9 @@
         </td>
       </tr>
     </ng-template>
-  </div>
+  </div> -->
+
+  <app-table class="transactionsContainer__table" [columns]="transactionColumns" [data]="transactions"></app-table>
 
   <!-- Resumen -->
   <app-resumenes class="resumenCards" [resumenes]="resumenes"></app-resumenes>

@@ -1,0 +1,72 @@
+<div class="transactions__tableCont">
+  <table class="transactions__table maven">
+    <thead>
+      <tr>
+        <th *ngFor="let column of columns">{{ column.header }}</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr *ngFor="let row of data">
+            <td *ngFor="let column of columns">
+              <ng-container [ngSwitch]="column.type">
+                <!-- Si es texto -->
+                <ng-container *ngSwitchCase="'text'">
+                  {{ row[column.field] }}
+                </ng-container>
+                <!-- Si es número -->
+                <ng-container *ngSwitchCase="'number'">
+                  $ {{ row[column.field] | number:'1.0-0' }}
+                </ng-container>
+                <!-- Si es plantilla personalizada -->
+                <ng-container *ngSwitchCase="'template'">
+                  template
+                </ng-container>
+              </ng-container>
+            </td>
+            <td class="table__actions">
+              <div class="transactions__menu">
+                <i class="fa-solid fa-ellipsis-vertical icon"></i>
+                <div class="transaction__menu">
+                  <ul class="menu__list maven">
+                    <li>Editar</li>
+                    <li>Eliminar</li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+          </tr>
+    </tbody>
+  </table>
+
+
+  <ng-template #noData class="no_data maven">
+    <tr>
+      <td colspan="6">
+        <p>No hay datos de transacciones disponibles.</p>
+      </td>
+    </tr>
+  </ng-template>
+
+
+  <ng-template #progressTemplate>
+    template Progress
+    <!-- <div class="goal__bar">
+      <div class="bar__complete" [style.width]="getTranslationPercentage(presupuesto)"></div>
+    </div> -->
+  </ng-template>
+
+  <ng-template #actionsTemplate>
+    template actions
+    <!-- <div class="transactions__menu" (click)="menuPresupuesto(presupuesto.PresupuestoID)">
+      <i class="fa-solid fa-ellipsis-vertical icon"></i>
+      <div [id]="'transaction__menu' + presupuesto.PresupuestoID" class="transaction__menu" [ngClass]="{'active_t': activePresupuestoMenu === presupuesto.PresupuestoID}">
+        <ul class="menu__list maven">
+          <li (click)="editPresupuesto(presupuesto)">Editar</li>
+          <li>Eliminar</li>
+        </ul>
+      </div>
+    </div> -->
+  </ng-template>
+
+</div>
