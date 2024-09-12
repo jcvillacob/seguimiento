@@ -10,8 +10,12 @@
     </thead>
     <tbody>
           <tr *ngFor="let row of data">
-            <td *ngFor="let column of columns">
+            <td *ngFor="let column of columns" [ngClass]="column.cellClass ? column.cellClass(row) : ''">
               <ng-container [ngSwitch]="column.type">
+                <!-- Si es fecha -->
+                <ng-container *ngSwitchCase="'date'">
+                  {{ row[column.field] | date:'EEE d' | titlecase }}
+                </ng-container>
                 <!-- Si es texto -->
                 <ng-container *ngSwitchCase="'text'">
                   {{ row[column.field] }}

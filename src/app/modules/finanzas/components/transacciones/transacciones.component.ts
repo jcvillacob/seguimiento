@@ -26,15 +26,22 @@ export class TransaccionesComponent {
   toastSignal = toastSignal;
   resumenes: any[] = [];
   transactions: any[] = [];
-  transactionsGroupedByDate: { date: string, transactions: any[], subtotal: number }[] = [];
+  /* transactionsGroupedByDate: { date: string, transactions: any[], subtotal: number }[] = []; */
   activeTransactionMenu: number | null = null;
 
   transactionColumns = [
-    { header: 'Fecha', field: 'date', type: 'text' },
+    { header: 'Fecha', field: 'Fecha', type: 'date' },
     { header: 'Descripción', field: 'Descripcion', type: 'text' },
     { header: 'Categoría', field: 'NombreCategoria', type: 'text' },
     { header: 'Banco', field: 'NombreBanco', type: 'text' },
-    { header: 'Valor', field: 'Monto', type: 'number' },
+    {
+      header: 'Valor',
+      field: 'Monto',
+      type: 'number',
+      cellClass: (row: any) => {
+        return row.Tipo === 'Ingreso' ? 'green-text' : 'red-text';
+      },
+    },
   ];
 
 
@@ -42,18 +49,35 @@ export class TransaccionesComponent {
     effect(() => {
       const data: any = this.transaccionesMes();
       const monthYear: any = this.monthYear();
-      if(this.monthYears != monthYear) {
+      if (this.monthYears != monthYear) {
         this.getTransactions(monthYear);
       }
       if (data.transacciones) {
         this.transactions = data.transacciones;
+        if (data.transacciones) {
+          // Convierte las fechas a objetos Date si es necesario
+          data.transacciones.forEach((transaction: any) => {
+            transaction.Fecha = new Date(transaction.Fecha);
+          });
+
+          // Ordena las transacciones de más reciente a más antigua
+          this.transactions = data.transacciones.sort((a: any, b: any) => b.Fecha.getTime() - a.Fecha.getTime());
+
+          this.resumenes = [
+            { name: 'Saldo Actual', number: data.saldoActual, icon: 'fa-coins' },
+            { name: 'Ingresos', number: data.ingresos, icon: 'fa-angle-up' },
+            { name: 'Gastos', number: data.gastos, icon: 'fa-angle-down' },
+            { name: 'Balance Mes', number: data.balance, icon: 'fa-scale-unbalanced-flip' },
+          ];
+        }
+
         this.resumenes = [
-          { name: 'Saldo Actual', number: data.saldoActual, icon: 'fa-coins'},
-          { name: 'Ingresos', number: data.ingresos, icon: 'fa-angle-up'},
-          { name: 'Gastos', number: data.gastos, icon: 'fa-angle-down'},
-          { name: 'Balance Mes', number: data.balance, icon: 'fa-scale-unbalanced-flip'},
-        ]
-        this.groupTransactionsByDate();
+          { name: 'Saldo Actual', number: data.saldoActual, icon: 'fa-coins' },
+          { name: 'Ingresos', number: data.ingresos, icon: 'fa-angle-up' },
+          { name: 'Gastos', number: data.gastos, icon: 'fa-angle-down' },
+          { name: 'Balance Mes', number: data.balance, icon: 'fa-scale-unbalanced-flip' },
+        ];
+        /* this.groupTransactionsByDate(); */
       }
     });
   }
@@ -69,7 +93,7 @@ export class TransaccionesComponent {
     this.transactionsModal.set('Gasto');
   }
 
-  groupTransactionsByDate() {
+  /* groupTransactionsByDate() {
     const grouped = this.transactions.reduce((acc, transaction) => {
       const date = transaction.Fecha.split('T')[0];
       if (!acc[date]) {
@@ -89,6 +113,7 @@ export class TransaccionesComponent {
       return { date, transactions, subtotal };
     });
   }
+ */
 
   getMontoColor(transaction: any): string {
     return transaction.Tipo === 'Ingreso' ? 'green' : 'red';

@@ -5,8 +5,9 @@ interface TableColumn {
   header: string;
   field: string;
   type: string;
-  template?: string;
+  cellClass?: (row: any) => string;
 }
+
 
 @Component({
   selector: 'app-table',
@@ -18,5 +19,4 @@ interface TableColumn {
 export class TableComponent {
   @Input() columns: TableColumn[] = [];
   @Input() data: any[] = [];
-
 }
