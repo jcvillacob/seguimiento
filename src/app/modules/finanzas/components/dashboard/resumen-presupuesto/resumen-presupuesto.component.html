@@ -1,28 +1,17 @@
-<div class="resumenContainer">
-  <h6 class="resumenTitle maven">Presupuesto</h6>
-
-  <div class="resumenCard">
-    <div class="resumenCard__content">
-      <!-- Goal -->
-      <div class="content__goal">
-        <div class="goal__name">
-          <div class="name__icon"><i class="fa-solid fa-coins"></i></div>
-          <div class="name__name maven">
-            <div class="name__title">Presupuesto Total</div>
-            <div class="name__faltante">Restante $ {{ budget - gastado | number:'1.0-0' }}</div>
-          </div>
-        </div>
-        <div class="goal__bar">
-          <div class="bar__complete" [style.translate]="getTranslationPercentage()"></div>
-        </div>
-        <div class="goal__money maven">
-          $ {{ gastado | number:'1.0-0' }} de $ {{ budget | number:'1.0-0' }}
-        </div>
+<app-dashboard-card [title]="'Presupuesto'" [ruta]="'../presupuesto'">
+  <div class="content__goal">
+    <div class="goal__name">
+      <div class="name__icon"><i class="fa-solid fa-coins"></i></div>
+      <div class="name__name maven">
+        <div class="name__title">Presupuesto Total</div>
+        <div class="name__faltante">Restante $ {{ budget - gastado | number:'1.0-0' }}</div>
       </div>
     </div>
-
-    <div class="resumenCard__footer">
-      <button class="noto" routerLink="../presupuesto">VER MÁS</button>
+    <div class="goal__bar">
+      <div class="bar__complete" [style.translate]="getTranslationPercentage()"></div>
+    </div>
+    <div class="goal__money maven">
+      $ {{ gastado | number:'1.0-0' }} de $ {{ budget | number:'1.0-0' }}
     </div>
   </div>
-</div>
+</app-dashboard-card>

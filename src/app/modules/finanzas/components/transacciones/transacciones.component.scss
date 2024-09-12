@@ -8,7 +8,6 @@
 
 .transactionsContainer__table {
   width: 100%;
-  overflow-x: scroll;
 }
 
 .transactions {
@@ -37,6 +36,10 @@
       width: 100%;
       justify-content: flex-start;
     }
+  }
+
+  .transactionsContainer__table {
+    overflow-x: scroll;
   }
 
   .actions {

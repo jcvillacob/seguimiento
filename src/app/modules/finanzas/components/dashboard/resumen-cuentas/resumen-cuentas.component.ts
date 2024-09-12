@@ -3,11 +3,12 @@ import { Component, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FinanzasService } from '../../../services/finanzas.service';
 import { transaccionesMes } from '../dashboard.component';
+import { DashboardCardComponent } from '../../../../../shared/components/dashboard-card/dashboard-card.component';
 
 @Component({
   selector: 'app-resumen-cuentas',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [CommonModule, DashboardCardComponent],
   templateUrl: './resumen-cuentas.component.html',
   styleUrl: './resumen-cuentas.component.scss'
 })

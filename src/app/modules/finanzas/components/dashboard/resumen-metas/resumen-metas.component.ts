@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DashboardCardComponent } from '../../../../../shared/components/dashboard-card/dashboard-card.component';
 
 @Component({
   selector: 'app-resumen-metas',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [DashboardCardComponent, CommonModule],
   templateUrl: './resumen-metas.component.html',
   styleUrl: './resumen-metas.component.scss'
 })

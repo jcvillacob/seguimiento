@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { presupuestoMes } from '../dashboard.component';
+import { DashboardCardComponent } from '../../../../../shared/components/dashboard-card/dashboard-card.component';
 
 @Component({
   selector: 'app-resumen-presupuesto',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [DashboardCardComponent, CommonModule],
   templateUrl: './resumen-presupuesto.component.html',
   styleUrl: './resumen-presupuesto.component.scss'
 })

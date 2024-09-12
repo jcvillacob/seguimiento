@@ -1,23 +1,13 @@
-<div class="resumenContainer">
-  <h6 class="resumenTitle maven">Ahorro Mensual</h6>
-
-  <div class="resumenCard">
-    <div class="resumenCard__content">
-      <div class="content__chart">
-        <div class="chart__data">
-          <canvas #chartResumenCumplimiento id="chartResumenCumplimiento" class="data__chart"></canvas>
-          <div class="data__text maven">
-            <p class="text__text">Felicitaciones!</p>
-            <p class="text__text">Este mes has ahorrado $ {{ cumplimientoData.ingresos - cumplimientoData.gastos |
-              number:'1.0-0' }}. Has ahorrado {{ (cumplimientoData.ingresos - cumplimientoData.gastos) * 100 /
-              cumplimientoData.ingresos | number:'1.0-2' }}% de tus ganancias</p>
-          </div>
-        </div>
+<app-dashboard-card [title]="'Ahorro Mensual'" [ruta]="'../transacciones'">
+  <div class="content__chart">
+    <div class="chart__data">
+      <canvas #chartResumenCumplimiento id="chartResumenCumplimiento" class="data__chart"></canvas>
+      <div class="data__text maven">
+        <p class="text__text">Felicitaciones!</p>
+        <p class="text__text">Este mes has ahorrado $ {{ cumplimientoData.ingresos - cumplimientoData.gastos |
+          number:'1.0-0' }}. Has ahorrado {{ (cumplimientoData.ingresos - cumplimientoData.gastos) * 100 /
+          cumplimientoData.ingresos | number:'1.0-2' }}% de tus ganancias</p>
       </div>
     </div>
-
-    <div class="resumenCard__footer">
-      <button class="noto" routerLink="../transacciones">VER MÁS</button>
-    </div>
   </div>
-</div>
+</app-dashboard-card>

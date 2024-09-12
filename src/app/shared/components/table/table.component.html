@@ -2,7 +2,9 @@
   <table class="transactions__table maven">
     <thead>
       <tr>
-        <th *ngFor="let column of columns">{{ column.header }}</th>
+        @for(column of columns; track column.header) {
+          <th>{{ column.header }}</th>
+        }
         <th>Acciones</th>
       </tr>
     </thead>

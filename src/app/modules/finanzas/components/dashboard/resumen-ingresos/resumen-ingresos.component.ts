@@ -2,11 +2,12 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild, eff
 import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { transaccionesMes } from '../dashboard.component';
+import { DashboardCardComponent } from '../../../../../shared/components/dashboard-card/dashboard-card.component';
 
 @Component({
   selector: 'app-resumen-ingresos',
   standalone: true,
-  imports: [RouterLink],
+  imports: [DashboardCardComponent],
   templateUrl: './resumen-ingresos.component.html',
   styleUrls: ['./resumen-ingresos.component.scss']
 })

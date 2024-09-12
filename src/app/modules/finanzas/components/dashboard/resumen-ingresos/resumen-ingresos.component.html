@@ -1,15 +1,5 @@
-<div class="resumenContainer">
-  <h6 class="resumenTitle maven">Ingresos por Categoría</h6>
-
-  <div class="resumenCard">
-    <div class="resumenCard__content">
-      <div class="content__chart">
-        <canvas #chartResumenIngresos id="chartResumenIngresos" class="chart__chart"></canvas>
-      </div>
-    </div>
-
-    <div class="resumenCard__footer">
-      <button class="noto" routerLink="../transacciones">VER MÁS</button>
-    </div>
+<app-dashboard-card [title]="'Ingresos por Categoría'" [ruta]="'../transacciones'">
+  <div class="content__chart">
+    <canvas #chartResumenIngresos id="chartResumenIngresos" class="chart__chart"></canvas>
   </div>
-</div>
+</app-dashboard-card>

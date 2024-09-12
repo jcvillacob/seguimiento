@@ -1,28 +1,13 @@
-<div class="resumenContainer">
-  <h6 class="resumenTitle maven">Mis Cuentas</h6>
-
-  <div class="resumenCard">
-
-    <div class="resumenCard__content">
-
-      <!-- Cuenta -->
-      <div class="content__cuentas" *ngFor="let cuenta of cuentas">
-        <div class="cuentas__cuenta">
-          <div class="cuenta__icon"> <img [src]="cuenta.BancoIcono" alt="Cuenta"></div>
-          <h6 class="maven">{{ cuenta.BancoNombre }}</h6>
-        </div>
-
-        <div class="cuentas__balance maven">
-          <h6 class="balance__text">Balance</h6>
-          <h6 class="balance__number">$ {{ cuenta.Saldo | number:'1.0-0'}}</h6>
-        </div>
-      </div>
-
+<app-dashboard-card [title]="'Cuentas'" [ruta]="'../cuentas'">
+  <div class="content__cuentas" *ngFor="let cuenta of cuentas">
+    <div class="cuentas__cuenta">
+      <div class="cuenta__icon"> <img [src]="cuenta.BancoIcono" alt="Cuenta"></div>
+      <h6 class="maven">{{ cuenta.BancoNombre }}</h6>
     </div>
 
-    <div class="resumenCard__footer">
-      <button class="noto" routerLink="../cuentas">VER MÁS</button>
+    <div class="cuentas__balance maven">
+      <h6 class="balance__text">Balance</h6>
+      <h6 class="balance__number">$ {{ cuenta.Saldo | number:'1.0-0'}}</h6>
     </div>
   </div>
-
-</div>
+</app-dashboard-card>

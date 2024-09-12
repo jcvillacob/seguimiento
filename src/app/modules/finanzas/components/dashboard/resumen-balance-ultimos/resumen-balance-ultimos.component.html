@@ -1,15 +1,5 @@
-<div class="resumenContainer">
-  <h6 class="resumenTitle maven">Balance Últimos 6 meses</h6>
-
-  <div class="resumenCard">
-    <div class="resumenCard__content">
-      <div class="content__chart">
-        <canvas #chartResumenUltimos id="chartResumenUltimos" class="chart__chart"></canvas>
-      </div>
-    </div>
-
-    <div class="resumenCard__footer">
-      <button class="noto" routerLink="../transacciones">VER MÁS</button>
-    </div>
+<app-dashboard-card [title]="'Balance Últimos 6 meses'" [ruta]="'../transacciones'">
+  <div class="content__chart">
+    <canvas #chartResumenUltimos id="chartResumenUltimos" class="chart__chart"></canvas>
   </div>
-</div>
+</app-dashboard-card>

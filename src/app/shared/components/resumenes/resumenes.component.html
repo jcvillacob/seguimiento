@@ -3,7 +3,7 @@
   <div class="resumen__card">
     <div class="card__saldo maven">
       <p>{{ resumen.name }}</p>
-      <h5>{{ resumen.number | number:'1.0-0' }}</h5>
+      <h5>$ {{ resumen.number | number:'1.0-0' }}</h5>
     </div>
     <div class="card__icon">
       <i class="fa-solid" [ngClass]="resumen.icon"></i>
