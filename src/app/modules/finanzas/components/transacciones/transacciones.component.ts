@@ -124,7 +124,6 @@ export class TransaccionesComponent {
   }
 
   editTransaction(transaction: any) {
-    console.log(transaction);
     this.transactionsModalEdit.set(transaction);
     this.transactionsModal.set(transaction.Tipo);
   }

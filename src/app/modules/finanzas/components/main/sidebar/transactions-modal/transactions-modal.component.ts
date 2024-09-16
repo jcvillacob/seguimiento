@@ -69,12 +69,16 @@ export class TransactionsModalComponent {
 
       if (transaccion.TransaccionID) {
         this.type = 'Editar ';
+
+        // Formatear la fecha utilizando la función
+        const fechaFormateada = this.formatFecha(transaccion.Fecha);
+
         // Actualizar los campos del formulario con los datos de la transacción a editar
         this.transactionForm.patchValue({
           saldo: transaccion.Monto,
-          fecha: transaccion.Fecha.split('T')[0],
+          fecha: fechaFormateada,
           descripcion: transaccion.Descripcion,
-          recurrente: transaccion.Recurrente || false, // Si tiene un campo recurrente
+          recurrente: transaccion.Recurrente || false,
         });
 
         // Seleccionar banco y categoría basados en los datos de la transacción a editar
@@ -88,6 +92,15 @@ export class TransactionsModalComponent {
     });
 
   }
+
+  formatFecha(fecha: string): string {
+    const date = new Date(fecha);
+    date.setHours(date.getHours() + 5);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+}
 
   toggleModal() {
     this.transactionsModal.set('close');

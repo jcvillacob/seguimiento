@@ -1,1 +1,9 @@
-<app-encabezados [nombre]="'Creditos'"></app-encabezados>
+<app-encabezados [nombre]="'Creditos'" (botonMas)="crearModals()"></app-encabezados>
+
+<div class="transactionsContainer">
+
+  <div class="transactionsContainer__table"></div>
+
+  <!-- Resumen -->
+  <app-resumenes class="resumenCards" [resumenes]="resumenes"></app-resumenes>
+</div>

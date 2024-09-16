@@ -1,0 +1,66 @@
+/* Transacciones Container */
+.transactionsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.transactionsContainer__table {
+  width: 100%;
+}
+
+.transactions {
+  width: 70%;
+  min-height: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 5%;
+  background-color: var(--px-white);
+  border-radius: 25px;
+  margin-top: 25px;
+}
+
+.resumenCards {
+  width: 30%;
+}
+
+@media screen and (max-width: 620px) {
+  .titleContainer {
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+    & .title {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+
+  .transactionsContainer__table {
+    overflow-x: scroll;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .transactionsContainer {
+    flex-direction: column-reverse;
+  }
+
+  .transactions {
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  .transactions__table {
+    width: auto;
+  }
+
+  .resumenCards {
+    width: 100%;
+  }
+}

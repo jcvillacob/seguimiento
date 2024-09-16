@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
 
 interface TableColumn {
   header: string;
@@ -39,6 +39,14 @@ export class TableComponent {
       this.activeMenuRow = null;
     } else {
       this.activeMenuRow = row;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const clickedElement = event.target as HTMLElement;
+    if (!clickedElement.closest('.transactions__menu')) {
+      this.activeMenuRow = null;
     }
   }
 }
