@@ -1,1 +1,96 @@
-<p>dashboard-resumen works!</p>
+<div class="resumen__container">
+
+    @for(dato of data; track dato.title) {
+        <div class="container__cards">
+            <div class="cards__data maven">
+                <div class="data__numbers">
+                    <div class="numbers__text">
+                        <p>{{ dato.title }}</p>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="numbers__number">
+                        $ {{ dato.number || 0 | number:'1.0-0' }}
+                    </div>
+                </div>
+    
+                <div class="data__icon">
+                    <i class="fa-solid" [ngClass]="dato.icon"></i>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <!-- <div class="container__cards">
+      <div class="cards__data maven">
+        <div class="data__numbers">
+          <div class="numbers__text">
+            <p>Balance Actual</p>
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+          <div class="numbers__number">
+            $ {{ cards.saldoActual | number:'1.0-0' }}
+          </div>
+        </div>
+  
+        <div class="data__icon">
+          <i class="fa-solid fa-building-columns"></i>
+        </div>
+      </div>
+    </div>
+  
+    <div class="container__cards">
+      <div class="cards__data maven">
+        <div class="data__numbers">
+          <div class="numbers__text">
+            <p>Ingresos</p>
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+          <div class="numbers__number">
+            $ {{ cards.ingresos | number:'1.0-0' }}
+          </div>
+        </div>
+  
+        <div class="data__icon">
+          <i class="fa-solid fa-chevron-up"></i>
+        </div>
+      </div>
+    </div>
+  
+    <div class="container__cards">
+      <div class="cards__data maven">
+        <div class="data__numbers">
+          <div class="numbers__text">
+            <p>Gastos</p>
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+          <div class="numbers__number">
+            $ {{ cards.gastos | number:'1.0-0' }}
+          </div>
+        </div>
+  
+        <div class="data__icon">
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+    </div>
+  
+    <div class="container__cards">
+      <div class="cards__data maven">
+        <div class="data__numbers">
+          <div class="numbers__text">
+            <p>Balance Mes</p>
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+          <div class="numbers__number">
+            $ {{ cards.balance || 0 | number:'1.0-0' }}
+          </div>
+        </div>
+  
+        <div class="data__icon">
+          <i class="fa-solid fa-credit-card"></i>
+        </div>
+      </div>
+    </div> -->
+
+</div>

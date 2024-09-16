@@ -25,9 +25,24 @@ export class ToastComponent {
 
   showToast() {
     this.display = 'flex';
-    setTimeout(() => {
-      this.display = 'none';
-      this.toastSignal.set('');
+    // Temporizador para cerrar el toast automáticamente después de 3 segundos
+    this.autoCloseTimeout = setTimeout(() => {
+      this.closeToast();
     }, 3000);
+  }
+
+  // Variable para almacenar el timeout y poder cancelarlo si se cierra manualmente
+  private autoCloseTimeout: any;
+
+  closeToast() {
+    this.display = 'none';
+    this.text = '';
+    this.toastSignal.set('');
+
+    // Limpiar el timeout si existe
+    if (this.autoCloseTimeout) {
+      clearTimeout(this.autoCloseTimeout);
+      this.autoCloseTimeout = null;
+    }
   }
 }

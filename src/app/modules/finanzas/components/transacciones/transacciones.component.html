@@ -54,7 +54,7 @@
     </ng-template>
   </div> -->
 
-  <app-table class="transactionsContainer__table" [columns]="transactionColumns" [data]="transactions"></app-table>
+  <app-table class="transactionsContainer__table" (edit)="editTransaction($event)" (delete)="deleteTransaction($event)" [columns]="transactionColumns" [data]="transactions"></app-table>
 
   <!-- Resumen -->
   <app-resumenes class="resumenCards" [resumenes]="resumenes"></app-resumenes>

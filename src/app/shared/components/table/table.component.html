@@ -2,46 +2,50 @@
   <table class="transactions__table maven">
     <thead>
       <tr>
-        @for(column of columns; track column.header) {
-          <th>{{ column.header }}</th>
-        }
+        <th *ngFor="let column of columns">
+          {{ column.header }}
+        </th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-          <tr *ngFor="let row of data">
-            <td *ngFor="let column of columns" [ngClass]="column.cellClass ? column.cellClass(row) : ''">
-              <ng-container [ngSwitch]="column.type">
-                <!-- Si es fecha -->
-                <ng-container *ngSwitchCase="'date'">
-                  {{ row[column.field] | date:'EEE d' | titlecase }}
-                </ng-container>
-                <!-- Si es texto -->
-                <ng-container *ngSwitchCase="'text'">
-                  {{ row[column.field] }}
-                </ng-container>
-                <!-- Si es número -->
-                <ng-container *ngSwitchCase="'number'">
-                  $ {{ row[column.field] | number:'1.0-0' }}
-                </ng-container>
-                <!-- Si es plantilla personalizada -->
-                <ng-container *ngSwitchCase="'template'">
-                  template
-                </ng-container>
-              </ng-container>
-            </td>
-            <td class="table__actions">
-              <div class="transactions__menu">
-                <i class="fa-solid fa-ellipsis-vertical icon"></i>
-                <div class="transaction__menu">
-                  <ul class="menu__list maven">
-                    <li>Editar</li>
-                    <li>Eliminar</li>
-                  </ul>
-                </div>
-              </div>
-            </td>
-          </tr>
+      <tr *ngFor="let row of data">
+        <td *ngFor="let column of columns" [ngClass]="column.cellClass ? column.cellClass(row) : ''">
+          <ng-container [ngSwitch]="column.type">
+            <!-- Si es fecha -->
+            <ng-container *ngSwitchCase="'date'">
+              {{ row[column.field] | date:'EEE d' | titlecase }}
+            </ng-container>
+            <!-- Si es texto -->
+            <ng-container *ngSwitchCase="'text'">
+              {{ row[column.field] }}
+            </ng-container>
+            <!-- Si es número -->
+            <ng-container *ngSwitchCase="'number'">
+              $ {{ row[column.field] | number:'1.0-0' }}
+            </ng-container>
+            <!-- Si es plantilla personalizada -->
+            <ng-container *ngSwitchCase="'template'">
+              template
+            </ng-container>
+          </ng-container>
+        </td>
+        <td class="table__actions">
+          <div class="transactions__menu">
+            <i class="fa-solid fa-ellipsis-vertical icon" (click)="toggleMenu(row)"></i>
+            <div
+              [id]="'transaction__menu' + row.id" 
+              class="transaction__menu" 
+              [ngClass]="{'active_t': activeMenuRow === row}"
+            >
+              <ul class="menu__list maven">
+                <li (click)="onEdit(row)">Editar</li>
+                <li (click)="onDelete(row)">Eliminar</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
 

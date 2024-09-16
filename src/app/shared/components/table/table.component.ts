@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 interface TableColumn {
   header: string;
@@ -8,15 +8,37 @@ interface TableColumn {
   cellClass?: (row: any) => string;
 }
 
-
 @Component({
   selector: 'app-table',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.scss'
+  styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
   @Input() columns: TableColumn[] = [];
   @Input() data: any[] = [];
+
+  @Output() edit = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<any>();
+
+  activeMenuRow: any = null;
+
+  onEdit(row: any): void {
+    this.edit.emit(row);
+    this.activeMenuRow = null;
+  }
+
+  onDelete(row: any): void {
+    this.delete.emit(row.TransaccionID);
+    this.activeMenuRow = null;
+  }
+
+  toggleMenu(row: any): void {
+    if (this.activeMenuRow === row) {
+      this.activeMenuRow = null;
+    } else {
+      this.activeMenuRow = row;
+    }
+  }
 }

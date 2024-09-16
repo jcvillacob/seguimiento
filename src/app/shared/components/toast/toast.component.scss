@@ -8,8 +8,9 @@
   align-items: center;
   gap: 10px;
   background-color: white;
-  padding: 8px;
+  padding: 8px 12px; /* Ajuste de padding para espacio adicional */
   border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .container__logo {
@@ -27,4 +28,17 @@
   color: var(--px-text);
   font-size: 16px;
   font-weight: 400;
+  flex-grow: 1; /* Para que el texto ocupe el espacio disponible */
+}
+
+/* Estilos para el botón de cierre */
+.close-button {
+  color: #555; /* Color similar al texto */
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #000;
+  }
 }

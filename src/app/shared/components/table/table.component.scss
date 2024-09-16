@@ -5,6 +5,7 @@
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
+  overflow: visible;
   gap: 5%;
   background-color: var(--px-white);
   border-radius: 25px;
@@ -31,6 +32,7 @@
 .transactions__table {
   width: 100%;
   border-collapse: collapse;
+  overflow: visible !important;
   margin: 0;
   border-radius: 25px;
   overflow: hidden;
@@ -138,4 +140,47 @@ td {
 
 .red-text {
   color: red;
+}
+
+.transactions__menu {
+  position: relative;
+
+  .transaction__menu {
+    position: absolute;
+    display: none;
+    top: 30px; // Ajusta según sea necesario
+    right: 0;
+    background-color: var(--px-white);
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.267);
+    padding: 10px;
+    z-index: 9999;
+
+    &.active_t {
+      display: block;
+    }
+
+    .menu__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .menu__list li {
+      width: 100%;
+      font-size: 16px;
+      padding: 8px;
+      color: #585858;
+      cursor: pointer;
+      border-radius: 6px;
+
+      &:hover {
+        background-color: var(--px-theme);
+        color: var(--px-white);
+      }
+    }
+  }
 }

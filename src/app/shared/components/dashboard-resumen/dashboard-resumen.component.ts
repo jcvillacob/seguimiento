@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-resumen',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './dashboard-resumen.component.html',
   styleUrl: './dashboard-resumen.component.scss'
 })
 export class DashboardResumenComponent {
+  @Input() data!: any[];
 
 }
