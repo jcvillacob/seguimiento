@@ -1,0 +1,264 @@
+.modalCrearCredito {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(15, 15, 15, 0.144);
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Crear Cuentas */
+.modal__crear {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000048;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+  display: none;
+  &.modal {
+    display: flex;
+  }
+}
+
+.crear__container {
+  max-width: 600px;
+  width: 90%;
+  background-color: var(--px-bg);
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  max-height: 90%;
+  overflow: auto;
+}
+
+.container__title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 26px 12px;
+}
+
+.title__nueva {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.334;
+  color: var(--px-heading);
+}
+
+.title__cerrar {
+  font-size: 20px;
+  color: var(--px-text);
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    font-size: 24px;
+  }
+}
+
+.crear__form {
+  padding: 10px 36px 20px;
+
+  & input, textarea{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    border-bottom: 1px solid var(--px-dark);
+    padding: 8px 5px 8px 10px;
+    color: var(--px-text);
+    background-color: var(--px-bg);
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid var(--px-theme-2);
+    }
+  }
+
+  .form__group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+
+    .form__label {
+      margin-bottom: 5px;
+      font-size: 16px;
+      color: var(--px-text);
+      font-weight: 500;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  }
+
+  /* Observación (Textarea) */
+  .form__observacion {
+    & textarea {
+      width: 100%;
+      height: 100px;
+      border: 1px solid var(--px-dark);
+      border-radius: 5px;
+      font-size: 16px;
+      color: var(--px-theme-2);
+      background-color: var(--px-bg);
+      resize: vertical;
+
+      &:focus {
+        outline: none;
+        border-color: var(--px-theme-2);
+      }
+    }
+  }
+
+  /* Monto Capital e Intereses */
+  .form__monto {
+    & input {
+      width: 100%;
+      border: 1px solid var(--px-dark);
+      border-radius: 5px;
+      font-size: 16px;
+      color: var(--px-theme-2);
+      background-color: var(--px-bg);
+
+      &:focus {
+        outline: none;
+        border-color: var(--px-theme-2);
+      }
+    }
+  }
+
+  /* Tasa de Interés */
+  .form__tasa {
+    & input {
+      width: 100%;
+      border: 1px solid var(--px-dark);
+      border-radius: 5px;
+      font-size: 16px;
+      color: var(--px-theme-2);
+      background-color: var(--px-bg);
+
+      &:focus {
+        outline: none;
+        border-color: var(--px-theme-2);
+      }
+    }
+  }
+
+  /* Tipo de Crédito y Estatus (Select) */
+  .form__tipo,
+  .form__estatus {
+    margin: 8px 0 25px;
+    & select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border: 1px solid var(--px-dark);
+      border-radius: 5px;
+      font-size: 16px;
+      color: var(--px-theme-2);
+      background-color: var(--px-bg);
+
+      &:focus {
+        outline: none;
+        border-color: var(--px-theme-2);
+      }
+    }
+
+    .form__label {
+      margin-bottom: 5px;
+      font-size: 16px;
+      color: var(--px-text);
+      font-weight: 500;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  }
+
+  /* Campos de Fecha */
+  .form__date {
+    display: flex;
+    padding-left: 25px;
+    margin-top: 10px;
+    border-bottom: 1px solid var(--px-theme);
+
+    & input {
+      font-size: 16px;
+      border: none;
+      background-color: transparent;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &:focus {
+      border-bottom: 2px solid var(--px-theme-2);
+    }
+  }
+
+  .date__date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .date__spec {
+    display: flex;
+    & .date__today,
+    & .date__yesterday {
+      margin-right: 10px;
+      padding: 5px 8px;
+      background-color: var(--px-dark);
+      color: var(--px-white);
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: var(--px-theme-2);
+      }
+    }
+  }
+
+  /* Botones */
+  .form__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 35px 0 20px;
+
+    & .buttons__guardar {
+      padding: 12px 45px;
+      background-color: var(--px-theme);
+      color: #fff;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: 500;
+      box-shadow: 1px 1px 3px rgba(110, 110, 110, 0.24);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: var(--px-theme-2);
+      }
+    }
+  }
+}

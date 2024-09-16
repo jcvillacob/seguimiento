@@ -1,1 +1,126 @@
-<p>modal-crear-credito works!</p>
+<div class="modalCrearCredito">
+  <!-- Contenedor -->
+  <div class="crear__container">
+    <!-- Header -->
+    <div class="container__title">
+      <h5 class="title__nueva maven">Crear Crédito</h5>
+      <div class="title__cerrar" (click)="cerrar()">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+    <!-- Formulario -->
+    <form [formGroup]="creditoForm" (ngSubmit)="onSubmit()" class="crear__form maven">
+
+      <!-- Entidad Financiera -->
+      <div class="form__group">
+        <label for="entidad" class="form__label">Entidad Financiera</label>
+        <input id="entidad" type="text" placeholder="Bancolombia" formControlName="entidad" aria-describedby="entidadHelp">
+        <div id="entidadHelp" class="error" *ngIf="creditoForm.get('entidad')?.touched && creditoForm.get('entidad')?.invalid">
+          <small *ngIf="creditoForm.get('entidad')?.errors?.['required']">La entidad financiera es requerida.</small>
+        </div>
+      </div>
+
+      <!-- Observación -->
+      <div class="form__group">
+        <label for="observacion" class="form__label">Observación</label>
+        <textarea id="observacion" placeholder="" formControlName="observacion"></textarea>
+      </div>
+
+      <!-- Monto Capital -->
+      <div class="form__group">
+        <label for="montoCapital" class="form__label">Monto Capital</label>
+        <input id="montoCapital" type="number" placeholder="Monto Capital" formControlName="montoCapital" min="0" step="10000" aria-describedby="montoCapitalHelp">
+        <div id="montoCapitalHelp" class="error" *ngIf="creditoForm.get('montoCapital')?.touched && creditoForm.get('montoCapital')?.invalid">
+          <small *ngIf="creditoForm.get('montoCapital')?.errors?.['required']">El monto capital es requerido.</small>
+          <small *ngIf="creditoForm.get('montoCapital')?.errors?.['min']">El monto capital debe ser mayor o igual a 0.</small>
+        </div>
+      </div>
+
+      <!-- Monto Intereses -->
+      <div class="form__group">
+        <label for="montoIntereses" class="form__label">Monto Intereses</label>
+        <input id="montoIntereses" type="number" placeholder="Monto Intereses" formControlName="montoIntereses" min="0" step="10000" aria-describedby="montoInteresesHelp">
+        <div id="montoInteresesHelp" class="error" *ngIf="creditoForm.get('montoIntereses')?.touched && creditoForm.get('montoIntereses')?.invalid">
+          <small *ngIf="creditoForm.get('montoIntereses')?.errors?.['required']">El monto de intereses es requerido.</small>
+          <small *ngIf="creditoForm.get('montoIntereses')?.errors?.['min']">El monto de intereses debe ser mayor o igual a 0.</small>
+        </div>
+      </div>
+
+      <!-- Tasa de Interés -->
+      <div class="form__group">
+        <label for="tasaInteres" class="form__label">Tasa de Interés (%)</label>
+        <input id="tasaInteres" type="number" placeholder="Tasa de Interés (%)" formControlName="tasaInteres" min="0" max="100" step="0.1" aria-describedby="tasaInteresHelp">
+        <div id="tasaInteresHelp" class="error" *ngIf="creditoForm.get('tasaInteres')?.touched && creditoForm.get('tasaInteres')?.invalid">
+          <small *ngIf="creditoForm.get('tasaInteres')?.errors?.['required']">La tasa de interés es requerida.</small>
+          <small *ngIf="creditoForm.get('tasaInteres')?.errors?.['min']">La tasa de interés debe ser al menos 0%.</small>
+          <small *ngIf="creditoForm.get('tasaInteres')?.errors?.['max']">La tasa de interés no puede exceder 100%.</small>
+        </div>
+      </div>
+
+      <!-- Tipo de Crédito -->
+      <div class="form__tipo">
+        <label for="tipoCredito" class="form__label">Tipo de Crédito</label>
+        <select id="tipoCredito" formControlName="tipoCredito">
+          <option value="">Selecciona Tipo de Crédito</option>
+          <option value="personal">Personal</option>
+          <option value="hipotecario">Hipotecario</option>
+          <option value="automotriz">Automotriz</option>
+        </select>
+        <div id="tipoCreditoHelp" class="error" *ngIf="creditoForm.get('tipoCredito')?.touched && creditoForm.get('tipoCredito')?.invalid">
+          <small *ngIf="creditoForm.get('tipoCredito')?.errors?.['required']">El tipo de crédito es requerido.</small>
+        </div>
+      </div>
+
+
+      <!-- Fecha Inicio -->
+      <div class="form__group">
+        <label for="fechaInicio" class="form__label">Fecha Inicio</label>
+        <div class="form__date">
+          <div class="date__date">
+            <input id="fechaInicio" type="date" formControlName="fechaInicio" class="maven" aria-describedby="fechaInicioHelp">
+            <div class="date__spec">
+              <div class="date__today" (click)="setToday('fechaInicio')">Hoy</div>
+              <div class="date__yesterday" (click)="setYesterday('fechaInicio')">Ayer</div>
+            </div>
+          </div>
+        </div>
+        <div id="fechaInicioHelp" class="error" *ngIf="creditoForm.get('fechaInicio')?.touched && creditoForm.get('fechaInicio')?.invalid">
+          <small *ngIf="creditoForm.get('fechaInicio')?.errors?.['required']">La fecha de inicio es requerida.</small>
+        </div>
+      </div>
+
+      <!-- Fecha Último Pago -->
+      <div class="form__group">
+        <label for="fechaUltimoPago" class="form__label">Fecha Último Pago</label>
+        <div class="form__date">
+          <div class="date__date">
+            <input id="fechaUltimoPago" type="date" formControlName="fechaUltimoPago" class="maven" aria-describedby="fechaUltimoPagoHelp">
+            <div class="date__spec">
+              <div class="date__today" (click)="setToday('fechaUltimoPago')">Hoy</div>
+              <div class="date__yesterday" (click)="setYesterday('fechaUltimoPago')">Ayer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estatus -->
+      <div class="form__estatus">
+        <label for="estatus" class="form__label">Estatus</label>
+        <select id="estatus" formControlName="estatus" aria-describedby="estatusHelp">
+          <option value="">Selecciona Estatus</option>
+          <option value="activo">Activo</option>
+          <option value="inactivo">Inactivo</option>
+          <option value="pendiente">Pendiente</option>
+        </select>
+        <div id="estatusHelp" class="error" *ngIf="creditoForm.get('estatus')?.touched && creditoForm.get('estatus')?.invalid">
+          <small *ngIf="creditoForm.get('estatus')?.errors?.['required']">El estatus es requerido.</small>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="form__buttons">
+        <button type="submit" class="buttons__guardar">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

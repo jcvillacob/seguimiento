@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { EncabezadosComponent } from '../../../../shared/components/encabezados/encabezados.component';
 import { ResumenesComponent } from '../../../../shared/components/resumenes/resumenes.component';
+import { ModalCrearCreditoComponent } from './modal-crear-credito/modal-crear-credito.component';
 
 @Component({
   selector: 'app-creditos',
   standalone: true,
-  imports: [EncabezadosComponent, ResumenesComponent],
+  imports: [EncabezadosComponent, ResumenesComponent, ModalCrearCreditoComponent],
   templateUrl: './creditos.component.html',
   styleUrl: './creditos.component.scss'
 })
 export class CreditosComponent {
-  modal = false;
+  modalCrearCredito = false;
 
   resumenes = [
     { name: 'Saldo Actual', number: 5000, icon: 'fa-coins' },
@@ -22,7 +23,7 @@ export class CreditosComponent {
 
   /* Modal */
   crearModals() {
-    this.modal = true;
+    this.modalCrearCredito = !this.modalCrearCredito;
   }
 
 }

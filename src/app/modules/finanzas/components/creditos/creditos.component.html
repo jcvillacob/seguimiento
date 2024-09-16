@@ -7,3 +7,8 @@
   <!-- Resumen -->
   <app-resumenes class="resumenCards" [resumenes]="resumenes"></app-resumenes>
 </div>
+
+
+@if (modalCrearCredito) {
+  <app-modal-crear-credito (botonCerrar)="crearModals()"></app-modal-crear-credito>
+}
