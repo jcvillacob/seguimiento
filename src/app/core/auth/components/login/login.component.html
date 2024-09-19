@@ -1,17 +1,17 @@
 <div class="buttons">
   <div class="buttons__buttons">
-    <button class="buttons__google maven">
-      <img src="/icons/logo-de-google.svg" alt="logo-google" class="google__icon">
-      Acceder con Google
-    </button>
+    <div class="buttons__buttons">
+      <asl-google-signin-button (click)="loginWithGoogle()"></asl-google-signin-button>
+    </div>
   </div>
 
   <div class="buttons__buttons">
-    <button class="buttons__apple maven">
+    <button class="buttons__apple maven" (click)="loginWithApple()">
       <img src="/icons/apple-logo.svg" alt="logo-apple" class="apple__icon">
       Inicia sesión con Apple
     </button>
   </div>
+
 </div>
 
 <p class="separate">O</p>
