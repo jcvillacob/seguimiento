@@ -1,5 +1,4 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild, effect } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { balancesUltimosSeisMeses } from '../dashboard.component';
 import { DashboardCardComponent } from '../../../../../shared/components/dashboard-card/dashboard-card.component';

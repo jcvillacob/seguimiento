@@ -1,14 +1,21 @@
-<app-encabezados [nombre]="'Creditos'" (botonMas)="crearModals()"></app-encabezados>
+<app-encabezados [nombre]="'Créditos'" (botonMas)="crearModals()"></app-encabezados>
 
-<div class="transactionsContainer">
-
-  <div class="transactionsContainer__table"></div>
+<div class="CreditosContainer">
+  <div class="CreditosContainer__cards">
+    <div *ngFor="let debt of debts; let i = index" class="cards__card">
+      <div class="card__data maven">
+        <div class="data__entidad">{{ debt.name }}</div>
+        <div class="data__restante">$ {{ debt.amount | number }}</div>
+      </div>
+      <div class="card__grafico">
+        <canvas #chartCredito></canvas>
+      </div>
+    </div>
+  </div>
 
   <!-- Resumen -->
   <app-resumenes class="resumenCards" [resumenes]="resumenes"></app-resumenes>
 </div>
 
-
-@if (modalCrearCredito) {
-  <app-modal-crear-credito (botonCerrar)="crearModals()"></app-modal-crear-credito>
-}
+<!-- Modal -->
+<app-modal-crear-credito *ngIf="modalCrearCredito" (botonCerrar)="crearModals()"></app-modal-crear-credito>

@@ -1,26 +1,65 @@
-/* Transacciones Container */
-.transactionsContainer {
+.CreditosContainer {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-.transactionsContainer__table {
+.CreditosContainer__cards {
   width: 100%;
-}
-
-.transactions {
-  width: 70%;
-  min-height: none;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 5%;
+  padding: 5px;
+  padding-top: 25px;
+  gap: 25px;
+}
+
+.cards__card {
+  width: 100%;
+  display: flex;
   background-color: var(--px-white);
-  border-radius: 25px;
-  margin-top: 25px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.212);
+}
+
+.card__data {
+  width: 30%;
+  min-width: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.data__entidad {
+  width: 100%;
+  color: var(--px-text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.data__restante {
+  font-size: 22px;
+  color: var(--px-heading);
+  font-weight: 500;
+  line-height: 1.334;
+  margin-top: 10px;
+}
+
+.card__grafico {
+  width: 100%;
+  max-height: 150px;
+  position: relative;
+}
+
+.card__grafico canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .resumenCards {
@@ -28,36 +67,25 @@
 }
 
 @media screen and (max-width: 620px) {
-  .titleContainer {
-    flex-direction: column;
-    width: 100%;
-    gap: 15px;
-    & .title {
-      width: 100%;
-      justify-content: flex-start;
-    }
-  }
-
-  .transactionsContainer__table {
-    overflow-x: scroll;
-  }
-
-  .actions {
-    width: 100%;
-    justify-content: flex-end;
-  }
-
-  .transactionsContainer {
+  .CreditosContainer {
     flex-direction: column-reverse;
+    gap: 50px;
   }
 
-  .transactions {
-    width: 100%;
+  .CreditosContainer__cards {
     overflow-x: scroll;
   }
 
-  .transactions__table {
-    width: auto;
+  .cards__card {
+    min-width: 600px;
+  }
+
+  .card__data {
+    width: 40%;
+  }
+
+  .card__grafico {
+    width: 60%;
   }
 
   .resumenCards {
