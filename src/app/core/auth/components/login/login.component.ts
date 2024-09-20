@@ -8,11 +8,12 @@ import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { SocialAuthService, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 
 
+declare var google: any;
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, SocialLoginModule, GoogleSigninButtonModule],
+  imports: [RouterLink, ReactiveFormsModule, GoogleSigninButtonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -53,7 +54,7 @@ export class LoginComponent {
     }
   }
 
-  loginWithGoogle(): void {
+  /* loginWithGoogle(): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) => {
       // Aquí recibes el usuario autenticado por Google
       console.log('Google User:', user);
@@ -72,7 +73,7 @@ export class LoginComponent {
     }).catch((error) => {
       console.error('Error en el inicio de sesión con Google:', error);
     });
-  }
+  } */
 
 
   loginWithApple() {
