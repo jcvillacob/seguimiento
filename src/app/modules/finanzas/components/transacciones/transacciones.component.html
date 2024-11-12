@@ -1,60 +1,7 @@
 <app-encabezados [nombre]="'Transacciones'" (botonMas)="transactionsModals($event)"></app-encabezados>
 
 <div class="transactionsContainer">
-  <!-- <div class="transactions">
-    <table class="transactions__table maven">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Descripción</th>
-          <th>Categoría</th>
-          <th>Banco</th>
-          <th>Valor</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngIf="transactionsGroupedByDate && transactionsGroupedByDate.length > 0; else noData">
-          <ng-container *ngFor="let group of transactionsGroupedByDate">
-            <tr *ngFor="let transaction of group.transactions; index as i">
-              <td>{{ group.date }}</td>
-              <td>{{ transaction.Descripcion }}</td>
-              <td>{{ transaction.NombreCategoria }}</td>
-              <td>{{ transaction.NombreBanco }}</td>
-              <td [ngStyle]="{'color': getMontoColor(transaction)}">$ {{ transaction.Monto | number:'1.0-0' }}</td>
-              <td class="table__actions">
-                <div class="transactions__menu" (click)="toggleTransactionMenu(transaction.TransaccionID)">
-                  <i class="fa-solid fa-ellipsis-vertical icon"></i>
-                  <div [id]="'transaction__menu' + transaction.TransaccionID" class="transaction__menu" [ngClass]="{'active_t': activeTransactionMenu === transaction.TransaccionID}">
-                    <ul class="menu__list maven">
-                      <li (click)="editTransaction(transaction)">Editar</li>
-                      <li (click)="deleteTransaction(transaction.TransaccionID)">Eliminar</li>
-                    </ul>
-                  </div>
-                </div>
-              </td>
-
-
-            </tr>
-            <tr class="subtotal">
-              <td colspan="4">Subtotal</td>
-              <td class="subtotal-value">$ {{ group.subtotal | number:'1.0-0' }}</td>
-              <td></td>
-            </tr>
-          </ng-container>
-        </ng-container>
-      </tbody>
-    </table>
-    <ng-template #noData class="no_data maven">
-      <tr>
-        <td colspan="6">
-          <p>No hay datos de transacciones disponibles.</p>
-        </td>
-      </tr>
-    </ng-template>
-  </div> -->
-
-  <app-table class="transactionsContainer__table" (edit)="editTransaction($event)" (delete)="deleteTransaction($event)" [columns]="transactionColumns" [data]="transactions"></app-table>
+   <app-table class="transactionsContainer__table" (edit)="editTransaction($event)" (delete)="deleteTransaction($event)" [columns]="transactionColumns" [data]="transactions"></app-table>
 
   <!-- Resumen -->
   <app-resumenes class="resumenCards" [resumenes]="resumenes"></app-resumenes>

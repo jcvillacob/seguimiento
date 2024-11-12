@@ -50,6 +50,7 @@ export class DashboardComponent {
         })
         this.finanzasService.getMetas().subscribe((data: any) => {
           this.metas.set(data);
+          console.log(data);
         })
       });
     })

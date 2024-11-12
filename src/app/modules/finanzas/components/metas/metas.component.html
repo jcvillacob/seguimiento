@@ -1,1 +1,41 @@
-<p>metas works!</p>
+<app-encabezados [nombre]="'Metas'" (botonMas)="metasModals($event)"></app-encabezados>
+
+<div class="metasContainer">
+  <div class="metasCards">
+    <div class="metaCard maven" *ngFor="let meta of metas">
+      <div class="metaCard__header">
+        <i class="metaCard__icon" [ngClass]="meta.Icono"></i>
+        <h3 class="metaCard__title">{{ meta.Nombre }}</h3>
+        <div class="metas__menu">
+          <i class="fa-solid fa-ellipsis-vertical icon" (click)="toggleMenu(meta)"></i>
+          <div class="meta__menu" [ngClass]="{'active_t': activeMenuMeta === meta}">
+            <ul class="menu__list maven">
+              <li (click)="editMeta(meta)">Editar</li>
+              <li (click)="deleteMeta(meta.MetaAhorroID)">Eliminar</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p class="metaCard__description">{{ meta.Descripcion }}</p>
+      <p class="metaCard__date">Creada el: {{ meta.FechaCreacion | date:'dd/MM/yyyy' }}</p>
+      <div class="metaCard__progress">
+        <div class="progress-bar">
+          <div class="progress-bar__fill" [style.width.%]="getProgress(meta)"></div>
+        </div>
+        <span class="metaCard__percentage">{{ getProgress(meta) | number:'1.0-0' }}%</span>
+      </div>
+      <div class="metaCard__amounts">
+        <p>Monto Ahorrado: $ {{ meta.MontoAhorrado | number:'1.0-0' }}</p>
+        <p>Monto Objetivo: $ {{ meta.MontoObjetivo | number:'1.0-0' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumen -->
+  <app-resumenes class="resumenCards" [resumenes]="resumenes"></app-resumenes>
+</div>
+
+<!-- Si no hay metas -->
+<div *ngIf="metas.length === 0" class="no_data maven">
+  <p>No hay metas disponibles.</p>
+</div>
