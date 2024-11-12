@@ -104,6 +104,18 @@ export class FinanzasService {
     return this.http.delete<any>(`${this.apiUrl}/presupuesto/${presupuestoId}`);
   }
 
+  /* Metas */
+  getMetas(): Observable<any[]> {
+    const usuarioID = this.authService.getUsuarioID();
+    return this.http.get<any[]>(`${this.apiUrl}/metas/usuario/${usuarioID}`);
+  }
+
+  createMeta(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/metas`, data);
+  }
+
+
+
 
   /* Vuelos */
   getVuelos(): Observable<any[]> {

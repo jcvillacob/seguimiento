@@ -1,16 +1,16 @@
-<app-dashboard-card [title]="'Metas'" [ruta]="'../cuentas'">
-  <div class="content__goal" *ngFor="let goal of goals">
+<app-dashboard-card [title]="'Metas'" [ruta]="'../metas'">
+  <div class="content__goal" *ngFor="let goal of metas()">
     <div class="goal__name">
-      <div class="name__icon"><i [ngClass]="goal.icono"></i></div>
-      <div class="name__name maven">{{ goal.name }}</div>
+      <div class="name__icon"><i [ngClass]="goal.Icono"></i></div>
+      <div class="name__name maven">{{ goal.Nombre }}</div>
     </div>
 
     <div class="goal__bar">
-      <div class="bar__complete" [style.translate]="(goal.ahorrado - goal.meta) * 100 / goal.meta + '%'"></div>
+      <div class="bar__complete" [style.translate]="(goal.MontoAhorrado - goal.MontoObjetivo) * 100 / goal.MontoObjetivo + '%'"></div>
     </div>
 
     <div class="goal__money maven">
-      $ {{ goal.ahorrado | number:'1.0-0' }} of $ {{ goal.meta | number:'1.0-0' }}
+      $ {{ goal.MontoAhorrado | number:'1.0-0' }} of $ {{ goal.MontoObjetivo | number:'1.0-0' }}
     </div>
   </div>
 </app-dashboard-card>
