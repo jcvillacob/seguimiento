@@ -1,0 +1,176 @@
+/* Contenedor principal */
+.metasContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  .metasCards {
+    width: 68%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .metaCard {
+      background-color: var(--px-white);
+      border-radius: 15px;
+      padding: 20px;
+      width: calc(50% - 10px);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: relative;
+
+      &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & .metaCard__icon {
+          font-size: 24px;
+          color: var(--px-theme-2);
+        }
+
+        & .metaCard__title {
+          flex-grow: 1;
+          margin: 0 10px;
+          font-size: 18px;
+          color: var(--px-text);
+          font-weight: 500;
+          line-height: 1.6;
+        }
+
+        .metas__menu {
+          position: relative;
+
+          .icon {
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--px-dark);
+          }
+
+          .meta__menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 25px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 1;
+            min-width: 100px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+
+            &.active_t {
+              display: block;
+            }
+
+            .menu__list {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+
+              li {
+                padding: 8px 12px;
+                cursor: pointer;
+
+                &:hover {
+                  background-color: #f1f1f1;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &__description {
+        margin-top: 10px;
+        color: var(--px-dark);
+        font-size: 14px;
+      }
+
+      &__date {
+        margin-top: 5px;
+        color: var(--px-light);
+        font-size: 12px;
+      }
+
+      &__progress {
+        margin-top: 15px;
+        .progress-bar {
+          width: 100%;
+          background-color: #e0e0e0;
+          border-radius: 8px;
+          overflow: hidden;
+          height: 16px;
+
+          &__fill {
+            height: 100%;
+            background-color: var(--px-theme-2);
+            width: 0%;
+            transition: width 0.3s ease-in-out;
+          }
+        }
+        .metaCard__percentage {
+          margin-top: 5px;
+          font-size: 14px;
+          color: var(--px-heading);
+        }
+      }
+
+      &__amounts {
+        margin-top: 15px;
+        p {
+          margin: 5px 0;
+          font-size: 14px;
+          color: var(--px-dark);
+        }
+      }
+    }
+  }
+
+  .resumenCards {
+    width: 30%;
+    margin-top: 20px;
+  }
+}
+
+.no_data {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  color: var(--px-dark);
+}
+
+@media screen and (max-width: 900px) {
+  .metasContainer {
+    flex-direction: column;
+    align-items: center;
+
+    .metasCards {
+      width: 100%;
+
+      .metaCard {
+        width: 100%;
+      }
+    }
+
+    .resumenCards {
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .metaCard {
+    padding: 15px;
+    &__header {
+      flex-direction: column;
+      align-items: flex-start;
+
+      & .metaCard__title {
+        margin: 10px 0 0 0;
+      }
+    }
+  }
+}

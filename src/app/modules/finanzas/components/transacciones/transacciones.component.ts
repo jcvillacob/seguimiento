@@ -26,7 +26,6 @@ export class TransaccionesComponent {
   toastSignal = toastSignal;
   resumenes: any[] = [];
   transactions: any[] = [];
-  /* transactionsGroupedByDate: { date: string, transactions: any[], subtotal: number }[] = []; */
   activeTransactionMenu: number | null = null;
 
   transactionColumns = [
@@ -77,7 +76,6 @@ export class TransaccionesComponent {
           { name: 'Gastos', number: data.gastos, icon: 'fa-angle-down' },
           { name: 'Balance Mes', number: data.balance, icon: 'fa-scale-unbalanced-flip' },
         ];
-        /* this.groupTransactionsByDate(); */
       }
     });
   }
@@ -92,28 +90,6 @@ export class TransaccionesComponent {
   transactionsModals(botonMas: string) {
     this.transactionsModal.set('Gasto');
   }
-
-  /* groupTransactionsByDate() {
-    const grouped = this.transactions.reduce((acc, transaction) => {
-      const date = transaction.Fecha.split('T')[0];
-      if (!acc[date]) {
-        acc[date] = [];
-      }
-      acc[date].push(transaction);
-      return acc;
-    }, {});
-
-    this.transactionsGroupedByDate = Object.keys(grouped).map(date => {
-      const transactions = grouped[date];
-      const subtotal = transactions.reduce((sum: any, transaction: any) => {
-        let monto;
-        monto = transaction.Tipo == 'Ingreso' ? transaction.Monto : -transaction.Monto;
-        return sum + monto
-      }, 0);
-      return { date, transactions, subtotal };
-    });
-  }
- */
 
   getMontoColor(transaction: any): string {
     return transaction.Tipo === 'Ingreso' ? 'green' : 'red';

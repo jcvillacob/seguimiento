@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { presupuestoMes } from '../dashboard.component';
 import { DashboardCardComponent } from '../../../../../shared/components/dashboard-card/dashboard-card.component';
 
@@ -34,5 +33,4 @@ export class ResumenPresupuestoComponent {
     const percentage = (this.gastado - this.budget) * 100 / this.budget;
     return `${Math.max(-100, Math.min(percentage, 0))}%`;
   }
-
 }

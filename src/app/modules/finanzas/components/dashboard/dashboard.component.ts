@@ -14,6 +14,7 @@ import { monthYear } from '../main/main.component';
 export const transaccionesMes = signal({});
 export const balancesUltimosSeisMeses = signal({});
 export const presupuestoMes = signal([]);
+export const metas = signal([]);
 
 @Component({
   selector: 'app-dashboard',
@@ -28,6 +29,7 @@ export class DashboardComponent {
   balancesUltimosSeisMeses = balancesUltimosSeisMeses;
   monthYear = monthYear;
   presupuestoMes = presupuestoMes;
+  metas = metas;
   presupuesto!: any;
 
   constructor(private finanzasService: FinanzasService) {
@@ -45,6 +47,10 @@ export class DashboardComponent {
         this.transaccionesMes.set(data);
         this.finanzasService.balancesUltimosSeisMeses().subscribe(data => {
           this.balancesUltimosSeisMeses.set(data);
+        })
+        this.finanzasService.getMetas().subscribe((data: any) => {
+          this.metas.set(data);
+          console.log(data);
         })
       });
     })
