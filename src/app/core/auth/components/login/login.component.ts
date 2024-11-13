@@ -3,6 +3,8 @@ import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../store/auth.actions';
 
 
 @Component({
@@ -18,7 +20,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -29,7 +32,10 @@ export class LoginComponent {
   login() {
     if (this.loginForm.valid) {
       const data = this.loginForm.value;
-      this.authService.login(data).subscribe(
+
+      this.store.dispatch(AuthActions.login({ data: data }));
+
+      /* this.authService.login(data).subscribe(
         data => {
           console.log(data)
           this.router.navigate(['/finanzas']);
@@ -43,7 +49,7 @@ export class LoginComponent {
             confirmButtonText: "Aceptar",
           })
         }
-      );
+      ); */
     }
   }
 }

@@ -7,6 +7,10 @@ import { provideHttpClient } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 registerLocaleData(localeEs);
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { authReducer } from './core/auth/store/auth.reducer';
+import { AuthEffects } from './core/auth/store/auth.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,5 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     { provide: LOCALE_ID, useValue: 'es' },
+    provideStore({ auth: authReducer }), 
+    provideEffects([ AuthEffects ]),
   ],
 };

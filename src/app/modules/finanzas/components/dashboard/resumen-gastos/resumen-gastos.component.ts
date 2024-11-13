@@ -1,5 +1,4 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild, effect } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { transaccionesMes } from '../dashboard.component';
 import { DashboardCardComponent } from '../../../../../shared/components/dashboard-card/dashboard-card.component';
@@ -7,7 +6,7 @@ import { DashboardCardComponent } from '../../../../../shared/components/dashboa
 @Component({
   selector: 'app-resumen-gastos',
   standalone: true,
-  imports: [RouterLink, DashboardCardComponent],
+  imports: [DashboardCardComponent],
   templateUrl: './resumen-gastos.component.html',
   styleUrls: ['./resumen-gastos.component.scss']
 })
