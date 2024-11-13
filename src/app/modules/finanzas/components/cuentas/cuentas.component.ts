@@ -1,11 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FinanzasService } from '../../services/finanzas.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../../core/auth/services/auth.service';
 import { toastSignal } from '../../../../shared/components/toast/toast.component';
 import { ResumenesComponent } from '../../../../shared/components/resumenes/resumenes.component';
 import { EncabezadosComponent } from '../../../../shared/components/encabezados/encabezados.component';
+import { Observable, Subscription } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import * as CuentasActions from '../../store/cuentas.actions';
+import { CuentasState } from '../../store/cuentas.reducer';
 
 @Component({
   selector: 'app-cuentas',
@@ -15,7 +19,11 @@ import { EncabezadosComponent } from '../../../../shared/components/encabezados/
   styleUrls: ['./cuentas.component.scss'],
   providers: [FinanzasService],
 })
-export class CuentasComponent {
+export class CuentasComponent implements OnInit {
+  banks$!: Observable<any[]>;
+  counts$!: Observable<any[]>;
+  private subscriptions = new Subscription();
+
   toastSignal = toastSignal;
   banks: any[] = [];
   counts: any[] = [];
@@ -40,13 +48,39 @@ export class CuentasComponent {
   descripcion: string = '';
   tipo: string = 'Ahorros';
   incluirEnDashboard: boolean = true;
-  cuentaID: number | null = null; // Para manejar la actualización
+  cuentaID: number | null = null; 
 
   constructor(
     private finanzasService: FinanzasService,
-    private authService: AuthService
+    private authService: AuthService,
+    private store: Store<{ cuentas: CuentasState }>
   ) {
-    this.getcuentas();
+    this.banks$ = this.store.pipe(select((state) => state.cuentas.bancos));
+    this.counts$ = this.store.pipe(select((state) => state.cuentas.cuentas));
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(CuentasActions.loadBancos());
+    this.store.dispatch(CuentasActions.loadCuentas());
+    this.subscriptions.add(
+      this.banks$.subscribe((banks) => {
+        this.banks = banks;
+        if (banks.length > 0) {
+          this.bancoSelected = banks[0];
+        }
+      })
+    );
+
+    this.subscriptions.add(
+      this.counts$.subscribe((counts) => {
+        this.counts = counts;
+        this.resumenes = [{ name: 'Saldo Actual', number: this.counts.reduce((acc, count) => acc + count.Saldo, 0), icon: 'fa-coins'}];
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   /* Modales */
@@ -74,17 +108,6 @@ export class CuentasComponent {
   }
 
   /* Cuentas */
-  getcuentas() {
-    this.finanzasService.getBancos().subscribe((data) => {
-      this.bancoSelected = data[0];
-      this.banks = data;
-      this.finanzasService.getCuentas().subscribe((data) => {
-        this.counts = data;
-        this.resumenes = [{ name: 'Saldo Actual', number: this.counts.reduce((acc, count) => acc + count.Saldo, 0), icon: 'fa-coins'}];
-      });
-    });
-  }
-
   saveCuenta() {
     if (this.cuentaID === null) {
       this.createCuenta();
@@ -107,7 +130,6 @@ export class CuentasComponent {
       (response) => {
         this.toastSignal.set('Cuenta Creada Correctamente.');
         this.toggleModal();
-        this.getcuentas();
       },
       (error) => {
         console.error('Error creating account:', error);
@@ -129,7 +151,6 @@ export class CuentasComponent {
         (response) => {
           this.toastSignal.set('Cuenta Actualizada Correctamente.');
           this.toggleModal();
-          this.getcuentas();
         },
         (error) => {
           console.error('Error updating account:', error);
@@ -144,9 +165,7 @@ export class CuentasComponent {
     this.saldo = cuenta.Saldo;
     this.descripcion = cuenta.Descripcion;
     this.incluirEnDashboard = cuenta.Activo;
-    this.bancoSelected =
-      this.banks.find((bank) => bank.BancoID === cuenta.BancoID) ||
-      this.bancoSelected;
+    this.bancoSelected = this.banks.find((bank) => bank.BancoID === cuenta.BancoID) || this.bancoSelected;
     this.toggleModal();
   }
 
@@ -162,17 +181,14 @@ export class CuentasComponent {
   archivarCuenta(cuentaID: number, inactivo: number) {
     this.finanzasService.updateActivo(cuentaID, inactivo).subscribe((data) => {
       this.toastSignal.set('Cuenta Archivada Correctamente.');
-      this.getcuentas();
     });
   }
 
   action1() {
-    // Acción 1
     console.log('Acción 1 ejecutada');
   }
 
   action2() {
-    // Acción 2
     console.log('Acción 2 ejecutada');
   }
 

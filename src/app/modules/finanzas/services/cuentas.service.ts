@@ -20,6 +20,7 @@ export class CuentasService {
    /* Cuentas */
    getCuentas(): Observable<any[]> {
     const usuarioID = this.authService.getUsuarioID();
+    console.log(`usuarioID: ${usuarioID}`);
     return this.http.get<any[]>(`${this.apiUrl}/cuentas/usuario/${usuarioID}`);
   }
 

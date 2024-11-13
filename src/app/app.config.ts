@@ -10,7 +10,9 @@ registerLocaleData(localeEs);
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { authReducer } from './core/auth/store/auth.reducer';
+import { cuentasReducer } from './modules/finanzas/store/cuentas.reducer';
 import { AuthEffects } from './core/auth/store/auth.effects';
+import { CuentasEffects } from './modules/finanzas/store/cuentas.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +20,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     { provide: LOCALE_ID, useValue: 'es' },
-    provideStore({ auth: authReducer }), 
-    provideEffects([ AuthEffects ]),
+    provideStore({
+      auth: authReducer,
+      cuentas: cuentasReducer,
+    }),
+    provideEffects([AuthEffects, CuentasEffects]),
   ],
 };

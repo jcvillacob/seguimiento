@@ -5,6 +5,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { balancesUltimosSeisMeses, transaccionesMes } from '../../../dashboard/dashboard.component';
 import { monthYear } from '../../main.component';
 import { toastSignal } from '../../../../../../shared/components/toast/toast.component';
+import { select, Store } from '@ngrx/store';
+import { CuentasState } from '../../../../store/cuentas.reducer';
+import { Observable, Subscription } from 'rxjs';
+import * as CuentasActions from '../../../../store/cuentas.actions';
+
 
 export const transactionsModal = signal('close');
 export const transactionsModalEdit = signal({});
@@ -17,6 +22,9 @@ export const transactionsModalEdit = signal({});
   styleUrl: './transactions-modal.component.scss',
 })
 export class TransactionsModalComponent {
+  counts$!: Observable<any[]>;
+  private subscriptions = new Subscription();
+
   transactionsModal = transactionsModal;
   transaccionesMes = transaccionesMes;
   transactionsModalEdit = transactionsModalEdit;
@@ -40,7 +48,8 @@ export class TransactionsModalComponent {
 
   transactionForm: FormGroup;
 
-  constructor(private finanzasService: FinanzasService, private fb: FormBuilder) {
+  constructor(private finanzasService: FinanzasService, private fb: FormBuilder, private store: Store<{ cuentas: CuentasState }>) {
+    this.counts$ = this.store.pipe(select((state) => state.cuentas.cuentas));
     this.transactionForm = this.fb.group({
       saldo: [0, Validators.required],
       fecha: ['', Validators.required],
@@ -51,13 +60,8 @@ export class TransactionsModalComponent {
     this.finanzasService.getCategorias().subscribe((data) => {
       this.Todascategorias = data;
       this.categorySelected = this.Todascategorias[0];
-      this.finanzasService.getCuentas().subscribe((data) => {
-        this.banks = data;
-        this.destinationBanks = data;
-        this.bancoSelected = this.banks[0];
-        this.destinationBankSelected = this.destinationBanks[0];
-      });
     });
+    
     effect(() => {
       const text = this.transactionsModal();
       const transaccion: any = this.transactionsModalEdit();
@@ -90,7 +94,18 @@ export class TransactionsModalComponent {
         }
       }
     });
+  }
 
+  ngOnInit(): void {
+    this.store.dispatch(CuentasActions.loadCuentas());
+    this.subscriptions.add(
+      this.counts$.subscribe((counts) => {
+        this.banks = counts;
+        this.destinationBanks = counts;
+        this.bancoSelected = this.banks[0];
+        this.destinationBankSelected = this.destinationBanks[0];
+      })
+    );
   }
 
   formatFecha(fecha: string): string {

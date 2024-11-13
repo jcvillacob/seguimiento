@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import { of, forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
 import { environment } from '../../../../environments/environments';
 
 @Injectable()
@@ -18,21 +18,26 @@ export class AuthEffects {
         this.authService.login(action.data).pipe(
           map((response: any) => {
             if (response && response.token) {
-              localStorage.setItem('currentUser', JSON.stringify(response));
+              localStorage.setItem('currentUserL', JSON.stringify(response));
               const user = this.decodeToken(response.token);
               return AuthActions.loginSuccess({ user });
             } else {
-              return AuthActions.loginFailure({ error: 'Credenciales inválidas' });
+              return AuthActions.loginFailure({
+                error: 'Credenciales inválidas',
+              });
             }
           }),
           catchError((error) => {
-            return of(AuthActions.loginFailure({ error: error.message || 'Error desconocido' }));
+            return of(
+              AuthActions.loginFailure({
+                error: error.message || 'Error desconocido',
+              })
+            );
           })
         )
       )
     )
   );
-
 
   // Efecto para manejar el inicio de sesión automático
   autoLogin$ = createEffect(() =>
@@ -41,24 +46,16 @@ export class AuthEffects {
       mergeMap(() => {
         if (environment.skipLogin) {
           const usuarioLogged = {
-            "UsuarioID": 1,
-            "Username": "jvillacob",
-            "Nombre": "Juan Camilo Villacob",
-            "Cedula": "1100551122",
-            "iat": 1710430791,
-            "exp": 2710448791,
-            "roles": [
-              {
-                "RolID": 23,
-                "NombreRol": "Administrador",
-                "Descripcion": ""
-              }
-            ],
-            "subroles": []
+            UsuarioID: 1,
+            Nombre: 'Usuario Test',
+            Email: 'test@mail.com',
+            Username: 'test',
+            iat: 1710430791,
+            exp: 1710448791,
           };
           return of(AuthActions.loginSuccess({ user: usuarioLogged }));
         } else {
-          const currentUser = localStorage.getItem('currentUser');
+          const currentUser = localStorage.getItem('currentUserL');
           if (currentUser) {
             const userData = JSON.parse(currentUser);
             const decodedToken = this.decodeToken(userData.token);
@@ -75,14 +72,13 @@ export class AuthEffects {
     )
   );
 
-
   // Efectos para manejar el éxito y fallo de inicio de sesión
   loginSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(AuthActions.loginSuccess),
         tap(() => {
-          this.router.navigate(['home']);
+          //this.router.navigate(['home']);
         })
       ),
     { dispatch: false }
@@ -93,7 +89,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.logout),
         tap(() => {
-          localStorage.removeItem('currentUser');
+          localStorage.removeItem('currentUserL');
           this.router.navigate(['/login']);
         })
       ),
@@ -104,7 +100,7 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   private decodeToken(token: string): any {
     try {
